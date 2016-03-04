@@ -9,10 +9,8 @@ var userSchema  = new Schema({
   	lastname: String
   },
   email: String,
-  password: String
-}),
-
-  
+  password: String,
+  created_at: Date
+});
 
 module.exports = mongoose.model('User', userSchema);
-module.exports = mongoose.model('Role', roleSchema);
