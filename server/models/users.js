@@ -1,16 +1,54 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+"use strict"
 
-var userSchema  = new Schema({
-  id: Number,
-  username: String,
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+let userSchema  = new Schema({
+  _id: Number,
+  username: { type: String, required: true },
   name: {
-  	firstname: String,
-  	lastname: String
+    firstname: { type: String, required: true },
+  	lastname: { type: String, required: true },
   },
-  email: String,
-  password: String,
-  created_at: Date
+  email: { type: String, required: true },
+  password: {type: String, required: true },
+  created_at: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('User', userSchema);
+let User = mongoose.model('User', userSchema);
+
+User.createUser = function (data, cb) {
+        let newUser = new User(data);
+        newUser.save(cb);
+      
+    },
+    
+User.getAllUsers = function (cb) {
+      User.find({}, function (err, users) {
+        cb(err, users)
+      });
+    }
+    
+User.getUser = function (id, cb) {
+      User.findById(id, function(err, user) {
+        cb(err, user);
+        });
+  }
+    
+User.updateUser = function (id, data, cb) {
+    User.findByIdAndUpdate(id, data, { 'new': true}, function (err, user) {
+      cb(err, user);
+    });
+  }
+    
+User.deleteUser = function (id, data, cb) {
+    User.findByIdAndRemove(req.params.id, req.body, function (err, user) {
+      if (err) {
+          return res.send(err);
+      } else {
+        res.send("success removing new user");
+      }
+    });
+  }
+    
+ module.exports = User;

@@ -1,12 +1,15 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var docSchema = new Schema({
+const docSchema = new Schema({
   id: Number,
   ownerId: Number,
   title: String,
   content: String,
-  dateCreated: Date,
+  dateCreated: {
+    type: Date, 
+    default: Date.now()
+  },
   lastModified: Date
 });
 
