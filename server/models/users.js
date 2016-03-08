@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let userSchema  = new Schema({
-  _id: Number,
   username: { type: String, required: true },
   name: {
     firstname: { type: String, required: true },
@@ -12,43 +11,38 @@ let userSchema  = new Schema({
   },
   email: { type: String, required: true },
   password: {type: String, required: true },
-  created_at: { type: Date, default: Date.now }
+  created_at: { type: Date, default: Date.now() }
 });
 
 let User = mongoose.model('User', userSchema);
 
 User.createUser = function (data, cb) {
-        let newUser = new User(data);
-        newUser.save(cb);
-      
-    },
+  let newUser = new User(data);
+  newUser.save(cb);
+},
     
 User.getAllUsers = function (cb) {
-      User.find({}, function (err, users) {
-        cb(err, users)
-      });
-    }
+  User.find({}, function (err, users) {
+    cb(err, users)
+  });
+}
     
 User.getUser = function (id, cb) {
-      User.findById(id, function(err, user) {
-        cb(err, user);
-        });
-  }
+  User.findById(id, function(err, user) {
+    cb(err, user);
+  });
+}
     
 User.updateUser = function (id, data, cb) {
-    User.findByIdAndUpdate(id, data, { 'new': true}, function (err, user) {
-      cb(err, user);
-    });
-  }
+  User.findByIdAndUpdate(id, data, { 'new': true}, function (err, user) {
+    cb(err, user);
+  });
+}
     
 User.deleteUser = function (id, data, cb) {
-    User.findByIdAndRemove(req.params.id, req.body, function (err, user) {
-      if (err) {
-          return res.send(err);
-      } else {
-        res.send("success removing new user");
-      }
-    });
-  }
+  User.findByIdAndRemove(req.params.id, req.body, function (err, user) {
+   cb(err, user);
+  });
+}
     
- module.exports = User;
+module.exports = User;
