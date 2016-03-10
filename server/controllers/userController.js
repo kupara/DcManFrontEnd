@@ -1,9 +1,12 @@
 (function () {
   'use strict';
-  const crypto = require('crypto');
-  const User = require('../models/users');
-  const Role = require('../models/roles');
-  const Doc = require('../models/documents');
+  const crypto = require('crypto'),
+    User = require('../models/users'),
+    Role = require('../models/roles'),
+    Doc = require('../models/documents'),
+    config = require('../config/config'),
+    jwt = require('jsonwebtoken'),
+    secretKey = config.secretKey;
 
   module.exports = {
     all: function (req, res) {
@@ -28,6 +31,9 @@
       });  
     },
 
+    login: function(req, res, next) {
+      //TODO: implement login
+    },
 
     getOne: function (req, res) {
       User.findById(req.params.id, function(err, user) {
@@ -58,7 +64,38 @@
           }
       });  
     },
+    
+    authenticate: function(req, res, next) {
+      let token = req.headers['x-access-token'] || req.body.token;
+      
+      // does token exist?
+      if (token) {
+        jwt.verify(token, secretKey, function(err, decoded) {
+          if (err) {
+            res.status(401).send({
+              error: 'Failed to Authenticate'
+            });
+          } else {
+            req.decoded = decoded;
+            req.token = token;
+            next();
+          }
+        }); 
+      } else {
+        res.status(401).send({
+          error: 'You are not authenticated'
+        });
+      }
+    },
 
+    session: function(req, res) {
+      //TODO: implement session
+    },
+    
+    logout: function(req, res) {
+      //TODO: implement logout
+    },
+    
     getMyDocs: function (req, res) {
       Doc.find({ownerId: req.params.id}, function (err, docs) {
         if(err) {

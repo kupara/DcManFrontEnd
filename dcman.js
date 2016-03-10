@@ -1,10 +1,18 @@
 (function() {
   'use strict';
-  var express = require('express');
-  var bodyParser = require('body-parser'); 
-  var mongoose = require('mongoose');
-  var logger = require('morgan');
-  mongoose.connect('mongodb://localhost/dcman');
+  const express = require('express'),
+    bodyParser = require('body-parser'), 
+    mongoose = require('mongoose'),
+    logger = require('morgan'),
+    config = require('./server/config/config')
+  // connect to database
+  mongoose.connect(config.database, function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('Your app is  connected to the database');
+    }
+  });
 
   var app = express();
   var routes = require('./server/routes');
@@ -21,5 +29,5 @@
       }
       console.log('Listening on ', PORT);
     });
-module.exports = app;
+  module.exports = app;
 })();

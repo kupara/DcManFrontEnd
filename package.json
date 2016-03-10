@@ -11,6 +11,7 @@
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "jasmine-node": "~1.14.5",
+    "jsonwebtoken": "^5.7.0",
     "mongoose": "~4.4.5",
     "morgan": "^1.7.0"
   }
