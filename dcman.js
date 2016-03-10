@@ -3,7 +3,7 @@
   var express = require('express');
   var bodyParser = require('body-parser'); 
   var mongoose = require('mongoose');
-
+  var logger = require('morgan');
   mongoose.connect('mongodb://localhost/dcman');
 
   var app = express();
@@ -11,7 +11,7 @@
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
- 
+  app.use(logger('dev'));
   routes(app);
 
   var PORT = process.env.PORT || '3001';

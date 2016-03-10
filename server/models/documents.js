@@ -19,35 +19,4 @@ const docSchema = new Schema({
   lastModified: Date
 });
 
-let Document = mongoose.model('Document', docSchema);
-
-Document.createDocument = function (data, cb) {
-  let newDocument = new Document(data);
-  newDocument.save(cb);
-},
-    
-Document.getAllDocuments = function (cb) {
-  Document.find({}, function (err, documents) {
-    cb(err, documents)
-  });
-}
-
-Document.getDocument = function (id, cb) {
-  Document.findById(id, function(err, document) {
-    cb(err, document);
-  });
-}
-    
-Document.updateDocument = function (id, data, cb) {
-  Document.findByIdAndUpdate(id, data, { 'new': true}, function (err, document) {
-    cb(err, document);
-  });
-}
-    
-Document.deleteDocument = function (id, data, cb) {
-  Document.findByIdAndRemove(id, data, function (err, document) {
-    cb(err, document);
-  });
-}
-    
-module.exports = Document;
+module.exports = mongoose.model('Document', docSchema);

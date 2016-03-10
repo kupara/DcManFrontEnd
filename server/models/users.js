@@ -1,7 +1,9 @@
 "use strict"
 
 const mongoose = require('mongoose');
+const crypto = require('crypto');
 const Schema = mongoose.Schema;
+const Document = require('./documents');
 
 let userSchema  = new Schema({
   username: { type: String, required: true },
@@ -14,35 +16,7 @@ let userSchema  = new Schema({
   created_at: { type: Date, default: Date.now() }
 });
 
-let User = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);
 
-User.createUser = function (data, cb) {
-  let newUser = new User(data);
-  newUser.save(cb);
-},
+
     
-User.getAllUsers = function (cb) {
-  User.find({}, function (err, users) {
-    cb(err, users)
-  });
-}
-    
-User.getUser = function (id, cb) {
-  User.findById(id, function(err, user) {
-    cb(err, user);
-  });
-}
-    
-User.updateUser = function (id, data, cb) {
-  User.findByIdAndUpdate(id, data, { 'new': true}, function (err, user) {
-    cb(err, user);
-  });
-}
-    
-User.deleteUser = function (id, data, cb) {
-  User.findByIdAndRemove(req.params.id, req.body, function (err, user) {
-   cb(err, user);
-  });
-}
-    
-module.exports = User;
