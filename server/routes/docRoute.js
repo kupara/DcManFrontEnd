@@ -4,15 +4,15 @@
 
   module.exports = function(app) {
     app.route('/documents')
-      .get(Document.getAllDocuments)
-      .post(Document.createDocument);
+      .get(Document.all)
+      .post(Document.create);
     
     app.route('/documents/filter')
-      .get(Document.getDocumentsByDate);
+      .get(Document.getByDate);
 
     app.route('/documents/:id')
-      .get(Document.getDocument)
-      .put(Document.updateDocument)
-      .delete(Document.deleteDocument);
+      .get(Document.getOne)
+      .put(Document.update)
+      .delete(Document.delete);
   };
 })();

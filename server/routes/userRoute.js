@@ -4,13 +4,13 @@
 
   module.exports = function(app) {
     app.route('/users')
-      .get(User.getAllUsers)
-      .post(User.createUser);
+      .get(User.all)
+      .post(User.create);
 
     app.route('/users/:id')
-      .get(User.getUser)
-      .put(User.updateUser)
-      .delete(User.deleteUser);
+      .get(User.getOne)
+      .put(User.update)
+      .delete(User.delete);
 
     app.route('/users/:id/documents')
       .get(User.getMyDocs);

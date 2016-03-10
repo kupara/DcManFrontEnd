@@ -1,16 +1,24 @@
 (function () {
   'use strict';
+  const crypto = require('crypto');
   const User = require('../models/users');
   const Role = require('../models/roles');
   const Doc = require('../models/documents');
 
   module.exports = {
-    all: function(req, res) {
-      
+    all: function (req, res) {
+      User.find({}, function (err, users) {
+        if(err) {
+          res.send(err);
+        } else {
+          res.json(users);
+        }
+      });
     },
-    createUser: function(req, res) {
-      let newUser = new User(data);
-      newUser.password = crypto.createHash('sha1').update(data.password).digest('base64');
+    
+    create: function(req, res) {
+      let newUser = new User(req.body);
+      newUser.password = crypto.createHash('sha1').update(req.body.password).digest('base64');
       newUser.save(function(err, user){
         if(err) {
           res.send(err);
@@ -20,17 +28,8 @@
       });  
     },
 
-    getAllUsers: function (req, res) {
-      User.find({}, function (err, users) {
-        if(err) {
-          res.send(err);
-        } else {
-          res.json(users);
-        }
-      });
-    },
 
-    getUser: function (req, res) {
+    getOne: function (req, res) {
       User.findById(req.params.id, function(err, user) {
         if(err) {
             res.send(err);
@@ -40,7 +39,7 @@
       }); 
     },
 
-    updateUser: function(req, res) {
+    update: function(req, res) {
       User.findByIdAndUpdate(req.params.id, req.body, { 'new': true}, function (err, user) {
         if(err) {
             res.send(err);
@@ -50,7 +49,7 @@
       }); 
     },
 
-    deleteUser: function (req, res) {
+    delete: function (req, res) {
       User.findByIdAndRemove(req.params.id, req.body, function (err, user) {
        if(err) {
             res.send(err);

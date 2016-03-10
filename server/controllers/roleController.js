@@ -3,13 +3,25 @@
   const Role = require('../models/roles');
 
   module.exports = {
-    create: function (req, res) {
-      var user = new User();
-      
+    all: function (req, res) {
+      Role.find({}, function(err, roles){
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(roles);
+        }  
+      });
     },
     
-    getAllRoles: function (req, res) {
-      
+    create: function(req, res) {
+      let newRole = new Role(req.body);
+      newRole.save(function(err, role){
+        if(err) {
+          res.send(err);
+        } else {
+          res.json(role);
+        }
+      });
     }
   }
 })();
