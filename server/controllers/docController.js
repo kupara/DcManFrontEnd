@@ -1,25 +1,24 @@
-(function() {
+(function () {
   'use strict';
   const Document = require('../models/documents');
   const User = require('../models/users');
 
-  module.exports = { 
-    all: function(req, res) {
+  module.exports = {
+    all: function (req, res) {
       let q = req.query.limit;
-      console.log(q);
       if (q) {
         Document
           .find({})
-          .limit(new Number(q))
-          .exec(function(err, documents) {
+          .limit(parseInt(q))
+          .exec(function (err, documents) {
             if (err) {
               res.send(err);
             } else {
               res.json(documents);
-          }
-        });
+            }
+          });
       } else {
-        Document.find({}, function(err, documents) {
+        Document.find({}, function (err, documents) {
           if (err) {
             res.send(err);
           } else {
@@ -28,70 +27,80 @@
         });
       }
     },
-    
-    create: function(req, res) {
+
+    create: function (req, res) {
       let newDocument = new Document(req.body);
-      // console.log(req.body);
-      User.findById(req.body["ownerId"], function(err, user) {
+      User.findById(req.body.ownerId, function (err, user) {
         if (err) {
           console.log(err);
         }
-        newDocument.save(function(err, doc){
+        newDocument.save(function (err, doc) {
           if (err) {
             res.send(err);
           } else {
-            user.docs.push(newDocument);
+            user.docs.push(doc._id);
             user.save();
             res.json(doc);
           }
         });
-        
-     });
+
+      });
     },
 
 
     getOne: function (req, res) {
-      Document.findById(req.param.id, function(err, documents) {
+      Document.findById(req.param.id, function (err, document) {
         if (err) {
-            res.send(err);
-          } else {
-            res.json(documents);
-          }
-      }); 
+          res.send(err);
+        } else {
+          res.json(document);
+        }
+      });
     },
 
-    update: function(req, res) {
-      Document.findByIdAndUpdate(req.param.id, req.body, { 'new': true}, function (err, documents) {
+    update: function (req, res) {
+      Document.findByIdAndUpdate(req.param.id, req.body, {
+        'new': true
+      }, function (err, document) {
         if (err) {
-            res.send(err);
-          } else {
-            res.json(documents);
-          }
-      }); 
+          res.send(err);
+        } else {
+          res.json(document);
+        }
+      });
     },
 
-    delete: function(req, res) {
-      Document.findByIdAndRemove(req.params.id, req.body, function (err, documents) {
-       if (err) {
-            res.send(err);
-          } else {
-            res.send("Document deleted successfully");
-          }
-      });  
+    delete: function (req, res) {
+      Document.findByIdAndRemove(req.params.id, req.body, function (err, doc) {
+        if (err) {
+          res.send(err);
+        } else {
+          User.findById(doc.ownerId, function(err, user){
+            console.log('Found user', user.docs);
+            user.docs.splice(user.docs.indexOf(doc._id), 1);
+            user.save();
+            res.send({
+              message: 'Document deleted successfully',
+              doc: doc
+            });
+          });
+        }
+      });
     },
-    
-    getByDate: function(req, res) {
+
+    getByDate: function (req, res) {
       Document
         .find({})
-        .where('dateCreated').gt(new Date(req.query.from)).lt(new Date(req.query.to))
+        .where('dateCreated')
+        .gt(new Date(req.query.from))
+        .lt(new Date(req.query.to))
         .exec(function (err, documents) {
           if (err) {
             res.send(err);
           } else {
             res.json(documents);
           }
-      });
+        });
     }
   };
 })();
-

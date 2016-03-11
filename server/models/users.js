@@ -13,7 +13,7 @@ let userSchema  = new Schema({
   email: { type: String, required: true },
   password: {type: String, required: true },
   created_at: { type: Date, default: Date.now() },
-  docs: [Document]
+  docs: [{type: Schema.Types.ObjectId}]
 });
 
 module.exports = mongoose.model('User', userSchema);
