@@ -21,7 +21,9 @@
     
     create: function(req, res) {
       let newUser = new User(req.body);
-      newUser.password = crypto.createHash('sha1').update(req.body.password).digest('base64');
+      newUser.password = crypto.createHash('sha1')
+        .update(req.body.password)
+        .digest('base64');
       newUser.save(function(err, user){
         if(err) {
           res.send(err);
@@ -40,6 +42,7 @@
         if(err) {
             res.send(err);
           } else {
+            user.password = null;
             res.json(user);
           }
       }); 
@@ -71,6 +74,7 @@
       // does token exist?
       if (token) {
         jwt.verify(token, secretKey, function(err, decoded) {
+          // invalid token
           if (err) {
             res.status(401).send({
               error: 'Failed to Authenticate'
@@ -82,6 +86,7 @@
           }
         }); 
       } else {
+        //non-existent token
         res.status(401).send({
           error: 'You are not authenticated'
         });
