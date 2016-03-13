@@ -1,13 +1,20 @@
-(function () {
+(function() {
   'use strict';
-  const crypto = require('crypto'),
-    User = require('../models/users'),
-    Role = require('../models/roles'),
+  const User = require('../models/users'),
+   // Role = require('../models/roles'),
     Doc = require('../models/documents'),
     config = require('../config/config'),
     jwt = require('jsonwebtoken'),
+    us = require('underscore'),
     secretKey = config.secretKey;
-
+  //tokenCreator
+  function createToken(user) {
+    var token = jwt.sign(user, secretKey, {
+      expiresIn: '24h'
+    });
+    return token;
+  }
+  
   module.exports = {
     all: function (req, res) {
       User.find({}, function (err, users) {
@@ -19,22 +26,56 @@
       });
     },
     
-    create: function(req, res) {
+    register: function(req, res) {
       let newUser = new User(req.body);
-      newUser.password = crypto.createHash('sha1')
-        .update(req.body.password)
-        .digest('base64');
+      let userData = us.pick(newUser, '_id', 'username', 'name', 'email');
+      //create a token for the user
+      let token = createToken(userData);
+      
       newUser.save(function(err, user){
         if(err) {
           res.send(err);
         } else {
-          res.json(user);
+          res.send({
+              message: 'User created successfully',
+              user: user,
+              token: token
+            });
         }
       });  
     },
 
     login: function(req, res, next) {
-      //TODO: implement login
+      //get user from body
+      User.findOne({username: req.body.username})
+        .select('password')
+        .exec(function(err, user) {
+        if (err) {
+          next(err);
+        }
+        if(!user) {
+          res.send({
+            message: 'Wrong username'
+          });
+        } else if (user) {
+          //check password
+          let correct = user.checkPass(req.body.password);
+          if (!correct) {
+            res.status(500).send({
+              message: 'Invalid password'
+            });
+            next(err);
+          } else {
+            let userData = us.pick(user, '_id', 'username', 'name', 'email'),
+              token = createToken(userData);
+            res.status(200).send({
+              message: 'Login successful',
+              token: token,
+              user: userData
+            });
+          }
+        }
+      });
     },
 
     getOne: function (req, res) {
@@ -42,18 +83,23 @@
         if(err) {
             res.send(err);
           } else {
-            user.password = null;
-            res.json(user);
+            let userData = us.pick(user, '_id', 'username', 'docs', 'email');
+            res.json(userData);
           }
       }); 
     },
 
     update: function(req, res) {
-      User.findByIdAndUpdate(req.params.id, req.body, { 'new': true}, function (err, user) {
+      let id = req.params.id, data = req.body;
+      User.findByIdAndUpdate(id, data, { 'new': true}, function (err, user) {
         if(err) {
             res.send(err);
           } else {
-            res.json(user);
+            let userData = us.pick(user, '_id', 'username', 'name', 'email');
+            res.send({
+              message: 'User updated successfully',
+              user: userData
+            });
           }
       }); 
     },
@@ -63,7 +109,17 @@
        if(err) {
             res.send(err);
           } else {
-            res.send("User deleted successfully");
+            if(user) {
+              let userData = us.pick(user, '_id', 'username', 'name', 'email');
+              res.send({
+                message: 'User deleted successfully',
+                user: userData
+              });
+            } else {
+              res.send({
+                message: 'User is already deleted'
+              });
+            }
           }
       });  
     },
@@ -93,12 +149,15 @@
       }
     },
 
-    session: function(req, res) {
-      //TODO: implement session
-    },
+//    session: function(req, res) {
+//      //TODO: implement session
+//    },
     
     logout: function(req, res) {
-      //TODO: implement logout
+      //req.headers['x-access-token'] = null;
+      res.send({
+        message: 'Successfully logged out'
+      });
     },
     
     getMyDocs: function (req, res) {
@@ -110,5 +169,5 @@
         }
       });
     }
-  }
+  };
 })();

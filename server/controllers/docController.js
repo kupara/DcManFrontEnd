@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
   const Document = require('../models/documents');
   const User = require('../models/users');
@@ -31,25 +31,26 @@
     create: function (req, res) {
       let newDocument = new Document(req.body);
       User.findById(req.body.ownerId, function (err, user) {
-        if (err) {
-          console.log(err);
+        if (!user) {
+          res.send({
+            error: 'The user you chose does not exist'
+          });
+        } else {
+            newDocument.save(function (err, doc) {
+            if (err) {
+              res.send(err);
+            } else {
+              user.docs.push(doc._id);
+              user.save();
+              res.json(doc);
+            }
+          });
         }
-        newDocument.save(function (err, doc) {
-          if (err) {
-            res.send(err);
-          } else {
-            user.docs.push(doc._id);
-            user.save();
-            res.json(doc);
-          }
-        });
-
       });
     },
 
-
     getOne: function (req, res) {
-      Document.findById(req.param.id, function (err, document) {
+      Document.findById(req.params.id, function (err, document) {
         if (err) {
           res.send(err);
         } else {
@@ -59,7 +60,7 @@
     },
 
     update: function (req, res) {
-      Document.findByIdAndUpdate(req.param.id, req.body, {
+      Document.findByIdAndUpdate(req.params.id, req.body, {
         'new': true
       }, function (err, document) {
         if (err) {
@@ -76,13 +77,19 @@
           res.send(err);
         } else {
           User.findById(doc.ownerId, function(err, user){
-            console.log('Found user', user.docs);
-            user.docs.splice(user.docs.indexOf(doc._id), 1);
-            user.save();
-            res.send({
-              message: 'Document deleted successfully',
-              doc: doc
-            });
+            if(!user) {
+              res.send({
+                message: 'Document deleted successfully.',
+                doc: doc
+              });
+            } else {
+              user.docs.splice(user.docs.indexOf(doc._id), 1);
+              user.save();
+              res.send({
+                message: 'Document deleted successfully.',
+                doc: doc
+              });
+            }
           });
         }
       });

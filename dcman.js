@@ -4,7 +4,7 @@
     bodyParser = require('body-parser'), 
     mongoose = require('mongoose'),
     logger = require('morgan'),
-    config = require('./server/config/config')
+    config = require('./server/config/config');
   // connect to database
   mongoose.connect(config.database, function(err) {
     if (err) {
