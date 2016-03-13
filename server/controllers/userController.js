@@ -6,7 +6,14 @@
     config = require('../config/config'),
     jwt = require('jsonwebtoken'),
     secretKey = config.secretKey;
-
+  //tokenCreator
+  function createToken(user) {
+    var token = jwt.sign(user, secretKey, {
+      expiresIn: '24h'
+    });
+    return token;
+  }
+  
   module.exports = {
     all: function (req, res) {
       User.find({}, function (err, users) {
@@ -18,22 +25,53 @@
       });
     },
     
-    create: function(req, res) {
+    register: function(req, res) {
       let newUser = new User(req.body);
+      //create a token for the user
+      let token = createToken(newUser);
+      
       newUser.save(function(err, user){
         if(err) {
           res.send(err);
         } else {
           res.send({
               message: 'User created successfully',
-              user: user
+              user: user,
+              token: token
             });
         }
       });  
     },
 
     login: function(req, res, next) {
-      //TODO: implement login
+      //get user from body
+      User.findOne({username: req.body.username})
+        .select('password')
+        .exec(function(err, user) {
+        if (err) {
+          res.send(err);
+        }
+        if(!user) {
+          res.send({
+            message: 'Wrong username'
+          })
+        } else if (user) {
+          //check password
+          let correct = user.checkPass(req.body.password);
+          if (!correct) {
+            res.status(500).send({
+              message: 'Invalid password'
+            });
+          } else {
+            let token = createToken(user);
+            res.status(200).send({
+              message: 'Login successful',
+              token: token,
+              user: user
+            });
+          }
+        }
+      });
     },
 
     getOne: function (req, res) {
@@ -103,7 +141,7 @@
     },
     
     logout: function(req, res) {
-      //TODO: implement logout
+      res.send('Successfully logged out');
     },
     
     getMyDocs: function (req, res) {

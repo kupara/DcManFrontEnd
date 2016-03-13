@@ -26,16 +26,24 @@ let userSchema  = new Schema({
   docs: [{type: Schema.Types.ObjectId}]
 });
 
-userSchema.pre('save', function(next) {
-  var self = this;
 
-  bcrypt.hash(self.password, null, null, function(err, hash) {
+//encrypt password before saving the user
+userSchema.pre('save', function(next) {
+  var user = this;
+
+  bcrypt.hash(user.password, null, null, function(err, hash) {
     if (err) return next(err);
 
-    self.password = hash;
+    user.password = hash;
     next();
   });
 });
+
+//add method to schema for password comparison
+userSchema.methods.checkPass = function(password) {
+    var user = this;
+    return bcrypt.compareSync(password, user.password); 
+  };
 
 module.exports = mongoose.model('User', userSchema);
 
