@@ -1,23 +1,42 @@
 (function() {
   'use strict';
   const Document = require('../models/documents');
-  const User = require('../models/users');
+  const User = require('../models/users'),
+    us = require('underscore');
 
+  
+  
   module.exports = {
     all: function (req, res) {
-      let q = req.query.limit;
-      if (q) {
+      function getDocuments(level) {
         Document
           .find({})
-          .limit(parseInt(q))
+          .where('access').gte(level)
           .sort({dateCreated: -1})
           .exec(function (err, documents) {
-            if (err) {
-              res.send(err);
-            } else {
-              res.json(documents);
-            }
-          });
+          if (err) {
+            res.send(err);
+          } else {
+            res.json(documents);
+          }
+        });;
+      }
+      
+      if (req.query.limit) {
+        Document
+          .find({})
+          .limit(parseInt(req.query.limit))
+          .sort({dateCreated: -1});
+        } 
+      
+      if (req.query.role) {
+        if(req.query.role === 'admin') {
+          getDocuments(0);
+        } else if (req.query.role === 'owner') {
+          getDocuments(1);
+        } else {
+          getDocuments(2);
+        } 
       } else {
         Document.find({})
           .sort({dateCreated: -1})
@@ -106,12 +125,12 @@
         .gt(new Date(req.query.from))
         .lt(new Date(req.query.to))
         .exec(function (err, documents) {
-          if (err) {
-            res.send(err);
-          } else {
-            res.json(documents);
-          }
-        });
-    }
+        if (err) {
+          res.send(err);
+        } else {
+          res.json(documents);
+        }
+      });
+    },
   };
 })();

@@ -17,6 +17,11 @@
       type: Date, 
       default: Date.now()
     },
+    access: {
+      type: Number,
+      enum: [0, 1, 2],
+      default: 2
+    },
     lastModified: Date
   });
 

@@ -8,6 +8,9 @@
       .get(Role.all)
       .post(Role.create);
     
+    app.route('/users/roles/:id')
+      .get(Role.one);
+    
     app.route('/users/login')
       .post(User.login); 
     

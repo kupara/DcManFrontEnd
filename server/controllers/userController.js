@@ -45,7 +45,7 @@
             if(err) {
               res.send(err);
             } else {
-              let userData = us.pick(user, '_id', 'username', 'name', 'email')
+              let userData = us.pick(user, '_id', 'username', 'name', 'email');
               res.send({
                   message: 'User created successfully',
                   user: userData,
@@ -103,7 +103,7 @@
 
     update: function(req, res, next) {
       let id = req.params.id, data = req.body;
-      User.findOneAndUpdate({_id: id}, data, { 'new': true}, function (err, user) {
+      User.findOneAndUpdate({_id: id}, data, {'new': true}, function(err, user) {
         if(err) return next(err);
         if (!user) {
           next(new Error('User not found'));
@@ -118,7 +118,7 @@
     },
 
     delete: function (req, res) {
-      User.findByIdAndRemove(req.params.id, req.body, function (err, user) {
+      User.findByIdAndRemove(req.params.id, function (err, user) {
        if(err) {
             res.send(err);
           } else {
