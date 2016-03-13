@@ -141,7 +141,10 @@
     },
     
     logout: function(req, res) {
-      res.send('Successfully logged out');
+      //req.headers['x-access-token'] = null;
+      res.send({
+        message: 'Successfully logged out'
+      });
     },
     
     getMyDocs: function (req, res) {
