@@ -1,6 +1,7 @@
 (function() {
   'use strict';
-  const Role = require('../models/roles');
+  const Role = require('../models/roles'),
+    us = require('underscore');
 
   module.exports = {
     all: function (req, res) {
@@ -8,8 +9,16 @@
         if (err) {
           res.send(err);
         } else {
-          res.send(roles);
+          res.json(roles);
         }  
+      });
+    },
+    
+    one: function(req, res) {
+      Role.findById(req.params.id, function(err, role) {
+        if (err) console.log(err);
+        
+        res.send(role);
       });
     },
     

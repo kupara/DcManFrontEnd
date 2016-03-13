@@ -3,13 +3,15 @@
   const mongoose = require('mongoose');
   const Schema = mongoose.Schema;
 
-  const roles = ['admin', 'viewer', 'contributor', 'owner'];
+  const roles = ['admin', 'owner', 'viewer'];
   const roleSchema = new  Schema({
-    id: String,
     title: {
       type: String,
       enum: roles,
-      required: true
+      required: true,
+      index: {
+        unique: true
+      }
     }
   });
 

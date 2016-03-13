@@ -27,20 +27,32 @@
     },
     
     register: function(req, res) {
-      let newUser = new User(req.body);
-      let userData = us.pick(newUser, '_id', 'username', 'name', 'email');
-      //create a token for the user
-      let token = createToken(userData);
-      
-      newUser.save(function(err, user){
-        if(err) {
-          res.send(err);
-        } else {
+      User.findOne({username: req.body.username})
+        .select('username')
+        .exec(function(err, user){
+        //check if username is unique
+        if (user&&user.username===req.body.username) {
           res.send({
-              message: 'User created successfully',
-              user: user,
-              token: token
-            });
+            message: 'Please select another username'
+          });
+        } else {
+          let newUser = new User(req.body);
+          let userData = us.pick(newUser, '_id', 'username', 'name', 'email');
+          //create a token for the user
+          let token = createToken(userData);
+
+          newUser.save(function(err, user){
+            if(err) {
+              res.send(err);
+            } else {
+              let userData = us.pick(user, '_id', 'username', 'name', 'email');
+              res.send({
+                  message: 'User created successfully',
+                  user: userData,
+                  token: token
+                });
+            }
+          }); 
         }
       });  
     },
@@ -89,12 +101,13 @@
       }); 
     },
 
-    update: function(req, res) {
+    update: function(req, res, next) {
       let id = req.params.id, data = req.body;
-      User.findByIdAndUpdate(id, data, { 'new': true}, function (err, user) {
-        if(err) {
-            res.send(err);
-          } else {
+      User.findOneAndUpdate({_id: id}, data, {'new': true}, function(err, user) {
+        if(err) return next(err);
+        if (!user) {
+          next(new Error('User not found'));
+        } else {
             let userData = us.pick(user, '_id', 'username', 'name', 'email');
             res.send({
               message: 'User updated successfully',
@@ -105,7 +118,7 @@
     },
 
     delete: function (req, res) {
-      User.findByIdAndRemove(req.params.id, req.body, function (err, user) {
+      User.findByIdAndRemove(req.params.id, function (err, user) {
        if(err) {
             res.send(err);
           } else {
