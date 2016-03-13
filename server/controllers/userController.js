@@ -27,20 +27,32 @@
     },
     
     register: function(req, res) {
-      let newUser = new User(req.body);
-      let userData = us.pick(newUser, '_id', 'username', 'name', 'email');
-      //create a token for the user
-      let token = createToken(userData);
-      
-      newUser.save(function(err, user){
-        if(err) {
-          res.send(err);
-        } else {
+      User.findOne({username: req.body.username})
+        .select('username')
+        .exec(function(err, user){
+        //check if username is unique
+        if (user&&user.username===req.body.username) {
           res.send({
-              message: 'User created successfully',
-              user: user,
-              token: token
-            });
+            message: 'Please select another username'
+          });
+        } else {
+          let newUser = new User(req.body);
+          let userData = us.pick(newUser, '_id', 'username', 'name', 'email');
+          //create a token for the user
+          let token = createToken(userData);
+
+          newUser.save(function(err, user){
+            if(err) {
+              res.send(err);
+            } else {
+              let userData = us.pick(user, '_id', 'username', 'name', 'email')
+              res.send({
+                  message: 'User created successfully',
+                  user: userData,
+                  token: token
+                });
+            }
+          }); 
         }
       });  
     },
