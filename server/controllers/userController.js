@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
   const User = require('../models/users'),
    // Role = require('../models/roles'),
@@ -28,9 +28,9 @@
     
     register: function(req, res) {
       let newUser = new User(req.body);
-      let userDetails = us.pick(newUser, '_id', 'username', 'name', 'email')
+      let userData = us.pick(newUser, '_id', 'username', 'name', 'email');
       //create a token for the user
-      let token = createToken(userDetails);
+      let token = createToken(userData);
       
       newUser.save(function(err, user){
         if(err) {
@@ -66,12 +66,12 @@
             });
             next(err);
           } else {
-            let userDetails = us.pick(user, '_id', 'username', 'name', 'email'),
-              token = createToken(userDetails);
+            let userData = us.pick(user, '_id', 'username', 'name', 'email'),
+              token = createToken(userData);
             res.status(200).send({
               message: 'Login successful',
               token: token,
-              user: userDetails
+              user: userData
             });
           }
         }
@@ -83,9 +83,8 @@
         if(err) {
             res.send(err);
           } else {
-            let userDetails = us.pick(user, '_id', 'username', 'docs', 'name', 'email');
-            //user.password = null;
-            res.json(userDetails);
+            let userData = us.pick(user, '_id', 'username', 'docs', 'email');
+            res.json(userData);
           }
       }); 
     },
@@ -96,10 +95,10 @@
         if(err) {
             res.send(err);
           } else {
-            let userDetails = us.pick(user, '_id', 'username', 'docs', 'name', 'email');
+            let userData = us.pick(user, '_id', 'username', 'name', 'email');
             res.send({
               message: 'User updated successfully',
-              user: userDetails
+              user: userData
             });
           }
       }); 
@@ -111,10 +110,10 @@
             res.send(err);
           } else {
             if(user) {
-              let userDetails = us.pick(user, '_id', 'username', 'docs', 'name', 'email');
+              let userData = us.pick(user, '_id', 'username', 'name', 'email');
               res.send({
                 message: 'User deleted successfully',
-                user: userDetails
+                user: userData
               });
             } else {
               res.send({
@@ -150,9 +149,9 @@
       }
     },
 
-    session: function(req, res) {
-      //TODO: implement session
-    },
+//    session: function(req, res) {
+//      //TODO: implement session
+//    },
     
     logout: function(req, res) {
       //req.headers['x-access-token'] = null;

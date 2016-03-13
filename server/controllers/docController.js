@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
   const Document = require('../models/documents');
   const User = require('../models/users');
