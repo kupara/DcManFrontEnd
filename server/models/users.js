@@ -1,6 +1,7 @@
 "use strict"
 
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
 const Schema = mongoose.Schema;
 const Document = require('./documents').schema;
 
@@ -10,10 +11,30 @@ let userSchema  = new Schema({
     firstname: { type: String, required: true },
   	lastname: { type: String, required: true },
   },
-  email: { type: String, required: true },
+  email: { 
+    type: String, 
+    validate: {
+        validator: function(email) {
+          return /\S+@\S+\.\S+/.test(email);
+        },
+        message: 'you entered an invalid email address'
+      },
+    required: true }
+  ,
   password: {type: String, required: true },
   created_at: { type: Date, default: Date.now() },
   docs: [{type: Schema.Types.ObjectId}]
+});
+
+userSchema.pre('save', function(next) {
+  var self = this;
+
+  bcrypt.hash(self.password, null, null, function(err, hash) {
+    if (err) return next(err);
+
+    self.password = hash;
+    next();
+  });
 });
 
 module.exports = mongoose.model('User', userSchema);

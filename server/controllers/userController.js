@@ -1,7 +1,6 @@
 (function () {
   'use strict';
-  const crypto = require('crypto'),
-    User = require('../models/users'),
+  const User = require('../models/users'),
     Role = require('../models/roles'),
     Doc = require('../models/documents'),
     config = require('../config/config'),
@@ -21,14 +20,14 @@
     
     create: function(req, res) {
       let newUser = new User(req.body);
-      newUser.password = crypto.createHash('sha1')
-        .update(req.body.password)
-        .digest('base64');
       newUser.save(function(err, user){
         if(err) {
           res.send(err);
         } else {
-          res.json(user);
+          res.send({
+              message: 'User created successfully',
+              user: user
+            });
         }
       });  
     },
@@ -53,7 +52,10 @@
         if(err) {
             res.send(err);
           } else {
-            res.json(user);
+            res.send({
+              message: 'User updated successfully',
+              user: user
+            });
           }
       }); 
     },
@@ -63,7 +65,10 @@
        if(err) {
             res.send(err);
           } else {
-            res.send("User deleted successfully");
+            res.send({
+              message: 'User deleted successfully',
+              user: user
+            });
           }
       });  
     },
@@ -110,5 +115,5 @@
         }
       });
     }
-  }
+  };
 })();

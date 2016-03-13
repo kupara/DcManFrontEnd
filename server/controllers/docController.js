@@ -47,7 +47,6 @@
       });
     },
 
-
     getOne: function (req, res) {
       Document.findById(req.param.id, function (err, document) {
         if (err) {
@@ -76,13 +75,19 @@
           res.send(err);
         } else {
           User.findById(doc.ownerId, function(err, user){
-            console.log('Found user', user.docs);
-            user.docs.splice(user.docs.indexOf(doc._id), 1);
-            user.save();
-            res.send({
-              message: 'Document deleted successfully',
-              doc: doc
-            });
+            if(!user) {
+              res.send({
+                message: 'Document deleted successfully.',
+                doc: doc
+              });
+            } else {
+              user.docs.splice(user.docs.indexOf(doc._id), 1);
+              user.save();
+              res.send({
+                message: 'Document deleted successfully.',
+                doc: doc
+              });
+            }
           });
         }
       });
