@@ -1,10 +1,11 @@
 (function () {
   'use strict';
   const User = require('../models/users'),
-    Role = require('../models/roles'),
+   // Role = require('../models/roles'),
     Doc = require('../models/documents'),
     config = require('../config/config'),
     jwt = require('jsonwebtoken'),
+    us = require('underscore'),
     secretKey = config.secretKey;
   //tokenCreator
   function createToken(user) {
@@ -27,8 +28,9 @@
     
     register: function(req, res) {
       let newUser = new User(req.body);
+      let userDetails = us.pick(newUser, '_id', 'username', 'name', 'email')
       //create a token for the user
-      let token = createToken(newUser);
+      let token = createToken(userDetails);
       
       newUser.save(function(err, user){
         if(err) {
@@ -49,12 +51,12 @@
         .select('password')
         .exec(function(err, user) {
         if (err) {
-          res.send(err);
+          next(err);
         }
         if(!user) {
           res.send({
             message: 'Wrong username'
-          })
+          });
         } else if (user) {
           //check password
           let correct = user.checkPass(req.body.password);
@@ -62,12 +64,14 @@
             res.status(500).send({
               message: 'Invalid password'
             });
+            next(err);
           } else {
-            let token = createToken(user);
+            let userDetails = us.pick(user, '_id', 'username', 'name', 'email'),
+              token = createToken(userDetails);
             res.status(200).send({
               message: 'Login successful',
               token: token,
-              user: user
+              user: userDetails
             });
           }
         }
@@ -79,20 +83,23 @@
         if(err) {
             res.send(err);
           } else {
-            user.password = null;
-            res.json(user);
+            let userDetails = us.pick(user, '_id', 'username', 'docs', 'name', 'email');
+            //user.password = null;
+            res.json(userDetails);
           }
       }); 
     },
 
     update: function(req, res) {
-      User.findByIdAndUpdate(req.params.id, req.body, { 'new': true}, function (err, user) {
+      let id = req.params.id, data = req.body;
+      User.findByIdAndUpdate(id, data, { 'new': true}, function (err, user) {
         if(err) {
             res.send(err);
           } else {
+            let userDetails = us.pick(user, '_id', 'username', 'docs', 'name', 'email');
             res.send({
               message: 'User updated successfully',
-              user: user
+              user: userDetails
             });
           }
       }); 
@@ -103,10 +110,17 @@
        if(err) {
             res.send(err);
           } else {
-            res.send({
-              message: 'User deleted successfully',
-              user: user
-            });
+            if(user) {
+              let userDetails = us.pick(user, '_id', 'username', 'docs', 'name', 'email');
+              res.send({
+                message: 'User deleted successfully',
+                user: userDetails
+              });
+            } else {
+              res.send({
+                message: 'User is already deleted'
+              });
+            }
           }
       });  
     },
