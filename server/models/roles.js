@@ -5,11 +5,13 @@
 
   const roles = ['admin', 'viewer', 'contributor', 'owner'];
   const roleSchema = new  Schema({
-    id: String,
     title: {
       type: String,
       enum: roles,
-      required: true
+      required: true,
+      index: {
+        unique: true
+      }
     }
   });
 

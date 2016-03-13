@@ -10,6 +10,7 @@
         Document
           .find({})
           .limit(parseInt(q))
+          .sort({dateCreated: -1})
           .exec(function (err, documents) {
             if (err) {
               res.send(err);
@@ -18,7 +19,9 @@
             }
           });
       } else {
-        Document.find({}, function (err, documents) {
+        Document.find({})
+          .sort({dateCreated: -1})
+          .exec(function (err, documents) {
           if (err) {
             res.send(err);
           } else {
@@ -66,6 +69,7 @@
         if (err) {
           res.send(err);
         } else {
+          document.lastModified = Date.now();
           res.json(document);
         }
       });

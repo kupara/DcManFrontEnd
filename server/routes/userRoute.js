@@ -1,16 +1,18 @@
 (function() {
   'use strict';
-  let User = require('../controllers/userController');
+  let User = require('../controllers/userController'),
+      Role = require('../controllers/roleController');
 
   module.exports = function(app) {
+    app.route('/users/roles')
+      .get(Role.all)
+      .post(Role.create);
+    
     app.route('/users/login')
       .post(User.login); 
     
     app.route('/users/logout')
       .get(User.authenticate, User.logout);
-    
-//    app.route('users/session')
-//      .get(User.session);
     
     app.route('/users')
       .get(User.all)

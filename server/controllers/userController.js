@@ -101,12 +101,13 @@
       }); 
     },
 
-    update: function(req, res) {
+    update: function(req, res, next) {
       let id = req.params.id, data = req.body;
-      User.findByIdAndUpdate(id, data, { 'new': true}, function (err, user) {
-        if(err) {
-            res.send(err);
-          } else {
+      User.findOneAndUpdate({_id: id}, data, { 'new': true}, function (err, user) {
+        if(err) return next(err);
+        if (!user) {
+          next(new Error('User not found'));
+        } else {
             let userData = us.pick(user, '_id', 'username', 'name', 'email');
             res.send({
               message: 'User updated successfully',
