@@ -26,6 +26,8 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "jasmine": "^2.4.1"
+    "jasmine": "^2.4.1",
+    "mongoose-seeder": "^1.2.1",
+    "supertest": "^1.2.0"
   }
 }

@@ -21,6 +21,7 @@
     "angular",
     "assert",
     "before",
+    "beforeAll",
     "beforeEach",
     "by",
     "browser",

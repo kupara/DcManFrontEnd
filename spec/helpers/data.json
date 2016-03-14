@@ -1,0 +1,38 @@
+{
+  "users": {
+    '_model': 'User',
+    'admin': {
+      'name': {
+        'first': 'Test',
+        'last': 'User'
+      },
+      'username': 'admin',
+      'email': 'admin@email.com',
+      'createdAt': '=new Date()',
+      'role': 'admin',
+      'password': 'adm123'
+    },
+    'owner': {
+      'name': {
+        'first': 'The',
+        'last': 'Owner'
+      },
+      'username': 'theowner',
+      'email': 'owner@email.com',
+      'createdAt': '=new Date()',
+      'role': 'owner',
+      'password': 'own123'
+    },
+    'viewer': {
+      'name': {
+        'first': 'Justa',
+        'last': 'Viewer'
+      },
+      'username': 'theviewer',
+      'email': 'viewer@email.com',
+      'createdAt': '=new Date()',
+      'role': 'owner',
+      'password': 'own123'
+    },
+  }
+}
