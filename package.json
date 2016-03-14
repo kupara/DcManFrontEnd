@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "jasmine",
     "start": "node dcman.js",
-    "coverage": "istanbul cover jasmine",
-    "coveralls": "npm run-script coverage && node ./node_modules/.bin/coveralls < coverage/lcov.info"
+    "test": "istanbul cover jasmine",
+    "coverage": "cat coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
