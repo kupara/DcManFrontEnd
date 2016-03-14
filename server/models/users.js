@@ -13,8 +13,8 @@
       unique: true
     },
     name: {
-      firstname: { type: String, required: true },
-      lastname: { type: String, required: true },
+      first: { type: String, required: true },
+      last: { type: String, required: true },
     },
     email: { 
       type: String, 
@@ -24,7 +24,8 @@
           },
           message: 'You entered an invalid email address'
         },
-      required: true 
+      required: true,
+      unique: true
     },
     password: {type: String, required: true },
     created_at: { type: Date, default: Date.now() },

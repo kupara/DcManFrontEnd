@@ -1,9 +1,12 @@
 language: node_js
 node_js:
-  "4.2.4"
+  - stable
 
 services:
-- mongodb
+  - mongodb
+  
+after_script:
+  - npm run coverage
 
 addons:
     code_climate:

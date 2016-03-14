@@ -21,6 +21,7 @@
     "angular",
     "assert",
     "before",
+    "beforeAll",
     "beforeEach",
     "by",
     "browser",
@@ -39,7 +40,8 @@
     "process",
     "require",
     "should",
-    "sinon"
+    "sinon",
+    "xit"
   ],
   "quotmark": true,
   "strict": false,
