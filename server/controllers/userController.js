@@ -59,8 +59,9 @@
 
     login: function(req, res, next) {
       //get user from body
-      User.findOne({username: req.body.username})
-        .select('password')
+      User.findOne({})
+        .where('username').equals(req.body.username)
+        .select('password role name')
         .exec(function(err, user) {
         if (err) {
           next(err);
@@ -78,7 +79,7 @@
             });
             next(err);
           } else {
-            let userData = us.pick(user, '_id', 'username', 'name', 'email'),
+            let userData = us.pick(user, '_id', 'username', 'role', 'name', 'email'),
               token = createToken(userData);
             res.status(200).send({
               message: 'Login successful',
@@ -104,7 +105,9 @@
     update: function(req, res, next) {
       let id = req.params.id, data = req.body;
       User.findOneAndUpdate({_id: id}, data, {'new': true}, function(err, user) {
-        if(err) return next(err);
+        if(err) {
+          return next(err);
+        }
         if (!user) {
           next(new Error('User not found'));
         } else {

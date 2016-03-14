@@ -7,7 +7,11 @@
     Role = require('./roles');
 
   let userSchema  = new Schema({
-    username: { type: String, required: true },
+    username: { 
+      type: String, 
+      required: true,
+      unique: true
+    },
     name: {
       firstname: { type: String, required: true },
       lastname: { type: String, required: true },

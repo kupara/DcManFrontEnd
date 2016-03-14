@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "test": "jasmine",
-    "start": "node dcman.js"
+    "start": "node dcman.js",
+    "coverage": "istanbul cover jasmine",
+    "coveralls": "npm run-script coverage && node ./node_modules/.bin/coveralls < coverage/lcov.info"
   },
   "repository": {
     "type": "git",
@@ -14,6 +16,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.13.2",
     "cookie-parser": "~1.3.5",
+    "coveralls": "^2.11.8",
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "jasmine": "^2.4.1",
@@ -21,5 +24,8 @@
     "mongoose": "~4.4.5",
     "morgan": "^1.7.0",
     "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "jasmine": "^2.4.1"
   }
 }

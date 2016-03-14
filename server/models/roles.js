@@ -9,9 +9,7 @@
       type: String,
       enum: roles,
       required: true,
-      index: {
-        unique: true
-      }
+      unique: true
     }
   });
 
