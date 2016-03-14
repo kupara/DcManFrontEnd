@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node dcman.js",
+    "start": "node --harmony dcman.js",
     "test": "istanbul cover jasmine",
-    "coverage": "cat coverage/lcov.info | coveralls"
+    "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",
@@ -19,13 +19,15 @@
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "istanbul": "^0.4.2",
-    "jasmine": "^2.4.1",
     "jsonwebtoken": "^5.7.0",
     "mongoose": "~4.4.5",
     "morgan": "^1.7.0",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "jasmine": "^2.4.1"
+    "coveralls": "^2.11.8",
+    "jasmine": "^2.4.1",
+    "mongoose-seeder": "^1.2.1",
+    "supertest": "^1.2.0"
   }
 }

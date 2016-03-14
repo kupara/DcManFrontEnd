@@ -33,7 +33,9 @@
         //check if username is unique
         if (user&&user.username===req.body.username) {
           res.send({
-            message: 'Please select another username'
+            error: {
+              message: 'Please select another username'
+            }
           });
         } else {
           let newUser = new User(req.body);
@@ -68,20 +70,24 @@
         }
         if(!user) {
           res.send({
-            message: 'Wrong username'
+            error: {
+                message: 'Wrong username'
+              }
           });
         } else if (user) {
           //check password
           let correct = user.checkPass(req.body.password);
           if (!correct) {
             res.status(500).send({
-              message: 'Invalid password'
+              error: {
+                message: 'Invalid password'
+              }
             });
             next(err);
           } else {
             let userData = us.pick(user, '_id', 'username', 'role', 'name', 'email'),
               token = createToken(userData);
-            res.status(200).send({
+            res.send({
               message: 'Login successful',
               token: token,
               user: userData
