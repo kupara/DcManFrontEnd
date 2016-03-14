@@ -18,6 +18,7 @@
     "coveralls": "^2.11.8",
     "debug": "~2.2.0",
     "express": "~4.13.1",
+    "istanbul": "^0.4.2",
     "jasmine": "^2.4.1",
     "jsonwebtoken": "^5.7.0",
     "mongoose": "~4.4.5",
