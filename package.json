@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node dcman.js",
     "test": "istanbul cover jasmine",
-    "coverage": "cat coverage/lcov.info | coveralls"
+    "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",
