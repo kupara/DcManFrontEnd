@@ -1,8 +1,7 @@
 (function() {
   'use strict';
   const Document = require('../models/documents');
-  const User = require('../models/users'),
-    us = require('underscore');
+  const User = require('../models/users');
 
   
   
@@ -19,20 +18,13 @@
           } else {
             res.json(documents);
           }
-        });;
+        });
       }
-      
-      if (req.query.limit) {
-        Document
-          .find({})
-          .limit(parseInt(req.query.limit))
-          .sort({dateCreated: -1});
-        } 
-      
-      if (req.query.role) {
-        if(req.query.role === 'admin') {
+     
+      if (req.decoded.role) {
+        if(req.decoded.role === 'admin') {
           getDocuments(0);
-        } else if (req.query.role === 'owner') {
+        } else if (req.decoded.role === 'owner') {
           getDocuments(1);
         } else {
           getDocuments(2);
@@ -48,6 +40,14 @@
           }
         });
       }
+      
+      if (req.query.limit) {
+        Document
+          .find({})
+          .limit(parseInt(req.query.limit))
+          .sort({dateCreated: -1});
+        } 
+      
     },
 
     create: function (req, res) {
