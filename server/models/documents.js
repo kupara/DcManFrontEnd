@@ -6,13 +6,19 @@
   const User = require('./users');
 
   const docSchema = new Schema({
-    ownerId: {
-      type: Schema.Types.ObjectId,
-      ref: User,
+    owner: {
+      type: Schema.Types.String,
+      ref: User.username,
       required: true
     },
-    title: String,
-    content: String,
+    title: {
+      type: String,
+      required: true
+    },
+    content:{
+      type: String,
+      required: true
+    },
     dateCreated: {
       type: Date, 
       default: Date.now()

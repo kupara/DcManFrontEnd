@@ -69,7 +69,7 @@
           next(err);
         }
         if(!user) {
-          res.send({
+          res.status(401).send({
             error: {
                 message: 'Wrong username'
               }
@@ -78,7 +78,7 @@
           //check password
           let correct = user.checkPass(req.body.password);
           if (!correct) {
-            res.status(500).send({
+            res.status(401).send({
               error: {
                 message: 'Invalid password'
               }
