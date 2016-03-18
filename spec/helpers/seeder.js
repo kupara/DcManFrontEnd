@@ -1,8 +1,8 @@
 (function() {
   'use strict';
- // var supertest = require('supertest');
- // var server = require('../../dcman');
-  //var request = supertest(server);
+//  var supertest = require('supertest');
+//  var server = require('../../dcman');
+//  var request = supertest(server);
   var async = require('async');
   var Roles = require('../../server/models/roles');
   var Users = require('../../server/models/users');
@@ -96,6 +96,7 @@
         
         function(done) {
           console.log('Creating Documents...');
+          
           Documents.create({
             owner: 'admin',
             title: 'Admin\'s document',

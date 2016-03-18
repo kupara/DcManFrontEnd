@@ -194,9 +194,61 @@
         });
        });
       
+      it('returns an error when updating a non-existent user', function(done) {
+       request
+        .put('/users/56e71e392100143743ae95e5')
+        .set('x-access-token', token)
+        .send({
+          email: 'admin@admin.com',
+          name: {
+            first: 'Admin'
+          }
+        })
+        .set('Accept', 'application/json')
+        .end(function(err, res) {
+          expect(res.status).toEqual(404);
+          expect(res.body.error).toBeDefined();
+          expect(res.body.error.message).toEqual('User not found');
+          done();
+        });
+       });
+      
       it('successfully logs a user out', function(done) {
         request
         .get('/users/logout')
+        .set('x-access-token', token)
+        .set('Accept', 'application/json')
+        .end(function(err, res) {
+          expect(err).toBeNull();
+          expect(res.status).toEqual(200);
+          expect(res.body).toBeDefined();
+          expect(res.body.message).toEqual('Successfully logged out');
+          done();
+        });
+      });
+      
+      it('successfully deletes a user', function(done) {
+        helper.create(function(body){
+          console.log('delete', body.user._id);
+          let delete_token = body.token;
+          let delete_id = body.user._id;
+          request
+          .delete('/users/' + delete_id)
+          .set('x-access-token', delete_token)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            expect(err).toBeNull();
+            expect(res.status).toEqual(200);
+            expect(res.body).toBeDefined();
+            expect(res.body.message).toEqual('User deleted successfully');
+            done();
+          });
+        });
+      });
+      
+      it('returns the documents belonging to a user', function(done) {
+        request
+        .get('/users/' + id +'/documents')
         .set('x-access-token', token)
         .set('Accept', 'application/json')
         .end(function(err, res) {
@@ -204,7 +256,7 @@
           expect(err).toBeNull();
           expect(res.status).toEqual(200);
           expect(res.body).toBeDefined();
-          expect(res.body.message).toEqual('Successfully logged out');
+          expect(Array.isArray(res.body)).toBe(true);
           done();
         });
       });

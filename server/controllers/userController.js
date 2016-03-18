@@ -115,7 +115,11 @@
           return next(err);
         }
         if (!user) {
-          next(new Error('User not found'));
+          res.status(404).send({
+            error: {
+              message: 'User not found'
+            }
+          });
         } else {
             let userData = us.pick(user, '_id', 'username', 'name', 'email');
             res.send({

@@ -61,6 +61,7 @@
             if (err) {
               res.send(err);
             } else {
+              console.log('Adding doc');
               user.docs.push(doc._id);
               user.save();
               res.json(doc);
