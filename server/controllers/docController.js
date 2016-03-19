@@ -61,10 +61,10 @@
             if (err) {
               res.send(err);
             } else {
-              console.log('Adding doc');
-              user.docs.push(doc._id);
-              user.save();
-              res.json(doc);
+              res.json({
+                doc: doc,
+                message: 'Document created successfully'
+              });
             }
           });
         }
@@ -82,36 +82,53 @@
     },
 
     update: function (req, res) {
-      Document.findByIdAndUpdate(req.params.id, req.body, {
-        'new': true
-      }, function (err, document) {
-        if (err) {
-          res.send(err);
-        } else {
-          document.lastModified = Date.now();
-          res.json(document);
-        }
-      });
-    },
-
-    delete: function (req, res) {
-      Document.findByIdAndRemove(req.params.id, req.body, function (err, doc) {
-        if (err) {
-          res.send(err);
-        } else {
-          User.findById(doc.ownerId, function(err, user){
-            if(!user) {
-              res.send({
-                message: 'Document deleted successfully.',
-                doc: doc
-              });
+      User.findById(req.decoded._id, function(err, user) {
+        if(req.decoded.role === 'admin' || user.username === req.body.owner) {
+          Document.findByIdAndUpdate(req.params.id, req.body, {
+            'new': true
+          }, function (err, document) {
+            if (err) {
+              res.send(err);
             } else {
-              user.docs.splice(user.docs.indexOf(doc._id), 1);
-              user.save();
-              res.send({
-                message: 'Document deleted successfully.',
-                doc: doc
-              });
+              document.lastModified = Date.now();
+              res.json(document);
+            }
+          });
+        } else {
+          res.status(401).send({
+            error: {
+              message: 'You are not authorized to change this document'
+            }
+          });
+        }
+      });   
+    },
+    
+    delete: function (req, res) {
+      User.findById(req.decoded._id, function(err) {
+        if(err) {
+          res.send(err);
+        } else {
+          Document.findById(req.params.id, function (err, document) {
+            if(err) {
+              res.send(err);
+            } else {
+              console.log(req.decoded);
+              if(req.decoded.role === 'admin' || req.decoded.username === document.owner) {
+                Document.remove({
+                  _id: req.params.id
+                });
+                res.send({
+                  message: 'Document deleted successfully.',
+                  document: document
+                });
+                } else {
+                res.status(401).send({
+                  error: {
+                    message: 'You are not authorized to delete this document'
+                  }
+                });
+              }
             }
           });
         }

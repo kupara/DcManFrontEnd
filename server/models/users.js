@@ -33,8 +33,7 @@
       type: Schema.Types.String,
       ref: Role.title,
       required: true
-    },
-    docs: [{type: Schema.Types.ObjectId}]
+    }
   });
 
 

@@ -1,8 +1,5 @@
 (function() {
   'use strict';
-//  var supertest = require('supertest');
-//  var server = require('../../dcman');
-//  var request = supertest(server);
   var async = require('async');
   var Roles = require('../../server/models/roles');
   var Users = require('../../server/models/users');
@@ -97,7 +94,7 @@
         function(done) {
           console.log('Creating Documents...');
           
-          Documents.create({
+          Documents.create([{
             owner: 'admin',
             title: 'Admin\'s document',
             content: 'This document belongs to the admin and can only be viewed by admins',
@@ -116,8 +113,10 @@
             content: 'This document is public and can only be viewed by anyone',
             access: 2
 
+          }], function(err){
+            if(err) console.log(err);
+            done();
           });
-          done();
         }
       ], function(){
       });

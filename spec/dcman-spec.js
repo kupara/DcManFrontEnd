@@ -16,7 +16,7 @@
       done();
     });
     beforeEach(function(done) {
-      helper.login(function(body) {
+      helper.adminLogin(function(body) {
         token = body.token;
         id = body.user._id;
         done();
@@ -229,7 +229,6 @@
       
       it('successfully deletes a user', function(done) {
         helper.create(function(body){
-          console.log('delete', body.user._id);
           let delete_token = body.token;
           let delete_id = body.user._id;
           request
@@ -252,11 +251,11 @@
         .set('x-access-token', token)
         .set('Accept', 'application/json')
         .end(function(err, res) {
-          console.log(res.body);
           expect(err).toBeNull();
           expect(res.status).toEqual(200);
           expect(res.body).toBeDefined();
           expect(Array.isArray(res.body)).toBe(true);
+          expect(res.body.length).toEqual(1);
           done();
         });
       });
@@ -344,11 +343,11 @@
 
       // TESTS FOR DOCUMENTs CONTROLLER
      describe('Document suite', function() {
-      it('Only authenticated users can create a document', function(done) {
+      it('allows only authenticated users to create documents', function(done) {
         request
         .post('/documents')
         .send({
-          ownerId: 'admin',
+          owner: 'admin',
           title: 'Admin\'s document',
           content: 'This document belongs to the adminstrator and can only be viewed by admins',
           access: 0
@@ -357,6 +356,19 @@
         .end(function(err, res) {
           expect(res.status).toEqual(401);
           expect(res.body).toBeDefined();
+          expect(res.body.error).toBeDefined();
+          expect(res.body.error).toBe('You are not authenticated');
+          done();
+        });
+      });
+       
+      it('allows only authenticated users to view documents', function(done) {
+        request
+        .get('/documents')
+        .set('Accept', 'application/json')
+        .end(function(err, res) {
+          console.log('res.body:', res.body);
+          expect(res.status).toEqual(401);
           expect(res.body.error).toBeDefined();
           expect(res.body.error).toBe('You are not authenticated');
           done();
@@ -382,55 +394,61 @@
         });
       });
 
-      xit('password needed during creation', function(done) {
+      it('creates a document successfully', function(done) {
         request
         .post('/documents')
         .send({
-          email: 'evan@andela.com',
-          name: 'Evan Greenlowe'
+          owner: 'admin',
+          title: 'Create Test Document',
+          content: 'This document has been created by a test spec',
+          access: 0
         })
         .set('Accept', 'application/json')
+        .set('x-access-token', token)
         .end(function(err, res) {
           expect(err).toBeNull();
           expect(res.body).toBeDefined();
-          expect(res.body.errors).toBeDefined();
-          expect(res.body.message).toBe('User validation failed');
+          expect(res.status).toBe(200);
+          expect(res.body.doc.dateCreated).toBeDefined();
+          expect(res.body.doc.title).toEqual('Create Test Document');
+          expect(res.body.message).toEqual('Document created successfully');
           done();
         });
       });
 
-      xit('returns an error on login failure', function(done) {
-        request
-        .post('/documents/login')
-        .send({
-          username: 'admin',
-          password: 'abc124'
-        })
-        .set('Accept', 'application/json')
-        .end(function(err, res) {
-          expect(err).toBeNull();
-          expect(res.status).toEqual(500);
-          expect(res.body).toBeDefined();
-          expect(res.body.error).toBeDefined();
-          expect(res.body.error.message).toContain('Invalid password');
-          done();
+      it('returns all documents if user is admin', function(done) {
+         helper.adminLogin(function(body){
+          let adminToken = body.token;
+          request
+          .get('/documents')
+          .set('x-access-token', adminToken)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            expect(err).toBeNull();
+            expect(res.status).toEqual(200);
+            expect(res.body).toBeDefined();
+            expect(Array.isArray(res.body)).toBe(true);
+            expect(res.body.length).toEqual(4);
+            done();
+          });
         });
       });
 
-      xit('returns a token on user login', function(done) {
-        request
-        .post('/documents/login')
-        .send({
-          username: 'admin',
-          password: 'adm123'
-        })
-        .set('Accept', 'application/json')
-        .end(function(err, res) {
-          expect(err).toBeNull();
-          expect(res.status).toEqual(200);
-          expect(res.body).toBeDefined();
-          expect(res.body.token).toBeDefined();
-          done();
+      it('returns a token on user login', function(done) {
+        helper.viewerLogin(function(body){
+          let viewerToken = body.token;
+          request
+          .get('/documents')
+          .set('x-access-token', viewerToken)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            expect(err).toBeNull();
+            expect(res.status).toEqual(200);
+            expect(res.body).toBeDefined();
+            expect(Array.isArray(res.body)).toBe(true);
+            expect(res.body.length).not.toEqual(4);
+            done();
+          });
         });
       });
 

@@ -28,7 +28,10 @@
       enum: [0, 1, 2],
       default: 2
     },
-    lastModified: Date
+    lastModified: {
+      type: Date, 
+      default: Date.now()
+    }
   });
 
   module.exports = mongoose.model('Document', docSchema);

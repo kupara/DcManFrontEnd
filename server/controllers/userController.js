@@ -63,7 +63,7 @@
       //get user from body
       User.findOne({})
         .where('username').equals(req.body.username)
-        .select('password role name')
+        .select('password role name username email')
         .exec(function(err, user) {
         if (err) {
           next(err);
@@ -85,7 +85,7 @@
             });
             next(err);
           } else {
-            let userData = us.pick(user, '_id', 'username', 'role', 'name', 'email'),
+            let userData = us.pick(user, '_id', 'username', 'role', 'email'),
               token = createToken(userData);
             res.send({
               message: 'Login successful',
@@ -187,13 +187,20 @@
     },
     
     getMyDocs: function (req, res) {
-      Doc.find({ownerId: req.params.id}, function (err, docs) {
+      User.findById(req.params.id, function(err, user){
         if(err) {
           res.send(err);
         } else {
-          res.json(docs);
+          Doc.find({owner: user.username}, function (err, docs) {
+            if(err) {
+              res.send(err);
+            } else {
+              res.json(docs);
+            }
+          });
         }
-      });
+      })
+      
     }
   };
 })();
