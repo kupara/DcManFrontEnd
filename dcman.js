@@ -3,7 +3,7 @@
   const express = require('express'),
     bodyParser = require('body-parser'), 
     mongoose = require('mongoose'),
-    logger = require('morgan'),
+   // logger = require('morgan'),
     config = require('./server/config/config');
   // connect to database
   mongoose.connect(config.database, function(err) {

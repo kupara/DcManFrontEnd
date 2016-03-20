@@ -9,15 +9,15 @@
     function(done) {
       async.series([
         function(done) {
-          Users.remove({}, function(err) {});
+          Users.remove({}, function() {});
           done();
         },
         function(done) {
-          Roles.remove({}, function(err) {});
+          Roles.remove({}, function() {});
           done();
         },
         function(done) {
-          Documents.remove({}, function(err) {});
+          Documents.remove({}, function() {});
           done();
         }], function(){
         console.log('DB dropped');
@@ -103,7 +103,7 @@
           {
             owner: 'owner',
             title: 'Viewer\'s document',
-            content: 'This document belongs to the its owner and can only be viewed by admins and the owner',
+            content: 'This document belongs to the its owner accessible to admins and the owner',
             access: 1
 
           },
@@ -113,8 +113,7 @@
             content: 'This document is public and can only be viewed by anyone',
             access: 2
 
-          }], function(err){
-            if(err) console.log(err);
+          }], function(){
             done();
           });
         }
