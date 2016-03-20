@@ -63,13 +63,13 @@
       //get user from body
       User.findOne({})
         .where('username').equals(req.body.username)
-        .select('password role name')
+        .select('password role name username email')
         .exec(function(err, user) {
         if (err) {
           next(err);
         }
         if(!user) {
-          res.send({
+          res.status(401).send({
             error: {
                 message: 'Wrong username'
               }
@@ -78,14 +78,14 @@
           //check password
           let correct = user.checkPass(req.body.password);
           if (!correct) {
-            res.status(500).send({
+            res.status(401).send({
               error: {
                 message: 'Invalid password'
               }
             });
             next(err);
           } else {
-            let userData = us.pick(user, '_id', 'username', 'role', 'name', 'email'),
+            let userData = us.pick(user, '_id', 'username', 'role', 'email'),
               token = createToken(userData);
             res.send({
               message: 'Login successful',
@@ -115,7 +115,11 @@
           return next(err);
         }
         if (!user) {
-          next(new Error('User not found'));
+          res.status(404).send({
+            error: {
+              message: 'User not found'
+            }
+          });
         } else {
             let userData = us.pick(user, '_id', 'username', 'name', 'email');
             res.send({
@@ -183,11 +187,17 @@
     },
     
     getMyDocs: function (req, res) {
-      Doc.find({ownerId: req.params.id}, function (err, docs) {
+      User.findById(req.params.id, function(err, user){
         if(err) {
           res.send(err);
         } else {
-          res.json(docs);
+          Doc.find({owner: user.username}, function (err, docs) {
+            if(err) {
+              res.send(err);
+            } else {
+              res.json(docs);
+            }
+          });
         }
       });
     }
