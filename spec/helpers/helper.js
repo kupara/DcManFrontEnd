@@ -29,7 +29,7 @@
         done(res.body);
       });
     },
-    create: function(done) {
+    createUser: function(done) {
       request(server)
       .post('/users')
       .send({
@@ -43,6 +43,21 @@
         password: '123456'
       })
       .set('Accept', 'application/json')
+      .end(function(err, res) {
+        done(res.body);
+      });
+    },
+    createDoc: function(token, done) {
+      request(server)
+      .post('/documents')
+      .send({
+        owner: 'admin',
+        title: 'Only document to be returned',
+        content: 'This document should be the only one returned',
+        access: 2
+      })
+      .set('Accept', 'application/json')
+      .set('x-access-token', token)
       .end(function(err, res) {
         done(res.body);
       });

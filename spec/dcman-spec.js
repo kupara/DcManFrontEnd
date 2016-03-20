@@ -5,7 +5,7 @@
   var server = require('../dcman');
   var request = supertest(server);
   //var seeder = require('./helpers/seeder');
-  var helper = require('./helpers/login');
+  var helper = require('./helpers/helper');
 
   
   var token, id;
@@ -228,7 +228,7 @@
       });
       
       it('successfully deletes a user', function(done) {
-        helper.create(function(body){
+        helper.createUser(function(body){
           let delete_token = body.token;
           let delete_id = body.user._id;
           request
@@ -367,7 +367,6 @@
         .get('/documents')
         .set('Accept', 'application/json')
         .end(function(err, res) {
-          console.log('res.body:', res.body);
           expect(res.status).toEqual(401);
           expect(res.body.error).toBeDefined();
           expect(res.body.error).toBe('You are not authenticated');
@@ -400,8 +399,9 @@
         .send({
           owner: 'admin',
           title: 'Create Test Document',
-          content: 'This document has been created by a test spec',
-          access: 0
+          content: 'This document has been created by a test spec on the 14th',
+          access: 0,
+          dateCreated: '2016-03-14T18:05:00.209Z'
         })
         .set('Accept', 'application/json')
         .set('x-access-token', token)
@@ -413,6 +413,43 @@
           expect(res.body.doc.title).toEqual('Create Test Document');
           expect(res.body.message).toEqual('Document created successfully');
           done();
+        });
+      });
+       
+      it('creates a document only for existing users', function(done) {
+        request
+        .post('/documents')
+        .send({
+          owner: 'admins',
+          title: 'Create Test Document',
+          content: 'This document has been created by a test spec on the 14th',
+          access: 0,
+          dateCreated: '2016-03-14T18:05:00.209Z'
+        })
+        .set('Accept', 'application/json')
+        .set('x-access-token', token)
+        .end(function(err, res) {
+          expect(res.body).toBeDefined();
+          expect(res.status).toBe(404);
+          expect(res.body.error).toEqual('User not found');
+          done();
+        });
+      });
+       
+      it('returns a user whose id is issued', function(done) {
+        helper.createDoc(token, function(body){
+          let doc_id = body.doc._id;
+          request
+          .get('/documents/' + doc_id)
+          .set('x-access-token', token)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            expect(err).toBeNull();
+            expect(res.status).toEqual(200);
+            expect(res.body).toBeDefined();
+            expect(res.body.title).toEqual('Only document to be returned');
+            done();
+          });
         });
       });
 
@@ -428,13 +465,46 @@
             expect(res.status).toEqual(200);
             expect(res.body).toBeDefined();
             expect(Array.isArray(res.body)).toBe(true);
-            expect(res.body.length).toEqual(4);
+            expect(res.body.length).toEqual(5);
+            done();
+          });
+        });
+      });
+       
+      it('returns the exact number of documents if specified', function(done) {
+         helper.adminLogin(function(body){
+          let adminToken = body.token;
+          request
+          .get('/documents?limit=2')
+          .set('x-access-token', adminToken)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            expect(err).toBeNull();
+            expect(Array.isArray(res.body)).toBe(true);
+            expect(res.body.length).toEqual(2);
+            done();
+          });
+        });
+      });
+       
+      it('returns the only documents within the dates specified', function(done) {
+         helper.adminLogin(function(body){
+          let adminToken = body.token;
+          request
+          .get('/documents/date?from=03-10-2016&to=03-15-2016')
+          .set('x-access-token', adminToken)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            expect(err).toBeNull();
+            expect(Array.isArray(res.body)).toBe(true);
+            expect(res.body.length).toEqual(1);
+            expect(res.body[0].title).toEqual('Create Test Document');
             done();
           });
         });
       });
 
-      it('returns a token on user login', function(done) {
+      it('returns omly the documents a user has access to', function(done) {
         helper.viewerLogin(function(body){
           let viewerToken = body.token;
           request

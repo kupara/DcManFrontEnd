@@ -8,43 +8,29 @@
   module.exports = {
     all: function (req, res) {
       var access;
-      if (req.decoded.role) {
-        switch(req.decoded.role){
-          case 'admin':
-            access = 0;
-            break;
-          case 'owner':
-            access = 1;
-            break;
-          default:
-            access = 2;
-            break;
-        }
-        Document
-          .find({})
-          .where('access').gte(access)
-          .sort({dateCreated: -1})
-          .limit(parseInt(req.query.limit))
-          .exec(function (err, documents) {
-          if (err) {
-            res.send(err);
-          } else {
-            res.json(documents);
-          }
-        });
-      } else {
-        Document.find({})
-          .where('access').gte(2)
-          .sort({dateCreated: -1})
-          .limit(parseInt(req.query.limit))
-          .exec(function (err, documents) {
-          if (err) {
-            res.send(err);
-          } else {
-            res.json(documents);
-          }
-        });
+      switch(req.decoded.role){
+        case 'admin':
+          access = 0;
+          break;
+        case 'owner':
+          access = 1;
+          break;
+        default:
+          access = 2;
+          break;
       }
+      Document
+      .find({})
+      .where('access').gte(access)
+      .sort({dateCreated: -1})
+      .limit(parseInt(req.query.limit))
+      .exec(function (err, documents) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.json(documents);
+        }
+      });
     },
 
     create: function (req, res) {
@@ -53,7 +39,7 @@
         .where('username').equals(req.body.owner)
         .exec(function (err, user) {
         if (!user) {
-          res.send({
+          res.status(404).send({
             error: 'User not found'
           });
         } else {
