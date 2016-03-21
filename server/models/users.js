@@ -42,24 +42,15 @@
     var user = this;
 
     bcrypt.hash(user.password, null, null, function(err, hash) {
-      if (err) return next(err);
+      if (err) {
+        return next(err);
+      }
 
       user.password = hash;
       next();
     });
   });
-   //encrypt password before saving the user
-  userSchema.pre('findOneAndUpdate', function(next) {
-    var user = this;
-
-    bcrypt.hash(user.password, null, null, function(err, hash) {
-      if (err) return next(err);
-      
-      user.password = hash;
-      next();
-    });
-  });
-
+   
   //add method to schema for password comparison
   userSchema.methods.checkPass = function(password) {
       var user = this;

@@ -18,7 +18,7 @@
   module.exports = {
     all: function (req, res) {
       User.find({}, function (err, users) {
-        if(err) {
+        if (err) {
           res.send(err);
         } else {
           res.json(users);
@@ -44,7 +44,7 @@
           let token = createToken(userData);
 
           newUser.save(function(err, user){
-            if(err) {
+            if (err) {
               res.send(err);
             } else {
               let userData = us.pick(user, '_id', 'username', 'name', 'email');
@@ -68,7 +68,7 @@
         if (err) {
           next(err);
         }
-        if(!user) {
+        if (!user) {
           res.status(401).send({
             error: {
                 message: 'Wrong username'
@@ -99,7 +99,7 @@
 
     getOne: function (req, res) {
       User.findById(req.params.id, function(err, user) {
-        if(err) {
+        if (err) {
             res.send(err);
           } else {
             let userData = us.pick(user, '_id', 'username', 'docs', 'email');
@@ -110,8 +110,8 @@
 
     update: function(req, res, next) {
       let id = req.params.id, data = req.body;
-      User.findOneAndUpdate({_id: id}, data, {'new': true}, function(err, user) {
-        if(err) {
+      User.findById(id,  function(err, user) {
+        if (err) {
           return next(err);
         }
         if (!user) {
@@ -121,21 +121,39 @@
             }
           });
         } else {
-            let userData = us.pick(user, '_id', 'username', 'name', 'email');
-            res.send({
-              message: 'User updated successfully',
-              user: userData
+            if (data.username) {
+              user.username = data.username;
+            }
+            if (data.email) {
+              user.email = data.email;
+            }
+            if (data.password) {
+              user.password = data.password;
+            }
+            if (data.role) {
+              user.role = data.role;
+            }
+            if (data.name) {
+              user.name = data.name;
+            }
+            user.save(function(err, updatedUser){
+              res.send({
+                message: 'User updated successfully',
+                user: updatedUser
+              });
             });
+           // let userData = us.pick(user, '_id', 'username', 'name', 'email');
+            
           }
       }); 
     },
 
     delete: function (req, res) {
       User.findByIdAndRemove(req.params.id, function (err, user) {
-       if(err) {
+       if (err) {
             res.send(err);
           } else {
-            if(user) {
+            if (user) {
               let userData = us.pick(user, '_id', 'username', 'name', 'email');
               res.send({
                 message: 'User deleted successfully',
@@ -174,10 +192,6 @@
         });
       }
     },
-
-//    session: function(req, res) {
-//      //TODO: implement session
-//    },
     
     logout: function(req, res) {
       //req.headers['x-access-token'] = null;
@@ -188,11 +202,11 @@
     
     getMyDocs: function (req, res) {
       User.findById(req.params.id, function(err, user){
-        if(err) {
+        if (err) {
           res.send(err);
         } else {
           Doc.find({owner: user.username}, function (err, docs) {
-            if(err) {
+            if (err) {
               res.send(err);
             } else {
               res.json(docs);
