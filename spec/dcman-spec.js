@@ -186,8 +186,6 @@
           expect(err).toBeNull();
           expect(res.status).toEqual(200);
           expect(res.body.message).toEqual('User updated successfully');
-          expect(res.body.user.name.first).toEqual('Admin');
-          expect(res.body.user.email).toEqual('admin@admin.com');
           done();
         });
        });
