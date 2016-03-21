@@ -194,7 +194,7 @@
     },
     
     logout: function(req, res) {
-      //req.headers['x-access-token'] = null;
+      req.headers['x-access-token'] = null;
       res.send({
         message: 'Successfully logged out'
       });

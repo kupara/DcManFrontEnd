@@ -2,12 +2,10 @@
   'use strict';
   const Document = require('../models/documents');
   const User = require('../models/users');
-
-  
   
   module.exports = {
     all: function (req, res) {
-      let access =2;
+      let access = 2;
       switch(req.decoded.role){
         case 'admin':
           access = 0;
