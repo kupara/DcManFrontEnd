@@ -9,7 +9,7 @@
     secretKey = config.secretKey;
   //tokenCreator
   function createToken(user) {
-    var token = jwt.sign(user, secretKey, {
+    const token = jwt.sign(user, secretKey, {
       expiresIn: '24h'
     });
     return token;
@@ -109,24 +109,43 @@
     },
 
     update: function(req, res, next) {
-      let id = req.params.id, data = req.body;
-      User.findOneAndUpdate({_id: id}, data, {'new': true}, function(err, user) {
-        if(err) {
-          return next(err);
-        }
-        if (!user) {
-          res.status(404).send({
-            error: {
-              message: 'User not found'
-            }
-          });
-        } else {
-            let userData = us.pick(user, '_id', 'username', 'name', 'email');
+      let id = req.params.id;
+      User.findById(id, function(err, user) {
+      if(err) {
+        return next(err);
+      }
+      if (!user) {
+        res.status(404).send({
+          error: {
+            message: 'User not found'
+          }
+        });
+      } else {
+          if(req.body.username) {
+            user.username = req.body.username;
+          }
+          if(req.body.email) {
+            user.email = req.body.email;
+          }
+          if(req.body.password) {
+            user.password = req.body.password;
+          }
+          if(req.body.role) {
+            user.role = req.body.role;
+          }
+          if(req.body.name) {
+            user.name = req.body.name;
+          }
+          user.save(function(err, updatedUser) {
+            if(err) res.send(err);
+            
+            let userData = us.pick(updatedUser, '_id', 'username', 'name', 'email');
             res.send({
               message: 'User updated successfully',
               user: userData
             });
-          }
+          });
+        }
       }); 
     },
 

@@ -1,14 +1,13 @@
 (function() {
   'use strict';
 
-  var supertest = require('supertest');
-  var server = require('../dcman');
-  var request = supertest(server);
-  //var seeder = require('./helpers/seeder');
-  var helper = require('./helpers/helper');
+  const supertest = require('supertest');
+  const server = require('../dcman');
+  const request = supertest(server);
+  const helper = require('./helpers/helper');
 
   
-  var token, id;
+  let adminToken, adminId, viewerToken;
   describe('Test suite dcman-api', function() {
 
     beforeAll(function(done) {
@@ -17,8 +16,8 @@
     });
     beforeEach(function(done) {
       helper.adminLogin(function(body) {
-        token = body.token;
-        id = body.user._id;
+        adminToken = body.token;
+        adminId = body.user._id;
         done();
       });
     });
@@ -64,7 +63,6 @@
         })
         .set('Accept', 'application/json')
         .end(function(err, res) {
-          //expect(res.status).toEqual(500);
           expect(res.body).toBeDefined();
           expect(res.body.error).toBeDefined();
           expect(res.body.error.message).toBe('Please select another username');
@@ -76,8 +74,8 @@
         request
         .post('/users')
         .send({
-          email: 'evan@andela.com',
-          name: 'Evan Greenlowe'
+          email: 'kups@andela.com',
+          name: 'Kups Delacruz'
         })
         .set('Accept', 'application/json')
         .end(function(err, res) {
@@ -160,8 +158,8 @@
 
       it('returns one user provided an id', function(done) {
        request
-        .get('/users/'+id)
-        .set('x-access-token', token)
+        .get('/users/' + adminId)
+        .set('x-access-token', adminToken)
         .set('Accept', 'application/json')
         .end(function(err, res) {
           expect(err).toBeNull();
@@ -175,8 +173,8 @@
       
       it('updates the user whose id is provided', function(done) {
        request
-        .put('/users/'+id)
-        .set('x-access-token', token)
+        .put('/users/' + adminId)
+        .set('x-access-token', adminToken)
         .send({
           email: 'admin@admin.com',
           name: {
@@ -197,7 +195,7 @@
       it('returns an error when updating a non-existent user', function(done) {
        request
         .put('/users/56e71e392100143743ae95e5')
-        .set('x-access-token', token)
+        .set('x-access-token', adminToken)
         .send({
           email: 'admin@admin.com',
           name: {
@@ -216,7 +214,7 @@
       it('successfully logs a user out', function(done) {
         request
         .get('/users/logout')
-        .set('x-access-token', token)
+        .set('x-access-token', adminToken)
         .set('Accept', 'application/json')
         .end(function(err, res) {
           expect(err).toBeNull();
@@ -247,8 +245,8 @@
       
       it('returns the documents belonging to a user', function(done) {
         request
-        .get('/users/' + id +'/documents')
-        .set('x-access-token', token)
+        .get('/users/' + adminId +'/documents')
+        .set('x-access-token', adminToken)
         .set('Accept', 'application/json')
         .end(function(err, res) {
           expect(err).toBeNull();
@@ -263,7 +261,7 @@
       it('returns all users if token is provided', function(done) {
        request
         .get('/users')
-        .set('x-access-token', token)
+        .set('x-access-token', adminToken)
         .set('Accept', 'application/json')
         .end(function(err, res) {
           expect(err).toBeNull();
@@ -381,7 +379,7 @@
           owner: 'admin',
           access: 0
         })
-        .set('x-access-token', token)
+        .set('x-access-token', adminToken)
         .set('Accept', 'application/json')
         .end(function(err, res) {
           expect(err).toBeDefined();
@@ -404,7 +402,7 @@
           dateCreated: '2016-03-14T18:05:00.209Z'
         })
         .set('Accept', 'application/json')
-        .set('x-access-token', token)
+        .set('x-access-token', adminToken)
         .end(function(err, res) {
           expect(err).toBeNull();
           expect(res.body).toBeDefined();
@@ -427,7 +425,7 @@
           dateCreated: '2016-03-14T18:05:00.209Z'
         })
         .set('Accept', 'application/json')
-        .set('x-access-token', token)
+        .set('x-access-token', adminToken)
         .end(function(err, res) {
           expect(res.body).toBeDefined();
           expect(res.status).toBe(404);
@@ -436,12 +434,12 @@
         });
       });
        
-      it('returns a user whose id is issued', function(done) {
-        helper.createDoc(token, function(body){
+      it('returns a one document whose id is issued', function(done) {
+        helper.createDoc(adminToken, function(body){
           let doc_id = body.doc._id;
           request
           .get('/documents/' + doc_id)
-          .set('x-access-token', token)
+          .set('x-access-token', adminToken)
           .set('Accept', 'application/json')
           .end(function(err, res) {
             expect(err).toBeNull();
@@ -452,61 +450,54 @@
           });
         });
       });
+       
+      
 
       it('returns all documents if user is admin', function(done) {
-         helper.adminLogin(function(body){
-          let adminToken = body.token;
-          request
-          .get('/documents')
-          .set('x-access-token', adminToken)
-          .set('Accept', 'application/json')
-          .end(function(err, res) {
-            expect(err).toBeNull();
-            expect(res.status).toEqual(200);
-            expect(res.body).toBeDefined();
-            expect(Array.isArray(res.body)).toBe(true);
-            expect(res.body.length).toEqual(5);
-            done();
-          });
+        request
+        .get('/documents')
+        .set('x-access-token', adminToken)
+        .set('Accept', 'application/json')
+        .end(function(err, res) {
+          expect(err).toBeNull();
+          expect(res.status).toEqual(200);
+          expect(res.body).toBeDefined();
+          expect(Array.isArray(res.body)).toBe(true);
+          expect(res.body.length).toEqual(5);
+          done();
         });
       });
        
       it('returns the exact number of documents if specified', function(done) {
-         helper.adminLogin(function(body){
-          let adminToken = body.token;
-          request
-          .get('/documents?limit=2')
-          .set('x-access-token', adminToken)
-          .set('Accept', 'application/json')
-          .end(function(err, res) {
-            expect(err).toBeNull();
-            expect(Array.isArray(res.body)).toBe(true);
-            expect(res.body.length).toEqual(2);
-            done();
-          });
+        request
+        .get('/documents?limit=2')
+        .set('x-access-token', adminToken)
+        .set('Accept', 'application/json')
+        .end(function(err, res) {
+          expect(err).toBeNull();
+          expect(Array.isArray(res.body)).toBe(true);
+          expect(res.body.length).toEqual(2);
+          done();
         });
       });
        
-      it('returns the only documents within the dates specified', function(done) {
-         helper.adminLogin(function(body){
-          let adminToken = body.token;
-          request
-          .get('/documents/date?from=03-10-2016&to=03-15-2016')
-          .set('x-access-token', adminToken)
-          .set('Accept', 'application/json')
-          .end(function(err, res) {
-            expect(err).toBeNull();
-            expect(Array.isArray(res.body)).toBe(true);
-            expect(res.body.length).toEqual(1);
-            expect(res.body[0].title).toEqual('Create Test Document');
-            done();
-          });
+      it('returns only documents within the dates specified', function(done) {
+        request
+        .get('/documents/date?from=03-10-2016&to=03-15-2016')
+        .set('x-access-token', adminToken)
+        .set('Accept', 'application/json')
+        .end(function(err, res) {
+          expect(err).toBeNull();
+          expect(Array.isArray(res.body)).toBe(true);
+          expect(res.body.length).toEqual(1);
+          expect(res.body[0].title).toEqual('Create Test Document');
+          done();
         });
       });
 
-      it('returns omly the documents a user has access to', function(done) {
+      it('returns only the documents a user has access to', function(done) {
         helper.viewerLogin(function(body){
-          let viewerToken = body.token;
+          viewerToken = body.token;
           request
           .get('/documents')
           .set('x-access-token', viewerToken)
@@ -521,38 +512,131 @@
           });
         });
       });
-
-     xit('returns all documents if token is provided', function(done) {
-       request
-        .get('/documents')
-        .set('x-access-token', token)
-        .set('Accept', 'application/json')
-        .end(function(err, res) {
-          expect(err).toBeNull();
-          expect(res.status).toEqual(200);
-          expect(res.body).toBeDefined();
-          expect(Array.isArray(res.body)).toBe(true);
-          expect(res.body.length).toBeGreaterThan(2);
-          done();
-        });
-       });
-
-      xit('creates a user successfully', function(done) {
+      
+      it('returns only documents with access 0', function(done) {
         request
-        .post('/documents')
-        .send({
-          email: 'me@you.com',
-          name: 'Me You',
-          password: 'abc123'
-        })
+        .get('/documents/role/?role=admin')
+        .set('x-access-token', adminToken)
         .set('Accept', 'application/json')
         .end(function(err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
+          expect(Array.isArray(res.body)).toBe(true);
+          expect(res.body.length).toEqual(2);
+          expect(res.body[0].access).toEqual(0);
           done();
         });
       });
-     });
+      
+      it('returns only documents with access 1', function(done) {
+        request
+        .get('/documents/role/?role=owner')
+        .set('x-access-token', adminToken)
+        .set('Accept', 'application/json')
+        .end(function(err, res) {
+          expect(err).toBeNull();
+          expect(Array.isArray(res.body)).toBe(true);
+          expect(res.body.length).toEqual(1);
+          expect(res.body[0].access).toEqual(1);
+          done();
+        });
+      });
+       
+      it('updates a document if user has access to it', function(done) {
+        helper.createDoc(adminToken, function(body){
+          let doc_id = body.doc._id;
+          request
+          .put('/documents/' + doc_id)
+          .send({
+            title: 'Updated Title',
+            owner: 'admin',
+            content: 'This document just got updated',
+            access: 1
+          })
+          .set('x-access-token', adminToken)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            expect(err).toBeNull();
+            expect(res.status).toEqual(200);
+            expect(res.body).toBeDefined();
+            expect(res.body.doc.title).toEqual('Updated Title');
+            expect(res.body.message).toEqual('Document updated successfully');
+            done();
+          });
+        });
+      });
+       
+      it('returns error on unauthorised update', function(done) {
+        helper.createDoc(adminToken, function(body){
+          let doc_id = body.doc._id;
+          request
+          .put('/documents/' + doc_id)
+          .send({
+            title: 'Updated Title',
+            owner: 'admin',
+            content: 'This document just got updated',
+            access: 1
+          })
+          .set('x-access-token', viewerToken)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            expect(err).toBeNull();
+            expect(res.status).toEqual(401);
+            expect(res.body.error.message)
+              .toEqual('You are not authorized to change this document');
+            done();
+          });
+        });
+      });
+
+       
+     it('deletes a document if user has access to it', function(done) {
+        helper.createDoc(adminToken, function(body){
+          let doc_id = body.doc._id;
+          request
+          .delete('/documents/' + doc_id)
+          .set('x-access-token', adminToken)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            expect(err).toBeNull();
+            expect(res.status).toEqual(200);
+            expect(res.body).toBeDefined();
+            expect(res.body.message).toEqual('Document deleted successfully.');
+            done();
+          });
+        });
+      });
+      
+      it('returns error on unauthorised delete', function(done) {
+        helper.createDoc(adminToken, function(body){
+          let doc_id = body.doc._id;
+          request
+          .delete('/documents/' + doc_id)
+          .set('x-access-token', viewerToken)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            expect(err).toBeNull();
+            expect(res.status).toEqual(401);
+            expect(res.body.error.message)
+              .toEqual('You are not authorized to delete this document');
+            done();
+          });
+        });
+      }); 
+      
+      it('returns the documents containing the provided search term', function(done) {
+        request
+        .get('/documents/search?term=viewed')
+        .set('x-access-token', adminToken)
+        .set('Accept', 'application/json')
+        .end(function(err, res) {
+          expect(err).toBeNull();
+          expect(res.status).toEqual(200);
+          expect(res.body.length).toEqual(2);
+          expect(res.body[0].content).toContain('viewed');
+          done();
+        });
+      });
+    });
   });
 })();
 
