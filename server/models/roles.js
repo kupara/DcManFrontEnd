@@ -1,9 +1,9 @@
 (function() {
   'use strict';
-  const mongoose = require('mongoose');
-  const Schema = mongoose.Schema;
-
-  const roles = ['admin', 'owner', 'viewer', 'tester'];
+  const mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    roles = ['admin', 'owner', 'viewer', 'tester'];
+  
   const roleSchema = new  Schema({
     title: {
       type: String,

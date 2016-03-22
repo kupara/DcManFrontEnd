@@ -1,10 +1,10 @@
 (function() {
   'use strict';
 
-  const supertest = require('supertest');
-  const server = require('../dcman');
-  const request = supertest(server);
-  const helper = require('./helpers/helper');
+  const supertest = require('supertest'),
+    server = require('../dcman'),
+    request = supertest(server),
+    helper = require('./helpers/helper');
 
   
   let adminToken, adminId, viewerToken;
@@ -272,7 +272,7 @@
       });
     });
     
-    
+    // TESTS FOR ROLES
     describe('Role suite', function() {
       it('creates a role with a title defined', function(done){
         request
@@ -337,7 +337,7 @@
       });
     });
 
-      // TESTS FOR DOCUMENTs CONTROLLER
+      // TESTS FOR DOCUMENTS CONTROLLER
      describe('Document suite', function() {
       it('allows only authenticated users to create documents', function(done) {
         request
@@ -448,8 +448,6 @@
           });
         });
       });
-       
-      
 
       it('returns all documents if user is admin', function(done) {
         request
@@ -585,7 +583,6 @@
           });
         });
       });
-
        
      it('deletes a document if user has access to it', function(done) {
         helper.createDoc(adminToken, function(body){
