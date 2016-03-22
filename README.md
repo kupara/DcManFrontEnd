@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/andela-ekupara/dcman.svg?branch=develop)](https://travis-ci.org/andela-ekupara/dcman)
 [![Coverage Status](https://coveralls.io/repos/github/andela-ekupara/dcman/badge.svg?branch=develop)](https://coveralls.io/github/andela-ekupara/dcman?branch=master)
+[![Code Climate](https://codeclimate.com/github/andela-ekupara/dcman/badges/gpa.svg)](https://codeclimate.com/github/andela-ekupara/dcman)
 
 This is a simple API to help a user with a predefined role create and manage documents. Users create documents and speciy the roles that are allowed to access the document by defining an access level. 
 
