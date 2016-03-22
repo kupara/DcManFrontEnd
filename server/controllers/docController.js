@@ -2,10 +2,10 @@
   'use strict';
   const Document = require('../models/documents');
   const User = require('../models/users');
-  
+
   module.exports = {
     all: function (req, res) {
-      let access = 2;
+      var access;
       switch(req.decoded.role){
         case 'admin':
           access = 0;
@@ -64,51 +64,27 @@
         }
       });
     },
-    
+
     update: function (req, res) {
-     User.findById(req.decoded._id, function(err) {
-        if(err) {
-          res.send(err);
-        } else {
-          Document.findById(req.params.id, function (err, document) {
-            if(err) {
+      User.findById(req.decoded._id, function(err, user) {
+        if(req.decoded.role === 'admin' || user.username === req.body.owner) {
+          Document.findByIdAndUpdate(req.params.id, req.body, {
+            'new': true
+          }, function (err, document) {
+            if (err) {
               res.send(err);
             } else {
-              if(req.decoded.role === 'admin' || req.decoded.username === document.owner) {
-                if (req.body.owner) {
-                  document.owner = req.body.owner;
-                }
-                if (req.body.title) {
-                  document.title = req.body.title;
-                }
-                if (req.body.content) {
-                  document.content = req.body.content;
-                }
-                if (req.body.access) {
-                  document.access = req.body.access;
-                }
-                document.lastModified = Date.now();
-                document.save(function(err, doc) {
-                  if (err) {
-                    res.send(err);
-                  } else {
-                    res.json({
-                      message: 'Document updated successfully',
-                      doc: doc
-                    });
-                  }
-                });
-              }
-              else {
-                res.status(401).send({
-                  error: {
-                    message: 'You are not authorized to change this document'
-                  }
-                });
-              }
+              document.lastModified = Date.now();
+              res.json(document);
             }
           });
-        } 
+        } else {
+          res.status(401).send({
+            error: {
+              message: 'You are not authorized to change this document'
+            }
+          });
+        }
       });   
     },
     
@@ -121,6 +97,7 @@
             if(err) {
               res.send(err);
             } else {
+              console.log(req.decoded);
               if(req.decoded.role === 'admin' || req.decoded.username === document.owner) {
                 Document.remove({
                   _id: req.params.id
@@ -158,8 +135,8 @@
     },
     
     getByRole: function (req, res) {
-      let access = 2;
-      switch(req.query.role) {
+      var access;
+      switch(req.query.role){
         case 'admin':
           access = 0;
           break;
@@ -173,7 +150,7 @@
       Document
         .find({})
         .where('access')
-        .equals(access)
+        .gte(access)
         .exec(function (err, documents) {
         if (err) {
           res.send(err);
@@ -184,15 +161,14 @@
     },
     
     search: function (req, res) {
-      const searchterm = req.query.term;
-      const re = new RegExp(searchterm, 'gi');
-      Document.find({
-        content: {
-          $regex: re
-        }
-      }, function(err, documents) {
+      Document
+        .find({})
+        .where('dateCreated')
+        .gt(new Date(req.query.from))
+        .lt(new Date(req.query.to))
+        .exec(function (err, documents) {
         if (err) {
-          res.status(500).send(err);
+          res.send(err);
         } else {
           res.json(documents);
         }
