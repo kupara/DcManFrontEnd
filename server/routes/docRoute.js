@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   let Document = require('../controllers/docController'),
-      User = require('../controllers/userController');
+    User = require('../controllers/userController');
 
   module.exports = function(app) {
     app.route('/documents')

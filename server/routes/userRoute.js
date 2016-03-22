@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   let User = require('../controllers/userController'),
-      Role = require('../controllers/roleController');
+    Role = require('../controllers/roleController');
 
   module.exports = function(app) {
     app.route('/users/roles')

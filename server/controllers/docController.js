@@ -1,7 +1,7 @@
 (function() {
   'use strict';
-  const Document = require('../models/documents');
-  const User = require('../models/users');
+  const Document = require('../models/documents'),
+    User = require('../models/users');
 
   
   

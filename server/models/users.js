@@ -6,7 +6,7 @@
     Schema = mongoose.Schema,
     Role = require('./roles');
 
-  let userSchema  = new Schema({
+  const userSchema  = new Schema({
     username: { 
       type: String, 
       required: true,
@@ -14,7 +14,7 @@
     },
     name: {
       first: { type: String, required: true },
-      last: { type: String, required: true },
+      last: { type: String, required: true }
     },
     email: { 
       type: String, 
@@ -36,10 +36,8 @@
     }
   });
 
-
-  //encrypt password before saving the user
   userSchema.pre('save', function(next) {
-    var user = this;
+    const user = this;
 
     bcrypt.hash(user.password, null, null, function(err, hash) {
       if (err) {
@@ -51,11 +49,10 @@
     });
   });
    
-  //add method to schema for password comparison
   userSchema.methods.checkPass = function(password) {
-      var user = this;
-      return bcrypt.compareSync(password, user.password); 
-    };
+    const user = this;
+    return bcrypt.compareSync(password, user.password); 
+  };
 
   module.exports = mongoose.model('User', userSchema);
 })();
