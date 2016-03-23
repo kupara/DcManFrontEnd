@@ -9,7 +9,6 @@
   
   let adminToken, adminId, viewerToken;
   describe('Test suite dcman-api', function() {
-
     beforeAll(function(done) {
       require('./helpers/seeder');
       done();
