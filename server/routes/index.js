@@ -6,8 +6,8 @@
     require('./docRoute')(app);
     
     app.route('/')
-      .get(function(req, res) {
-        res.send({message: 'You are home'});
-      });
+    .get(function(req, res) {
+      res.send({message: 'Welcome to the DCMan'});
+    });
   };
 })();

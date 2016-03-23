@@ -2,8 +2,6 @@
   'use strict';
   const Document = require('../models/documents'),
     User = require('../models/users');
-
-  
   
   module.exports = {
     all: function (req, res) {

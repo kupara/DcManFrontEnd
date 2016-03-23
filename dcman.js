@@ -13,8 +13,8 @@
     }
   });
 
-  var app = express();
-  var routes = require('./server/routes');
+  const app = express(),
+    routes = require('./server/routes');
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));

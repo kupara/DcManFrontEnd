@@ -6,7 +6,6 @@
     request = supertest(server),
     helper = require('./helpers/helper');
 
-  
   let adminToken, adminId, viewerToken;
   describe('Test suite dcman-api', function() {
     beforeAll(function(done) {
