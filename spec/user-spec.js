@@ -6,11 +6,16 @@
     request = supertest(server),
     helper = require('./helpers/helper');
 
-  let adminToken, adminId;
+  let adminToken, adminId, userId, userToken;
   beforeAll(function (done) {
     helper.adminLogin(function (body) {
       adminToken = body.token;
       adminId = body.user._id;
+      done();
+    });
+     helper.userLogin(function (body) {
+      userToken = body.token;
+      userId = body.user._id;
       done();
     });
   });
@@ -234,20 +239,20 @@
 
     it('returns the documents belonging to a user', function (done) {
       request
-        .get('/users/' + adminId + '/documents')
-        .set('x-access-token', adminToken)
+        .get('/users/' + userId + '/documents')
+        .set('x-access-token', userToken)
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
           expect(res.status).toEqual(200);
           expect(res.body).toBeDefined();
           expect(Array.isArray(res.body)).toBeTruthy();
-          expect(res.body.length).toEqual(4);
+          expect(res.body.length).toEqual(5);
           done();
         });
     });
 
-    it('returns all users if token is provided', function (done) {
+    it('returns all users if admin token is provided', function (done) {
       request
         .get('/users')
         .set('x-access-token', adminToken)

@@ -298,13 +298,28 @@
     });
 
 
-    it('deletes a document if user has access to it', function (done) {
+    it('allows a admin to delete any document', function (done) {
+      helper.createDoc(userToken, userId, function (body) {
+        let doc_id = body.doc._id;
+        request
+          .delete('/documents/' + doc_id)
+          .set('x-access-token', adminToken)
+          .end(function (err, res) {
+            expect(err).toBeNull();
+            expect(res.status).toEqual(200);
+            expect(res.body).toBeDefined();
+            expect(res.body.message).toEqual('Document deleted successfully.');
+            done();
+          });
+      });
+    });
+    
+    it('allows a user to delete their own document', function (done) {
       helper.createDoc(userToken, userId, function (body) {
         let doc_id = body.doc._id;
         request
           .delete('/documents/' + doc_id)
           .set('x-access-token', userToken)
-          .set('Accept', 'application/json')
           .end(function (err, res) {
             expect(err).toBeNull();
             expect(res.status).toEqual(200);
@@ -315,13 +330,12 @@
       });
     });
 
-    it('returns error on unauthorised delete', function (done) {
+    it('does not allow a viewer to delete a user document', function (done) {
       helper.createDoc(userToken, userId, function (body) {
         let doc_id = body.doc._id;
         request
           .delete('/documents/' + doc_id)
           .set('x-access-token', viewerToken)
-          .set('Accept', 'application/json')
           .end(function (err, res) {
             expect(err).toBeNull();
             expect(res.status).toEqual(403);
@@ -332,6 +346,22 @@
       });
     });
 
+    it('does not allow a user to delete an admin document', function (done) {
+      helper.createDoc(adminToken, adminId, function (body) {
+        let doc_id = body.doc._id;
+        request
+          .delete('/documents/' + doc_id)
+          .set('x-access-token', userToken)
+          .end(function (err, res) {
+            expect(err).toBeNull();
+            expect(res.status).toEqual(403);
+            expect(res.body.error.message)
+              .toEqual('You have no permission to make changes to this document');
+            done();
+          });
+      });
+    });
+    
     it('returns the documents containing the provided search term', function (done) {
       request
         .get('/documents/results?q=viewed')
