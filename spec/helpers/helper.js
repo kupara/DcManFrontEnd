@@ -68,7 +68,7 @@
         ownerId: id,
         title: 'Only document to be returned',
         content: 'This document should be the only one returned',
-        accessLevel: 'public'
+        accessLevel: 'private'
       })
       .set('Accept', 'application/json')
       .set('x-access-token', token)
