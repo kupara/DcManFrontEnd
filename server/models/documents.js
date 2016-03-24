@@ -6,9 +6,9 @@
     User = require('./users');
 
   const docSchema = new Schema({
-    owner: {
-      type: Schema.Types.String,
-      ref: User.username,
+    ownerId: {
+      type: Schema.Types.ObjectId,
+      ref: User._id,
       required: true
     },
     title: {
@@ -23,10 +23,10 @@
       type: Date, 
       default: Date.now()
     },
-    access: {
-      type: Number,
-      enum: [0, 1, 2],
-      default: 2
+    accessLevel: {
+      type: String,
+      enum: ['admin', 'private', 'public'],
+      default: 'public'
     },
     lastModified: {
       type: Date, 

@@ -1,127 +1,108 @@
-(function() {
+(function () {
   'use strict';
   var async = require('async');
   var Roles = require('../../server/models/roles');
   var Users = require('../../server/models/users');
   var Documents = require('../../server/models/documents');
-  
+
   async.waterfall([
-    function(done) {
-      async.series([
-        function(done) {
-          Users.remove({}, function() {});
-          done();
-        },
-        function(done) {
-          Roles.remove({}, function() {});
-          done();
-        },
-        function(done) {
-          Documents.remove({}, function() {});
-          done();
-        }], function(){
-        console.log('DB dropped');
-      }); 
-     done();
+    function (cb) {
+      Users.remove({}, function () {});
+      // done();
+
+      Roles.remove({}, function () {});
+      // done();
+
+      Documents.remove({}, function () {});
+      //done();
+
+      cb(null);
     },
-    
-    function(done) {
-      
-      
-      async.series([
-        //SEED USERS
-        
-        function(done){
-          console.log('Creating users...');
-          Users.create({
-            name: {
-              first: 'Test',
-              last: 'User'
-            },
-            username: 'admin',
-            email: 'admin@email.com',
-            createdAt: new Date(),
-            role: 'admin',
-            password: 'adm123',
-            docs: []
-          }, 
-          {
-            name: {
-              first: 'The',
-              last: 'Owner'
-            },
-            username: 'owner',
-            email: 'owner@email.com',
-            createdAt: new Date(),
-            role: 'owner',
-            password: 'own123',
-            docs: []
-          },
-          {
-            name: {
-              first: 'Justa',
-              last: 'Viewer'
-            },
-            username: 'theviewer',
-            email: 'viewer@email.com',
-            createdAt: new Date(),
-            role: 'viewer',
-            password: 'adm123',
-            docs: []
-          });
-          done();
+
+    function (cb) {
+      Users.create([{
+        name: {
+          first: 'Test',
+          last: 'User'
         },
+        username: 'adminUser',
+        email: 'admin@email.com',
+        createdAt: new Date(),
+        role: 'admin',
+        password: 'admin123'
+      }, {
+        name: {
+          first: 'Edwin',
+          last: 'Wekesa'
+        },
+        username: 'edwin',
+        email: 'owner@email.com',
+        createdAt: new Date(),
+        role: 'user',
+        password: 'edu123'
+      }, {
+        name: {
+          first: 'Justa',
+          last: 'Viewer'
+        },
+        username: 'theviewer',
+        email: 'viewer@email.com',
+        createdAt: new Date(),
+        role: 'viewer',
+        password: 'thv123'
+      }], function (err, users) {
+        if (err) {
+          throw err;
+        }
+        cb(null, users);
+      });
+    },
 
         //SEED Roles
-        
-        function(done) {
-          console.log('Creating Roles...');
-          Roles.create({
-            title: 'admin'
-          },
-          {
-            title: 'owner'
 
-          },
-          {
-            title: 'viewer'
+    function (users, cb) {
+      Roles.create([{
+        title: 'admin'
+      }, {
+        title: 'user'
 
-          });
-          done();
-        },
+      }, {
+        title: 'viewer'
+
+      }]);
+      cb(null, users);
+    },
         //SEED DOCUMENTS
-        
-        function(done) {
-          console.log('Creating Documents...');
-          
-          Documents.create([{
-            owner: 'admin',
-            title: 'Admin\'s document',
-            content: 'This document belongs to the admin and can only be viewed by admins',
-            access: 0
+
+    function (users, cb) {
+      Documents.create([{
+          ownerId: users[0]._id,
+          title: 'Admin\'s document',
+          content: 'This document belongs to the admin and can only be viewed by admins',
+          accessLevel: 'admin'
           },
-          {
-            owner: 'owner',
-            title: 'Viewer\'s document',
-            content: 'This document belongs to the its owner accessible to admins and the owner',
-            access: 1
+        {
+          ownerId: users[1]._id,
+          title: 'Edwin\'s document',
+          content: 'This document belongs to the its owner accessible to admins and the owner',
+          accessLevel: 'private'
 
           },
-          {
-            owner: 'theviewer',
-            title: 'Public document',
-            content: 'This document is public and can only be viewed by anyone',
-            access: 2
+        {
+          ownerId: users[2]._id,
+          title: 'Public document',
+          content: 'This document is public and can only be viewed by anyone',
+          accessLevel: 'public'
 
-          }], function(){
-            done();
-          });
+          }], function (err) {
+        if (err) {
+          throw err;
         }
-      ], function(){
+        cb(null);
       });
-      done();
-    }
-  ], function() {
+        }
+
+  ], function () {
     console.log('DB Seeded');
   });
 })();

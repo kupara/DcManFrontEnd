@@ -8,18 +8,12 @@
       .get(User.authenticate, Document.all)
       .post(User.authenticate, Document.create);
     
-    app.route('/documents/date')
-      .get(Document.getByDate);
-    
-    app.route('/documents/role')
-      .get(Document.getByRole);
-    
-    app.route('/documents/search')
+    app.route('/documents/results')
       .get(Document.search);
     
     app.route('/documents/:id')
-      .get(User.authenticate, Document.getOne)
-      .put(User.authenticate, Document.update)
-      .delete(User.authenticate, Document.delete);
+      .get(User.authenticate, User.canAccess, Document.getOne)
+      .put(User.authenticate, User.canAccess, Document.update)
+      .delete(User.authenticate, User.canAccess, Document.delete);
   };
 })();

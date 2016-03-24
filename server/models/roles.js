@@ -2,7 +2,7 @@
   'use strict';
   const mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    roles = ['admin', 'owner', 'viewer', 'tester'];
+    roles = ['admin', 'user', 'viewer', 'tester'];
   
   const roleSchema = new  Schema({
     title: {

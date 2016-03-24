@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   module.exports = {
-    'database': 'mongodb://localhost/3001/dcman',
+    'database': 'mongodb://localhost/dcman',
     'port': process.env.PORT || 3001,
     'secretKey': 'MwanammeNiEffort'
   };
