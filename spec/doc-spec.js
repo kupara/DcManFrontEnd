@@ -92,8 +92,8 @@
           expect(err).toBeNull();
           expect(res.body).toBeDefined();
           expect(res.status).toBe(200);
-          expect(res.body.doc.dateCreated).toBeDefined();
-          expect(res.body.doc.title).toBe('Create Test Document');
+          expect(res.body.document.dateCreated).toBeDefined();
+          expect(res.body.document.title).toBe('Create Test Document');
           expect(res.body.message).toBe('Document created successfully');
           done();
         });
@@ -120,7 +120,7 @@
 
     it('returns one document whose id is issued', function (done) {
       helper.createDoc(adminToken, adminId, function (body) {
-        let doc_id = body.doc._id;
+        let doc_id = body.document._id;
         request
           .get('/documents/' + doc_id)
           .set('x-access-token', adminToken)
@@ -210,7 +210,7 @@
 
     it('allows a user to update a user document', function (done) {
       helper.createDoc(userToken, userId, function (body) {
-        let doc_id = body.doc._id;
+        let doc_id = body.document._id;
         request
           .put('/documents/' + doc_id)
           .send({
@@ -225,7 +225,7 @@
           
             expect(res.status).toBe(200);
             expect(res.body).toBeDefined();
-            expect(res.body.doc.title).toBe('Updated Title');
+            expect(res.body.document.title).toBe('Updated Title');
             expect(res.body.message).toBe('Document updated successfully');
             done();
           });
@@ -234,7 +234,7 @@
     
     it('allows an admin to update a document', function (done) {
       helper.createDoc(userToken, userId, function (body) {
-        let doc_id = body.doc._id;
+        let doc_id = body.document._id;
         request
           .put('/documents/' + doc_id)
           .send({
@@ -248,7 +248,7 @@
             expect(err).toBeNull();
             expect(res.status).toBe(200);
             expect(res.body).toBeDefined();
-            expect(res.body.doc.title).toBe('Updated Title');
+            expect(res.body.document.title).toBe('Updated Title');
             expect(res.body.message).toBe('Document updated successfully');
             done();
           });
@@ -257,7 +257,7 @@
 
     it('does not allow a viewer to edit any document', function (done) {
       helper.createDoc(userToken, userId, function (body) {
-        let doc_id = body.doc._id;
+        let doc_id = body.document._id;
         request
           .put('/documents/' + doc_id)
           .send({
@@ -278,7 +278,7 @@
     
     it('does not allow a user to edit an admin document', function (done) {
       helper.createDoc(adminToken, adminId, function (body) {
-        let doc_id = body.doc._id;
+        let doc_id = body.document._id;
         request
           .put('/documents/' + doc_id)
           .send({
@@ -300,7 +300,7 @@
 
     it('allows a admin to delete any document', function (done) {
       helper.createDoc(userToken, userId, function (body) {
-        let doc_id = body.doc._id;
+        let doc_id = body.document._id;
         request
           .delete('/documents/' + doc_id)
           .set('x-access-token', adminToken)
@@ -316,7 +316,7 @@
     
     it('allows a user to delete their own document', function (done) {
       helper.createDoc(userToken, userId, function (body) {
-        let doc_id = body.doc._id;
+        let doc_id = body.document._id;
         request
           .delete('/documents/' + doc_id)
           .set('x-access-token', userToken)
@@ -332,7 +332,7 @@
 
     it('does not allow a viewer to delete a user document', function (done) {
       helper.createDoc(userToken, userId, function (body) {
-        let doc_id = body.doc._id;
+        let doc_id = body.document._id;
         request
           .delete('/documents/' + doc_id)
           .set('x-access-token', viewerToken)
@@ -348,7 +348,7 @@
 
     it('does not allow a user to delete an admin document', function (done) {
       helper.createDoc(adminToken, adminId, function (body) {
-        let doc_id = body.doc._id;
+        let doc_id = body.document._id;
         request
           .delete('/documents/' + doc_id)
           .set('x-access-token', userToken)

@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   const User = require('../models/users'),
-    Doc = require('../models/documents'),
+    Documents = require('../models/documents'),
     config = require('../config/config'),
     jwt = require('jsonwebtoken'),
     _ = require('underscore'),
@@ -105,7 +105,7 @@
         if (err) {
           res.send(err);
         } else {
-          let userData = _.pick(user, '_id', 'username', 'docs', 'email');
+          let userData = _.pick(user, '_id', 'username', 'email');
           res.json(userData);
         }
       });
@@ -175,9 +175,9 @@
     },
 
     canAccess: function (req, res, next) {
-      Doc.findById(req.params.id, function(err, doc){
-        if (doc) {
-          if (req.decoded._id === doc.ownerId.toString()) {
+      Documents.findById(req.params.id, function(err, document){
+        if (document) {
+          if (req.decoded._id === document.ownerId.toString()) {
 
             next();
           } else if (req.decoded.role === 'admin') {
@@ -205,13 +205,13 @@
         if (err) {
           res.send(err);
         } else {
-          Doc.find({
+          Documents.find({
             ownerId: user._id
-          }, function (err, docs) {
+          }, function (err, documents) {
             if (err) {
               res.send(err);
             } else {
-              res.json(docs);
+              res.json(documents);
             }
           });
         }

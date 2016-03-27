@@ -78,12 +78,12 @@
               error: 'User not found'
             });
           } else {
-            newDocument.save(function (err, doc) {
+            newDocument.save(function (err, document) {
               if (err) {
                 res.send(err);
               } else {
                 res.json({
-                  doc: doc,
+                  document: document,
                   message: 'Document created successfully'
                 });
               }
@@ -124,13 +124,13 @@
                 document.access = req.body.access;
               }
               document.lastModified = Date.now();
-              document.save(function (err, doc) {
+              document.save(function (err, document) {
                 if (err) {
                   res.send(err);
                 } else {
                   res.json({
                     message: 'Document updated successfully',
-                    doc: doc
+                    document: document
                   });
                 }
               });
