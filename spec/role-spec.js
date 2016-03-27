@@ -26,9 +26,9 @@
         .set('Accept', 'application/json')
         .end(function(err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toBeDefined();
-          expect(res.body.title).toEqual('tester');
+          expect(res.body.title).toBe('tester');
           done();
         });
     });
@@ -58,7 +58,7 @@
         .end(function(err, res) {
           expect(res.body.errors).toBeDefined();
           expect(res.body.name).toBe('ValidationError');
-          expect(res.body.message).toEqual('Role validation failed');
+          expect(res.body.message).toBe('Role validation failed');
           expect(res.body.errors.title.message)
             .toContain('`random` is not a valid enum value for path `title`.');
           done();
@@ -71,7 +71,7 @@
         .set('Accept', 'application/json')
         .end(function(err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toBeDefined();
           expect(Array.isArray(res.body)).toBeTruthy();
           expect(res.body.length).toBeGreaterThan(2);

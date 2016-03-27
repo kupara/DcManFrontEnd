@@ -37,7 +37,7 @@
         })
         .set('Accept', 'application/json')
         .end(function (err, res) {
-          expect(res.status).toEqual(401);
+          expect(res.status).toBe(401);
           expect(res.body).toBeDefined();
           expect(res.body.error).toBeDefined();
           expect(res.body.error).toBe('You are not authenticated');
@@ -50,7 +50,7 @@
         .get('/documents')
         .set('Accept', 'application/json')
         .end(function (err, res) {
-          expect(res.status).toEqual(401);
+          expect(res.status).toBe(401);
           expect(res.body.error).toBeDefined();
           expect(res.body.error).toBe('You are not authenticated');
           done();
@@ -93,8 +93,8 @@
           expect(res.body).toBeDefined();
           expect(res.status).toBe(200);
           expect(res.body.doc.dateCreated).toBeDefined();
-          expect(res.body.doc.title).toEqual('Create Test Document');
-          expect(res.body.message).toEqual('Document created successfully');
+          expect(res.body.doc.title).toBe('Create Test Document');
+          expect(res.body.message).toBe('Document created successfully');
           done();
         });
     });
@@ -113,7 +113,7 @@
         .end(function (err, res) {
           expect(res.body).toBeDefined();
           expect(res.status).toBe(404);
-          expect(res.body.error).toEqual('User not found');
+          expect(res.body.error).toBe('User not found');
           done();
         });
     });
@@ -127,9 +127,9 @@
           .set('Accept', 'application/json')
           .end(function (err, res) {
             expect(err).toBeNull();
-            expect(res.status).toEqual(200);
+            expect(res.status).toBe(200);
             expect(res.body).toBeDefined();
-            expect(res.body.title).toEqual('Only document to be returned');
+            expect(res.body.title).toBe('Only document to be returned');
             done();
           });
       });
@@ -142,10 +142,10 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toBeDefined();
           expect(Array.isArray(res.body)).toBeTruthy();
-          expect(res.body.length).toEqual(5);
+          expect(res.body.length).toBe(5);
           done();
         });
     });
@@ -157,9 +157,9 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(Array.isArray(res.body)).toBeTruthy();
-          expect(res.body.length).toEqual(2);
+          expect(res.body.length).toBe(2);
           done();
         });
     });
@@ -171,9 +171,10 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
+          expect(res.status).toBe(200);
           expect(Array.isArray(res.body)).toBeTruthy();
-          expect(res.body.length).toEqual(1);
-          expect(res.body[0].title).toEqual('Create Test Document');
+          expect(res.body.length).toBe(1);
+          expect(res.body[0].title).toBe('Create Test Document');
           done();
         });
     });
@@ -185,10 +186,10 @@
           .set('Accept', 'application/json')
           .end(function (err, res) {
             expect(err).toBeNull();
-            expect(res.status).toEqual(200);
+            expect(res.status).toBe(200);
             expect(res.body).toBeDefined();
             expect(Array.isArray(res.body)).toBeTruthy();
-            expect(res.body.length).toEqual(1);
+            expect(res.body.length).toBe(1);
             done();
           });
     });
@@ -200,9 +201,9 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(Array.isArray(res.body)).toBeTruthy();
-          expect(res.body.length).toEqual(3);
+          expect(res.body.length).toBe(3);
           done();
         });
     });
@@ -222,10 +223,10 @@
           .end(function (err, res) {
             expect(err).toBeNull();
           
-            expect(res.status).toEqual(200);
+            expect(res.status).toBe(200);
             expect(res.body).toBeDefined();
-            expect(res.body.doc.title).toEqual('Updated Title');
-            expect(res.body.message).toEqual('Document updated successfully');
+            expect(res.body.doc.title).toBe('Updated Title');
+            expect(res.body.message).toBe('Document updated successfully');
             done();
           });
       });
@@ -245,11 +246,10 @@
           .set('Accept', 'application/json')
           .end(function (err, res) {
             expect(err).toBeNull();
-          
-            expect(res.status).toEqual(200);
+            expect(res.status).toBe(200);
             expect(res.body).toBeDefined();
-            expect(res.body.doc.title).toEqual('Updated Title');
-            expect(res.body.message).toEqual('Document updated successfully');
+            expect(res.body.doc.title).toBe('Updated Title');
+            expect(res.body.message).toBe('Document updated successfully');
             done();
           });
       });
@@ -268,9 +268,9 @@
           .set('Accept', 'application/json')
           .end(function (err, res) {
             expect(err).toBeNull();
-            expect(res.status).toEqual(403);
+            expect(res.status).toBe(403);
             expect(res.body.error.message)
-              .toEqual('You have no permission to make changes to this document');
+              .toBe('You have no permission to make changes to this document');
             done();
           });
       });
@@ -289,9 +289,9 @@
           .set('Accept', 'application/json')
           .end(function (err, res) {
             expect(err).toBeNull();
-            expect(res.status).toEqual(403);
+            expect(res.status).toBe(403);
             expect(res.body.error.message)
-              .toEqual('You have no permission to make changes to this document');
+              .toBe('You have no permission to make changes to this document');
             done();
           });
       });
@@ -306,9 +306,9 @@
           .set('x-access-token', adminToken)
           .end(function (err, res) {
             expect(err).toBeNull();
-            expect(res.status).toEqual(200);
+            expect(res.status).toBe(200);
             expect(res.body).toBeDefined();
-            expect(res.body.message).toEqual('Document deleted successfully.');
+            expect(res.body.message).toBe('Document deleted successfully.');
             done();
           });
       });
@@ -322,9 +322,9 @@
           .set('x-access-token', userToken)
           .end(function (err, res) {
             expect(err).toBeNull();
-            expect(res.status).toEqual(200);
+            expect(res.status).toBe(200);
             expect(res.body).toBeDefined();
-            expect(res.body.message).toEqual('Document deleted successfully.');
+            expect(res.body.message).toBe('Document deleted successfully.');
             done();
           });
       });
@@ -338,9 +338,9 @@
           .set('x-access-token', viewerToken)
           .end(function (err, res) {
             expect(err).toBeNull();
-            expect(res.status).toEqual(403);
+            expect(res.status).toBe(403);
             expect(res.body.error.message)
-              .toEqual('You have no permission to make changes to this document');
+              .toBe('You have no permission to make changes to this document');
             done();
           });
       });
@@ -354,9 +354,9 @@
           .set('x-access-token', userToken)
           .end(function (err, res) {
             expect(err).toBeNull();
-            expect(res.status).toEqual(403);
+            expect(res.status).toBe(403);
             expect(res.body.error.message)
-              .toEqual('You have no permission to make changes to this document');
+              .toBe('You have no permission to make changes to this document');
             done();
           });
       });
@@ -369,8 +369,8 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
-          expect(res.body.length).toEqual(2);
+          expect(res.status).toBe(200);
+          expect(res.body.length).toBe(2);
           expect(res.body[0].content).toContain('viewed');
           done();
         });

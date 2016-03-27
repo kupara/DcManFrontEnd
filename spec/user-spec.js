@@ -35,9 +35,9 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
-          expect(res.body.message).toEqual('User created successfully');
-          expect(res.body.user.username).toEqual('kups');
+          expect(res.status).toBe(200);
+          expect(res.body.message).toBe('User created successfully');
+          expect(res.body.user.username).toBe('kups');
           expect(res.body.user._id).toBeDefined();
           expect(res.body.token).toBeDefined();
           done();
@@ -59,7 +59,7 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(res.body).toBeDefined();
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body.error).toBeDefined();
           expect(res.body.error.message).toBe('Please select another username');
           done();
@@ -109,7 +109,7 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(401);
+          expect(res.status).toBe(401);
           expect(res.body).toBeDefined();
           expect(res.body.error).toBeDefined();
           expect(res.body.error.message).toContain('Invalid password');
@@ -127,7 +127,7 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(401);
+          expect(res.status).toBe(401);
           expect(res.body).toBeDefined();
           expect(res.body.error).toBeDefined();
           expect(res.body.error.message).toContain('Wrong username');
@@ -145,7 +145,7 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toBeDefined();
           expect(res.body.token).toBeDefined();
           done();
@@ -159,10 +159,10 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toBeDefined();
           expect(Array.isArray(res.body)).toBeFalsy();
-          expect(res.body.username).toEqual('adminUser');
+          expect(res.body.username).toBe('adminUser');
           done();
         });
     });
@@ -180,8 +180,8 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
-          expect(res.body.message).toEqual('User updated successfully');
+          expect(res.status).toBe(200);
+          expect(res.body.message).toBe('User updated successfully');
           done();
         });
     });
@@ -198,9 +198,9 @@
         })
         .set('Accept', 'application/json')
         .end(function (err, res) {
-          expect(res.status).toEqual(404);
+          expect(res.status).toBe(404);
           expect(res.body.error).toBeDefined();
-          expect(res.body.error.message).toEqual('User not found');
+          expect(res.body.error.message).toBe('User not found');
           done();
         });
     });
@@ -212,9 +212,9 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toBeDefined();
-          expect(res.body.message).toEqual('Successfully logged out');
+          expect(res.body.message).toBe('Successfully logged out');
           done();
         });
     });
@@ -229,9 +229,9 @@
           .set('Accept', 'application/json')
           .end(function (err, res) {
             expect(err).toBeNull();
-            expect(res.status).toEqual(200);
+            expect(res.status).toBe(200);
             expect(res.body).toBeDefined();
-            expect(res.body.message).toEqual('User deleted successfully');
+            expect(res.body.message).toBe('User deleted successfully');
             done();
           });
       });
@@ -244,10 +244,10 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toBeDefined();
           expect(Array.isArray(res.body)).toBeTruthy();
-          expect(res.body.length).toEqual(5);
+          expect(res.body.length).toBe(5);
           done();
         });
     });
@@ -259,7 +259,7 @@
         .set('Accept', 'application/json')
         .end(function (err, res) {
           expect(err).toBeNull();
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toBeDefined();
           expect(Array.isArray(res.body)).toBeTruthy();
           expect(res.body.length).toBeGreaterThan(2);
