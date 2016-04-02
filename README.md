@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ###Document Management API
 
 [![Build Status](https://travis-ci.org/andela-ekupara/dcman.svg?branch=master)](https://travis-ci.org/andela-ekupara/dcman)
@@ -24,7 +23,3 @@ Admins can access all documents, while owners can access their documents as well
 Testing is done using [**Supertest**](https://www.npmjs.com/package/supertest) and [**Jasmine**](https://www.npmjs.com/package/jasmine). Supertest enables sending requests to the various API endpoints. To test the system, navigate to the root folder of the project and make sure you are in the master branch by running git branch. Finally, run the following command in a tab in order:
 
   - npm test
-=======
-# DcManFrontEnd
-Implementation of a Document Management using React, MongoDB, Express and Node JS
->>>>>>> 577b4c148084dfdbb19e14481996a5f1334ecaf4
