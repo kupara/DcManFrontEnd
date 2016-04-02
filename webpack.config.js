@@ -15,11 +15,17 @@ module.exports = {
     path: path.join(__dirname, 'public'),
     publicPath: '/public/'
   },
-
+  
+  devServer: {
+    contentBase: './app'
+  },
+  
   module: {
     preLoaders: [
       {
-        test: /\.js$/, loader: 'jshint-loader', exclude: /node_modules/
+        test: /\.js$/, 
+        loader: 'jshint-loader', 
+        exclude: /node_modules/
       }
     ],
     loaders: [{

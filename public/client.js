@@ -51,7 +51,7 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	
+	//import createHistory from 'history/lib/createBrowserHistory';
 
 /***/ }
 /******/ ]);
