@@ -1,4 +1,4 @@
-(function () {
+(() => {
   'use strict';
   const User = require('../models/users'),
     Documents = require('../models/documents'),
@@ -15,8 +15,8 @@
   }
 
   module.exports = {
-    all: function (req, res) {
-      User.find({}, function (err, users) {
+    all: (req, res) => {
+      User.find({}, (err, users) => {
         if (err) {
           res.send(err);
         } else {
@@ -25,12 +25,12 @@
       });
     },
 
-    register: function (req, res) {
+    register: (req, res) => {
       User.findOne({
           username: req.body.username
         })
         .select('username')
-        .exec(function (err, user) {
+        .exec((err, user) => {
           if (user && user.username === req.body.username) {
             res.send({
               error: {
@@ -49,7 +49,7 @@
             let tokenData = _.pick(newUser, '_id', 'username', 'name', 'email', 'loggedIn');
             let token = createToken(tokenData);
 
-            newUser.save(function (err, user) {
+            newUser.save((err, user) => {
               if (err) {
                 res.send(err);
               } else {
@@ -66,8 +66,8 @@
     },
 
 
-    getOne: function (req, res) {
-      User.findById(req.params.id, function (err, user) {
+    getOne: (req, res) => {
+      User.findById(req.params.id, (err, user) => {
         if (err) {
           res.send(err);
         } else {
@@ -77,9 +77,9 @@
       });
     },
 
-    update: function (req, res) {
+    update: (req, res) => {
       let id = req.params.id;
-      User.findByIdAndUpdate(id, req.body, function (err, user) {
+      User.findByIdAndUpdate(id, req.body, (err, user) => {
         if (err) {
           res.send(err);
         } else if (!user) {
@@ -94,12 +94,11 @@
             user: user
           });
         }
-
       });
     },
 
-    delete: function (req, res) {
-      User.findByIdAndRemove(req.params.id, function (err, user) {
+    delete: (req, res) => {
+      User.findByIdAndRemove(req.params.id, (err, user) => {
         if (err) {
           res.send(err);
         } else {
@@ -118,11 +117,11 @@
       });
     },
 
-    authenticate: function (req, res, next) {
+    authenticate: (req, res, next) => {
       let token = req.headers['x-access-token'] || req.body.token;
 
       if (token) {
-        jwt.verify(token, secretKey, function (err, decoded) {
+        jwt.verify(token, secretKey, (err, decoded) => {
           if (err) {
             res.status(401).send({
               error: 'Failed to Authenticate'
@@ -140,8 +139,8 @@
       }
     },
 
-    canAccess: function (req, res, next) {
-      Documents.findById(req.params.id, function (err, document) {
+    canAccess: (req, res, next) => {
+      Documents.findById(req.params.id, (err, document) => {
         if (document) {
           if (req.decoded._id === document.ownerId.toString()) {
 
@@ -159,7 +158,7 @@
       });
     },
 
-    login: function (req, res, next) {
+    login: (req, res, next) => {
       User.findOneAndUpdate({
           username: req.body.username
         }, {
@@ -170,7 +169,7 @@
           new: true
         })
         .select('password role name username email')
-        .exec(function (err, user) {
+        .exec((err, user) => {
           if (err) {
             next(err);
           }
@@ -202,8 +201,8 @@
         });
     },
 
-    session: function (req, res) {
-      User.findById(req.decoded.id, function (err, user) {
+    session: (req, res) => {
+      User.findById(req.decoded.id, (err, user) => {
         if (err || !user) {
           res.json({
             loggedIn: 'false'
@@ -233,14 +232,14 @@
         });
     },
 
-    getMyDocs: function (req, res) {
-      User.findById(req.params.id, function (err, user) {
+    getMyDocs: (req, res) => {
+      User.findById(req.params.id, (err, user) => {
         if (err) {
           res.send(err);
         } else {
           Documents.find({
             ownerId: user._id
-          }, function (err, documents) {
+          }, (err, documents) => {
             if (err) {
               res.send(err);
             } else {

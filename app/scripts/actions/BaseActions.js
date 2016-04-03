@@ -17,7 +17,7 @@
         });
     },
 
-    delete: (url, data, actionType, token=null) => {
+    delete: (url, data, actionType, token = null) => {
       request
         .delete(url)
         .send(data || {})
@@ -30,7 +30,7 @@
         });
     },
 
-    put: (url, data, actionType, token=null) => {
+    put: (url, data, actionType, token = null) => {
       request
         .put(url)
         .send(data)
@@ -43,7 +43,7 @@
         });
     },
 
-    post: (url, data, actionType, token=null) => {
+    post: (url, data, actionType, token = null) => {
       request
         .post(url)
         .send(data)

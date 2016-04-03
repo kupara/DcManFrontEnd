@@ -1,4 +1,4 @@
-(function() {
+(() => {
   'use strict';
   module.exports = {
     'database': 'mongodb://localhost/dcman',

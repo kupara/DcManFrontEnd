@@ -1,4 +1,4 @@
-(function() {
+(() => {
   'use strict';
   const express = require('express'),
     bodyParser = require('body-parser'),
@@ -6,7 +6,7 @@
     mongoose = require('mongoose'),
     config = require('./server/config/config');
 
-  mongoose.connect(config.database, function(err) {
+  mongoose.connect(config.database, (err) => {
     if (err) {
       console.log(err);
     } else {
@@ -23,7 +23,7 @@
   routes(app);
 
   var PORT = process.env.PORT || '3001';
-    app.listen(PORT, function(err) {
+    app.listen(PORT, (err) => {
       if (err) {
         console.log(err);
       }

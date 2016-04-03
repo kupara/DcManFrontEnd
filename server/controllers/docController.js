@@ -1,16 +1,16 @@
-(function () {
+(() => {
   'use strict';
   const Document = require('../models/documents'),
     User = require('../models/users');
 
   module.exports = {
-    all: function (req, res) {
+    all: (req, res) => {
       let query = {},
         limit = req.query.limit || 0;
-    
+
       if (req.query.role === 'admin' && req.decoded.role === 'admin') {
         query = {};
-      } 
+      }
       if (req.query.role === 'user' && req.decoded.role === 'admin') {
         query = {
           $or: [{
@@ -25,7 +25,7 @@
             }
           ]
         };
-      } 
+      }
       if (req.query.role === 'user' && req.decoded.role === 'user') {
         query = {
           $or: [{
@@ -40,7 +40,7 @@
             }
           ]
         };
-      } 
+      }
       if (req.query.role === 'viewer' || req.decoded.role === 'viewer') {
         query.accessLevel = {
           $eq: 'public'
@@ -59,7 +59,7 @@
           dateCreated: -1
         })
         .limit(parseInt(limit, 10))
-        .exec(function (err, documents) {
+        .exec((err, documents) => {
           if (err) {
             res.send(err);
           } else {
@@ -68,17 +68,17 @@
         });
     },
 
-    create: function (req, res) {
+    create: (req, res) => {
       let newDocument = new Document(req.body);
       User.findOne()
         .where('_id').equals(req.body.ownerId)
-        .exec(function (err, user) {
+        .exec((err, user) => {
           if (!user) {
             res.status(404).send({
               error: 'User not found'
             });
           } else {
-            newDocument.save(function (err, document) {
+            newDocument.save((err, document) => {
               if (err) {
                 res.send(err);
               } else {
@@ -92,8 +92,8 @@
         });
     },
 
-    getOne: function (req, res) {
-      Document.findById(req.params.id, function (err, document) {
+    getOne: (req, res) => {
+      Document.findById(req.params.id, (err, document) => {
         if (err) {
           res.send(err);
         } else {
@@ -102,12 +102,12 @@
       });
     },
 
-    update: function (req, res) {
-      User.findById(req.decoded._id, function (err) {
+    update: (req, res) => {
+      User.findById(req.decoded._id, (err) => {
         if (err) {
           res.send(err);
         } else {
-          Document.findById(req.params.id, function (err, document) {
+          Document.findById(req.params.id, (err, document) => {
             if (err) {
               res.send(err);
             } else {
@@ -124,7 +124,7 @@
                 document.access = req.body.access;
               }
               document.lastModified = Date.now();
-              document.save(function (err, document) {
+              document.save((err, document) => {
                 if (err) {
                   res.send(err);
                 } else {
@@ -140,8 +140,8 @@
       });
     },
 
-    delete: function (req, res) {
-      Document.findByIdAndRemove(req.params.id, function (err, document) {
+    delete: (req, res) => {
+      Document.findByIdAndRemove(req.params.id, (err, document) => {
         if (err) {
           res.send(err);
         } else {
@@ -155,14 +155,14 @@
 
 
 
-    search: function (req, res) {
+    search: (req, res) => {
       const searchterm = req.query.q;
       const re = new RegExp(searchterm, 'gi');
       Document.find({
         content: {
           $regex: re
         }
-      }, function (err, documents) {
+      }, (err, documents) => {
         if (err) {
           res.status(500).send(err);
         } else {

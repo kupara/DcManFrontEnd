@@ -1,10 +1,10 @@
-(function() {
+(() => {
   'use strict';
   const mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     roles = ['admin', 'user', 'viewer', 'tester'];
-  
-  const roleSchema = new  Schema({
+
+  const roleSchema = new Schema({
     title: {
       type: String,
       enum: roles,

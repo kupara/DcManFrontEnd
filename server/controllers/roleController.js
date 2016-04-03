@@ -1,31 +1,31 @@
-(function() {
+(() => {
   'use strict';
   const Role = require('../models/roles');
 
   module.exports = {
-    all: function (req, res) {
-      Role.find({}, function(err, roles){
+    all: (req, res) => {
+      Role.find({}, (err, roles) => {
         if (err) {
           res.send(err);
         } else {
           res.json(roles);
-        }  
+        }
       });
     },
-    
-    one: function(req, res) {
-      Role.findById(req.params.id, function(err, role) {
+
+    one: (req, res) => {
+      Role.findById(req.params.id, (err, role) => {
         if (err) {
           res.send(err);
         }
         res.send(role);
       });
     },
-    
-    create: function(req, res) {
+
+    create: (req, res) => {
       let newRole = new Role(req.body);
-      newRole.save(function(err, role){
-        if(err) {
+      newRole.save((err, role) => {
+        if (err) {
           res.send(err);
         } else {
           res.json(role);
@@ -34,4 +34,3 @@
     }
   };
 })();
- 

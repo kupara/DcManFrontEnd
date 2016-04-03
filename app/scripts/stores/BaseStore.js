@@ -5,7 +5,7 @@
   const assign = require('object-assign');
 
   let BaseStore = assign({}, EventEmitter.prototype, {
-    emitChange: function(event) {
+    emitChange: (event) => {
       if (event) {
         this.emit(event);
       } else {
@@ -13,7 +13,7 @@
       }
     },
 
-    addChangeListener: function(callback, event) {
+    addChangeListener: (callback, event) => {
       if (event) {
         this.on(event, callback);
       } else {
@@ -21,7 +21,7 @@
       }
     },
 
-    removeChangeListener: function(callback, event) {
+    removeChangeListener: (callback, event) => {
       if (event) {
         this.removeListener(event, callback);
       } else {
