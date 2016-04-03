@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  let AppConstants = require('../constants/AppConstants'),
+  const AppConstants = require('../constants/AppConstants'),
     Dispatcher = require('../dispatcher/AppDispatcher'),
     BaseStore = require('./BaseStore'),
     assign = require('object-assign');
