@@ -13,7 +13,7 @@
     GET_USERS: null,
     USER_LOGIN: null,
     USER_LOGOUT: null,
-    CREATE_USER: null,
+    USER_SIGNUP: null,
     UPDATE_USER: null,
     DELETE_USER: null,
     USER_SESSION: null

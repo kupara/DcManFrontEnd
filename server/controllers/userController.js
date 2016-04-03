@@ -45,8 +45,9 @@
             newUser.role = req.body.role;
             newUser.name.first = req.body.firstname;
             newUser.name.last = req.body.lastname;
-            let userData = _.pick(newUser, '_id', 'username', 'name', 'email');
-            let token = createToken(userData);
+            newUser.loggedIn = true;
+            let tokenData = _.pick(newUser, '_id', 'username', 'name', 'email', 'loggedIn');
+            let token = createToken(tokenData);
 
             newUser.save(function (err, user) {
               if (err) {
@@ -64,41 +65,6 @@
         });
     },
 
-    login: function (req, res, next) {
-      User.findOne({})
-        .where('username').equals(req.body.username)
-        .select('password role name username email')
-        .exec(function (err, user) {
-          if (err) {
-            next(err);
-          }
-          if (!user) {
-            res.status(401).send({
-              error: {
-                message: 'Wrong username'
-              }
-            });
-          } else if (user) {
-            let correct = user.checkPass(req.body.password);
-            if (!correct) {
-              res.status(401).send({
-                error: {
-                  message: 'Invalid password'
-                }
-              });
-              next(err);
-            } else {
-              let userData = _.pick(user, '_id', 'username', 'role', 'email'),
-                token = createToken(userData);
-              res.send({
-                message: 'Login successful',
-                token: token,
-                user: userData
-              });
-            }
-          }
-        });
-    },
 
     getOne: function (req, res) {
       User.findById(req.params.id, function (err, user) {
@@ -123,12 +89,12 @@
             }
           });
         } else {
-            res.send({
-              message: 'User updated successfully',
-              user: user
-            });
-          }
-        
+          res.send({
+            message: 'User updated successfully',
+            user: user
+          });
+        }
+
       });
     },
 
@@ -175,7 +141,7 @@
     },
 
     canAccess: function (req, res, next) {
-      Documents.findById(req.params.id, function(err, document){
+      Documents.findById(req.params.id, function (err, document) {
         if (document) {
           if (req.decoded._id === document.ownerId.toString()) {
 
@@ -189,15 +155,82 @@
               }
             });
           }
-        }  
+        }
       });
     },
 
-    logout: function (req, res) {
-      req.headers['x-access-token'] = null;
-      res.send({
-        message: 'Successfully logged out'
+    login: function (req, res, next) {
+      User.findOneAndUpdate({
+          username: req.body.username
+        }, {
+          $set: {
+            loggedIn: true
+          }
+        }, {
+          new: true
+        })
+        .select('password role name username email')
+        .exec(function (err, user) {
+          if (err) {
+            next(err);
+          }
+          if (!user) {
+            res.status(401).send({
+              error: {
+                message: 'Wrong username'
+              }
+            });
+          } else if (user) {
+            let correct = user.checkPass(req.body.password);
+            if (!correct) {
+              res.status(401).send({
+                error: {
+                  message: 'Invalid password'
+                }
+              });
+              next(err);
+            } else {
+              let userData = _.pick(user, '_id', 'username', 'role', 'email', 'loggedIn'),
+                token = createToken(userData);
+              res.send({
+                message: 'Login successful',
+                token: token,
+                user: userData
+              });
+            }
+          }
+        });
+    },
+
+    session: function (req, res) {
+      User.findById(req.decoded.id, function (err, user) {
+        if (err || !user) {
+          res.json({
+            loggedIn: 'false'
+          });
+        } else {
+          let userData = _.pick(user, '_id', 'username', 'email');
+          return res.json({
+            user: userData,
+            loggedIn: user.loggedIn.toString()
+          });
+        }
       });
+    },
+
+    logout: (req, res, next) => {
+      User.findByIdAndUpdate(req.decoded._id, {
+          loggedIn: false
+        })
+        .exec((err, user) => {
+          if (err || !user) {
+            return next(err);
+          } else {
+            res.json({
+              message: 'Successfully logged out'
+            });
+          }
+        });
     },
 
     getMyDocs: function (req, res) {

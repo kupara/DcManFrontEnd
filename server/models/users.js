@@ -33,6 +33,10 @@
       type: Schema.Types.String,
       ref: Role.title,
       required: true
+    },
+    loggedIn: {
+      type: Boolean,
+      default: false
     }
   });
 

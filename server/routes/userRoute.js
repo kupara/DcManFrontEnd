@@ -14,8 +14,11 @@
     app.route('/users/login')
       .post(User.login); 
     
+    app.route('/users/session')
+      .get(User.authenticate, User.session);
+    
     app.route('/users/logout')
-      .get(User.authenticate, User.logout);
+      .post(User.authenticate, User.logout);
     
     app.route('/users')
       .get(User.all)
