@@ -11,20 +11,20 @@ module.exports = {
   },
 
   output: {
-    filename: 'client.js',
+    filename: 'bundle.js',
     path: path.join(__dirname, 'public'),
-    publicPath: '/public/'
+    publicPath: '/public'
   },
-  
+
   devServer: {
-    contentBase: './app'
+    contentBase: '/public'
   },
-  
+
   module: {
     preLoaders: [
       {
-        test: /\.js$/, 
-        loader: 'jshint-loader', 
+        test: /\.js$/,
+        loader: 'eslint-loader',
         exclude: /node_modules/
       }
     ],
@@ -32,7 +32,11 @@ module.exports = {
       test: /\.jsx?$/,
       include: path.join(__dirname, 'app'),
       loader: 'babel-loader',
-      exclude: [path.resolve(__dirname, 'node_modules')]
+      exclude: [path.resolve(__dirname, 'node_modules')],
+      query:
+      {
+        presets:['react', 'es2015']
+      }
     }, {
       test: /\.css?$/,
       include: path.join(__dirname, 'app'),
