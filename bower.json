@@ -1,0 +1,27 @@
+{
+  "name": "dcman-front-end",
+  "description": "Documenr management system",
+  "main": "server.js",
+  "authors": [
+    "andela-ekupara <edwin.kupara@andela.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/andela-ekupara/DcManFrontEnd",
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.2",
+    "Materialize": "materialize#^0.97.6",
+    "font-awesome": "fontawesome#^4.5.0"
+  }
+}

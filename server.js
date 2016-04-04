@@ -28,6 +28,7 @@
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(express.static(publicPath));
+  app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
   if (!isProduction) {
     // We require the bundler inside the if block because

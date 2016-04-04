@@ -1,4 +1,5 @@
 import React from 'react';
+import NavAppBar from './AppBar.jsx'
 
 export default class Main extends React.Component {
   constructor() {
@@ -8,10 +9,9 @@ export default class Main extends React.Component {
   render() {
     return (
       <div>
+          <NavAppBar loggedIn={false}/>
         <div className="spacer"></div>
-        <div id="ui-view" className="container titlehead">
-        </div>
-        <div className="container">
+        <div>
           {this.props.children}
         </div>
       </div>

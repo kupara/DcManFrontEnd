@@ -28,9 +28,6 @@
       // from the build path. When proxying:
       // http://localhost:3001/public -> http://localhost:8081/public
       publicPath: '/public/',
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      },
       // Configure hot replacement
       hot: true,
       debug: true,

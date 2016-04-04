@@ -39,7 +39,7 @@ module.exports = {
       }
     }, {
       test: /\.css?$/,
-      include: path.join(__dirname, 'app'),
+      include: path.join(__dirname, 'app', 'styles'),
       exclude: [path.resolve(__dirname, 'node_modules')],
       loader: 'style-loader!css-loader'
     }]

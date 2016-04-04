@@ -1,5 +1,7 @@
 import React from 'react';
 
+require('../../../styles/styles.css');
+
 export default class Landing extends React.Component {
     constructor() {
       super();
@@ -7,25 +9,18 @@ export default class Landing extends React.Component {
 
     render() {
       return (
-        <div id="hero">
-          <div className="container" id="hero-text-container">
-            <div className="row">
-              <div className="col s12 center-align">
-                <h1 id="hero-title" itemProp="description">
-                  <span className="bold" >DCMan</span>
-                  <span className="thin">
-                    is the simplest way for <br />
-                  anyone to manage documents online</span>
-                </h1>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col s12">
-                <div className="center-align">
-                  <a className="btn btn-large create-list-link hero-btn" href="/auth">
-                    Get Started
-                  </a>
+        <div>
+          <div className="section section__hero">
+            <div className="container">
+              <div className="row">
+                <div className="col s12 m7">
+                  <h1 className="header">DCMan</h1>
+                  <h3 className="header">Document Management System</h3>
+                  <h5 className="header">Helps you create and manage documents online</h5>
                 </div>
+              </div>
+              <div className="row center">
+                  <a href="#!" className="btn btn-large btn-start">Start Now &raquo;</a>
               </div>
             </div>
           </div>

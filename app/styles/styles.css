@@ -1,0 +1,42 @@
+
+
+
+
+.section__hero {
+  height: 100vh;
+  height: auto;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  position: relative;
+  background-color: #03A9F4;
+}
+.section__hero h3 {
+  color: white;
+}
+.section__hero h5 {
+  line-height: 2.3rem;
+}
+.section__hero h5 span {
+  border-bottom: 2px solid white;
+}
+.section__hero h1 {
+  font-weight: bold;
+  font-size: 4.2rem;
+  line-height: 1.10;
+  color: #393939;
+}
+.section__hero .btn {
+  width: 20rem;
+  margin-top: 1.5rem;
+}
+
+.section__hero .btn__main-cta {
+  height: 3rem;
+}
+
+.btn-start {
+  background-color: #E040FB;
+}
+.btn-start:hover {
+  background-color: #E34BFD;
+}
