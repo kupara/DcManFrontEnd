@@ -5,10 +5,10 @@
     require('./userRoute')(app);
     require('./docRoute')(app);
 
-    app.route('/')
+    app.route('*')
       .get((req, res) => {
-        res.send({
-          message: 'Welcome to the DCMan'
+        res.sendFile('index.html', {
+          root: './public/'
         });
       });
   };

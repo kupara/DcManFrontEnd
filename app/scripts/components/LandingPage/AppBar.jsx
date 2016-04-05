@@ -7,6 +7,7 @@ class NavAppBar extends React.Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     return(
       <AppBar
@@ -17,7 +18,7 @@ class NavAppBar extends React.Component {
             {
               this.props.loggedIn ?
                 <FlatButton label="Logout" labelStyle={{color: '#FFF'}}/>
-                :  <FlatButton label="Sign in" labelStyle={{color: '#FFF'}}/>
+                :  <FlatButton label="Sign in" onTouchTap = {this.props.signInAction} labelStyle={{color: '#FFF'}}/>
 
             }
             <FlatButton label="Sign up" />
