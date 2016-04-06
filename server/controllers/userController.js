@@ -189,12 +189,13 @@
               });
               next(err);
             } else {
-              let userData = _.pick(user, '_id', 'username', 'role', 'email', 'loggedIn'),
+              let userData = _.pick(user, '_id', 'username', 'role', 'email'),
                 token = createToken(userData);
               res.send({
                 message: 'Login successful',
                 token: token,
-                user: userData
+                user: userData,
+                loggedIn: true
               });
             }
           }

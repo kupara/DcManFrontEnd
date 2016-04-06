@@ -9,32 +9,38 @@ import SignInForm from './SignIn.jsx';
 // Needed for onTouchTap
 injectTapEventPlugin();
 
+const style = {
+  tab: {
+    backgroundColor: '#0288D1'
+  },
+  auth: {
+    width: '100%',
+    textAlign: 'center'
+  }
+};
+
+
 class Auth extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: 'signin'
-    };
-
   }
 
   handleChange (value) {
     this.setState({
       value: value
     });
-  };
+  }
 
   render() {
     return (
-      <div className='container'>
+      <div className='container' style={style.auth}>
         <Tabs
-          value={this.state.value}
-          onChange={this.handleChange.bind(this)}
+          tabItemContainerStyle={style.tab}
           >
-          <Tab label="Sign In" value='signin' >
+          <Tab label="Sign In">
             <SignInForm />
           </Tab>
-          <Tab label="Sign Up" value='signup' >
+          <Tab label="Sign Up" >
             <SignUpForm />
           </Tab>
         </Tabs>

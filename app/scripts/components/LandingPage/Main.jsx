@@ -17,7 +17,10 @@ export default class Main extends React.Component {
   render() {
     return (
       <div>
-        <NavAppBar loggedIn={this.state.loggedIn} />
+        <NavAppBar
+          loggedIn={this.state.loggedIn}
+          setUser={this.state.user}
+          />
         <div className="spacer"></div>
         <div>
           {this.props.children}

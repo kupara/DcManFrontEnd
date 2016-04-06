@@ -1,35 +1,23 @@
-(() => {
-  'use strict';
+import {EventEmitter} from 'events';
 
-  const EventEmitter = require('events').EventEmitter;
-  const assign = require('object-assign');
+var CHANGE_EVENT = 'change';
 
-  let BaseStore = assign({}, EventEmitter.prototype, {
-    emitChange: (event) => {
-      if (event) {
-        this.emit(event);
-      } else {
-        this.emit('change');
-      }
-    },
+class BaseStore extends EventEmitter {
+  constructor() {
+    super();
+  }
 
-    addChangeListener: (callback, event) => {
-      if (event) {
-        this.on(event, callback);
-      } else {
-        this.on('change', callback);
-      }
-    },
+  emitChange() {
+    this.emit(CHANGE_EVENT);
+  }
 
-    removeChangeListener: (callback, event) => {
-      if (event) {
-        this.removeListener(event, callback);
-      } else {
-        this.removeListener('change', callback);
-      }
-    }
-  });
+  addChangeListener(callback) {
+    this.on(CHANGE_EVENT, callback);
+  }
 
-  module.exports = BaseStore;
-
-})();
+  removeChangeListener(callback) {
+    this.removeListener(CHANGE_EVENT, callback);
+  }
+}
+BaseStore.dispatchToken = null;
+export default BaseStore;

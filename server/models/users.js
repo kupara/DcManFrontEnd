@@ -44,7 +44,8 @@
     role: {
       type: Schema.Types.String,
       ref: Role.title,
-      required: true
+      default: 'user',
+      required: false
     },
     loggedIn: {
       type: Boolean,
@@ -52,7 +53,7 @@
     }
   });
 
-  userSchema.pre('save', (next) => {
+  userSchema.pre('save', function(next) {
     const user = this;
 
     bcrypt.hash(user.password, null, null, (err, hash) => {
@@ -65,9 +66,9 @@
     });
   });
 
-  userSchema.methods.checkPass = (password) => {
+  userSchema.methods.checkPass = function(pass) {
     const user = this;
-    return bcrypt.compareSync(password, user.password);
+    return bcrypt.compareSync(pass, user.password);
   };
 
   module.exports = mongoose.model('User', userSchema);

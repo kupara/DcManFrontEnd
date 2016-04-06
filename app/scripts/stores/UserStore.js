@@ -1,100 +1,103 @@
-(() => {
-  'use strict';
+import AppConstants from '../constants/AppConstants';
+import Dispatcher from '../dispatcher/AppDispatcher';
+import BaseStore from './BaseStore';
 
-  const AppConstants = require('../constants/AppConstants'),
-    Dispatcher = require('../dispatcher/AppDispatcher'),
-    BaseStore = require('./BaseStore'),
-    assign = require('object-assign');
 
-  let UserStore = assign({}, BaseStore, {
-    users: null,
-    session: null,
-    loginResult: null,
-    logoutResult: null,
-    signupResult: null,
-    updateResult: null,
+let users = null,
+  session = null,
+  loginResult = null,
+  logoutResult = null,
+  signupResult = null,
+  updateResult = null;
 
-    getUsers() {
-      return this.users;
-    },
+class UserStore extends BaseStore {
 
-    setUsers(users) {
-      this.users = users;
-      this.emitChange();
-    },
+  constructor() {
+    super();
+  }
+  getUsers() {
+    return users;
+  }
 
-    setSession(session) {
-      this.session = session;
-      this.emitChange('session');
-    },
+  setUsers(user) {
+    users = user;
+    this.emitChange();
+  }
 
-    getSession() {
-      return this.session;
-    },
+  setSession(session) {
+    this.session = session;
+    this.emitChange('session');
+  }
 
-    setLoginResult(loginResult) {
-      this.loginResult = loginResult;
-      this.emitChange('login');
-    },
+  getSession() {
+    return session;
+  }
 
-    getLoginResult() {
-      return this.loginResult;
-    },
+  setLoginResult(login) {
+    loginResult = login;
+    this.emitChange('login');
+  }
 
-    setLogoutResult(logoutResult) {
-      this.logoutResult = logoutResult;
-      this.emitChange();
-    },
+  getLoginResult() {
+    return loginResult;
+  }
 
-    getLogoutResult() {
-      return this.logoutResult;
-    },
+  setLogoutResult(logout) {
+    logoutResult = logout;
+    this.emitChange();
+  }
 
-    setSignupResult(signupResult) {
-      this.signupResult = signupResult;
-      this.emitChange('signup');
-    },
+  getLogoutResult() {
+    return ogoutResult;
+  }
 
-    getSignupResult() {
-      return this.signupResult;
-    },
+  setSignupResult(signup) {
+    signupResult = signup;
+    this.emitChange('signup');
+  }
 
-    setUpdateResult(updateResult) {
-      this.updateResult = updateResult;
-      this.emitChange('update');
-    },
+  getSignupResult() {
+    return signupResult;
+  }
 
-    getUpdateResult() {
-      return this.updateResult;
-    }
-  });
+  setUpdateResult(update) {
+    updateResult = update;
+    this.emitChange('update');
+  }
 
-  Dispatcher.register((action) => {
-    switch (action.actionType) {
-      case AppConstants.USER_LOGIN:
-        UserStore.setLoginResult(action.data);
-        break;
-      case AppConstants.USER_LOGOUT:
-        UserStore.setLogoutResult(action.data);
-        break;
-      case AppConstants.USER_SIGNUP:
-        UserStore.setSignupResult(action.data);
-        break;
-      case AppConstants.USER_SESSION:
-        UserStore.setSession(action.data);
-        break;
-      case AppConstants.USER_UPDATE:
-        UserStore.setUpdateResult(action.data);
-        break;
-      case AppConstants.GET_USERS:
-        UserStore.setUsers(action.data);
-        break;
-      default:
-        // no default action
-    }
+  getUpdateResult() {
+    return updateResult;
+  }
+}
 
-    return true;
-  });
+let userStore = new UserStore();
 
-  module.exports = UserStore;
-})();
+userStore.dispatchToken = Dispatcher.register(action => {
+  switch (action.actionType) {
+    case AppConstants.USER_LOGIN:
+      userStore.setLoginResult(action.data);
+      break;
+    case AppConstants.USER_LOGOUT:
+      userStore.setLogoutResult(action.data);
+      break;
+    case AppConstants.USER_SIGNUP:
+      userStore.setSignupResult(action.data);
+      break;
+    case AppConstants.USER_SESSION:
+      userStore.setSession(action.data);
+      break;
+    case AppConstants.USER_UPDATE:
+      userStore.setUpdateResult(action.data);
+      break;
+    case AppConstants.GET_USERS:
+      userStore.setUsers(action.data);
+      break;
+    default:
+      return;
+  }
+
+  userStore.emitChange();
+});
+
+
+export default userStore;

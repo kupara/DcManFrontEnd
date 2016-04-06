@@ -21,7 +21,7 @@
       BaseActions.put(`/users/${userID}`, user, AppConstants.UPDATE_USER, token);
     },
 
-    getSession: (token) => {
+    session: (token) => {
       BaseActions.get('/users/session', AppConstants.USER_SESSION, token);
     },
 

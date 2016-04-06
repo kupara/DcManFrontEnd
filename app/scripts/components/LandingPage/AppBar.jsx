@@ -2,6 +2,7 @@ import React from 'react';
 import AppBar from 'material-ui/lib/app-bar';
 import IconButton from 'material-ui/lib/icon-button';
 import FlatButton from 'material-ui/lib/flat-button';
+import AuthModal from '../Auth/AuthModal.jsx';
 
 class NavAppBar extends React.Component {
   constructor(props) {
@@ -14,15 +15,7 @@ class NavAppBar extends React.Component {
         title="DCMan"
         style={{backgroundColor: '#0288D1'}}
         iconElementRight={
-          <div>
-            {
-              this.props.loggedIn ?
-                <FlatButton label="Logout" labelStyle={{color: '#FFF'}}/>
-                :  <FlatButton label="Sign in" onTouchTap = {this.props.signInAction} labelStyle={{color: '#FFF'}}/>
-
-            }
-            <FlatButton label="Sign up" />
-          </div>
+            <AuthModal />
           }
       />);
     }
