@@ -21,7 +21,7 @@ export default class Main extends React.Component {
           loggedIn={this.state.loggedIn}
           setUser={this.state.user}
           />
-        <div className="spacer"></div>
+        <div className="dcman"></div>
         <div>
           {this.props.children}
         </div>
