@@ -1,93 +1,94 @@
-(() => {
-  'use strict';
+import AppConstants from '../constants/AppConstants';
+import Dispatcher from '../dispatcher/AppDispatcher';
+import BaseStore from './BaseStore';
 
-  const AppConstants = require('../constants/AppConstants'),
-    Dispatcher = require('../dispatcher/AppDispatcher'),
-    BaseStore = require('./BaseStore'),
-    assign = require('object-assign');
+let document = null,
+  documents = null,
+  docCreateResult = null,
+  docDeleteResult = null,
+  docEditResult = null;
 
-  let DocumentStore = assign({}, BaseStore, {
-    document: null,
-    documents: null,
-    docCreateResult: null,
-    docDeleteResult: null,
-    docEditResult: null,
+class DocumentStore extends BaseStore {
+  constructor() {
+    super();
+  }
 
-    setDocs(docs) {
-      this.documentss = docs;
-      this.emitChange('fetchDocs');
-    },
+  setDocs(docs) {
+    documents = docs;
+    this.emitChange('fetchDocs');
+  }
 
-    getDocs() {
-      return this.documents;
-    },
+  getDocs() {
+    return documents;
+  }
 
-    setDoc(doc) {
-      this.document = doc;
-      this.emitChange('getDoc');
-    },
+  setDoc(doc) {
+    document = doc;
+    this.emitChange('getDoc');
+  }
 
-    getDoc() {
-      return this.document;
-    },
+  getDoc() {
+    return document;
+  }
 
-    setDocCreateResult(result) {
-      this.docCreateResult = result;
-      this.emitChange();
-    },
+  setDocCreateResult(result) {
+    docCreateResult = result;
+    this.emitChange();
+  }
 
-    getDocCreateResult() {
-      return this.docCreateResult;
-    },
+  getDocCreateResult() {
+    return docCreateResult;
+  }
 
-    setDocEditResult(result) {
-      this.docEditResult = result;
-      this.emitChange('editDoc');
-    },
+  setDocEditResult(result) {
+    docEditResult = result;
+    this.emitChange('editDoc');
+  }
 
-    getDocEditResult() {
-      return this.docEditResult;
-    },
+  getDocEditResult() {
+    return docEditResult;
+  }
 
-    setDocDeleteResult(result) {
-      this.docDeleteResult = result;
-      this.emitChange();
-    },
+  setDocDeleteResult(result) {
+    docDeleteResult = result;
+    this.emitChange();
+  }
 
-    getDocDeleteResult() {
-      return this.docDeleteResult;
-    }
-  });
+  getDocDeleteResult() {
+    return docDeleteResult;
+  }
+}
 
-  Dispatcher.register(function(action) {
-    switch (action.actionType) {
-      case AppConstants.USER_DOCS:
-        DocumentStore.setDocs(action.data);
-        break;
-      case AppConstants.CREATE_DOC:
-        DocumentStore.setDocCreateResult(action.data);
-        break;
-      case AppConstants.DELETE_DOC:
-        DocumentStore.setDocDeleteResult({
-          data: action.data,
-          statusCode: action.statusCode
-        });
-        break;
-      case AppConstants.EDIT_DOC:
-        DocumentStore.setDocEditResult({
-          data: action.data,
-          statusCode: action.statusCode
-        });
-        break;
-      case AppConstants.GET_DOC:
-        DocumentStore.setDoc(action.data);
-        break;
-      default:
-        // no default action
-    }
+let docStore = new DocumentStore();
 
-    return true;
-  });
+docStore.dispatchToken = Dispatcher.register(action => {
+  switch (action.actionType) {
+    case AppConstants.USER_DOCS:
+      docStore.setDocs(action.data);
+      break;
+    case AppConstants.CREATE_DOC:
+      docStore.setDocCreateResult(action.data);
+      break;
+    case AppConstants.DELETE_DOC:
+      docStore.setDocDeleteResult({
+        data: action.data,
+        statusCode: action.statusCode
+      });
+      break;
+    case AppConstants.EDIT_DOC:
+      docStore.setDocEditResult({
+        data: action.data,
+        statusCode: action.statusCode
+      });
+      break;
+    case AppConstants.GET_DOC:
+      docStore.setDoc(action.data);
+      break;
+    default:
+      return true;
+  }
 
-  module.exports = DocumentStore;
-})();
+  docStore.emitChange();
+
+});
+export default docStore;
