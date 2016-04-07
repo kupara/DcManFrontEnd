@@ -49,6 +49,7 @@ class SignInForm extends React.Component {
         console.log('error-toast');
       } else {
         window.localStorage.setItem('token', data.token);
+        window.localStorage.setItem('userId', data.user._id);
         this.setState({result: 'successful'});
         // this.history.pushState(null, '/');
       }

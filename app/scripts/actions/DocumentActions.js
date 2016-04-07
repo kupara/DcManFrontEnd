@@ -22,10 +22,18 @@
       );
     },
 
-    fetchDoc: (docId, token) => {
+    getDoc: (docId, token) => {
       BaseActions.get(
         `/documents/${docId}`,
-        AppConstants.GET_DOC,
+        AppConstants.GET_ONE_DOC,
+        token
+      );
+    },
+
+    getAllDocs: (token) => {
+      BaseActions.get(
+        '/documents',
+        AppConstants.GET_ALL_DOCS,
         token
       );
     },

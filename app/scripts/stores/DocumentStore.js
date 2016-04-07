@@ -3,7 +3,8 @@ import Dispatcher from '../dispatcher/AppDispatcher';
 import BaseStore from './BaseStore';
 
 let document = null,
-  documents = null,
+  userDocuments = null,
+  allDocuments = null,
   docCreateResult = null,
   docDeleteResult = null,
   docEditResult = null;
@@ -13,13 +14,13 @@ class DocumentStore extends BaseStore {
     super();
   }
 
-  setDocs(docs) {
-    documents = docs;
-    this.emitChange('fetchDocs');
+  setUserDocs(docs) {
+    userDocuments = docs;
+    this.emitChange('getDocs');
   }
 
-  getDocs() {
-    return documents;
+  getUserDocs() {
+    return userDocuments;
   }
 
   setDoc(doc) {
@@ -29,6 +30,15 @@ class DocumentStore extends BaseStore {
 
   getDoc() {
     return document;
+  }
+
+  setAllDocs(docs) {
+    allDocuments = docs;
+    this.emitChange('allDocs');
+  }
+
+  getAllDocs() {
+    return allDocuments;
   }
 
   setDocCreateResult(result) {
@@ -64,7 +74,7 @@ let docStore = new DocumentStore();
 docStore.dispatchToken = Dispatcher.register(action => {
   switch (action.actionType) {
     case AppConstants.USER_DOCS:
-      docStore.setDocs(action.data);
+      docStore.setUserDocs(action.data);
       break;
     case AppConstants.CREATE_DOC:
       docStore.setDocCreateResult(action.data);
@@ -81,8 +91,11 @@ docStore.dispatchToken = Dispatcher.register(action => {
         statusCode: action.statusCode
       });
       break;
-    case AppConstants.GET_DOC:
+    case AppConstants.GET_ONE_DOC:
       docStore.setDoc(action.data);
+      break;
+    case AppConstants.GET_ALL_DOCS:
+      docStore.setAllDocs(action.data);
       break;
     default:
       return true;
