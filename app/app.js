@@ -4,6 +4,7 @@ import { Router, Route, Link, IndexRoute, Redirect, browserHistory } from 'react
 import Landing from './scripts/components/LandingPage/index.jsx';
 import Main from './scripts/components/LandingPage/Main.jsx';
 import Auth from './scripts/components/Auth/AuthModal.jsx';
+import Dashboard from './scripts/components/Dashboard/index.jsx';
 // const Router = ReactRouter.Router;
 // const IndexRoute = ReactRouter.IndexRoute;
 // const Route = ReactRouter.Route;
@@ -15,8 +16,8 @@ ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={Main} >
       <IndexRoute component={Landing} />
-      <Route path="/auth" component={Auth} >
-      </Route>
+      <Route path="/auth" component={Auth} />
+      <Route path="/dashboard" component={Dashboard} />
     </Route>
   </Router>
 ), document.getElementById('content'));

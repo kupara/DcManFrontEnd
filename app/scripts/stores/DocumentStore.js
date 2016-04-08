@@ -1,93 +1,100 @@
-(() => {
-  'use strict';
+import AppConstants from '../constants/AppConstants';
+import Dispatcher from '../dispatcher/AppDispatcher';
+import BaseStore from './BaseStore';
 
-  const AppConstants = require('../constants/AppConstants'),
-    Dispatcher = require('../dispatcher/AppDispatcher'),
-    BaseStore = require('./BaseStore'),
-    assign = require('object-assign');
+let document = null,
+  userDocuments = null,
+  allDocuments = null,
+  docCreationResult = null,
+  docDeleteResult = null,
+  docUpdateResult = null;
 
-  let DocumentStore = assign({}, BaseStore, {
-    document: null,
-    documents: null,
-    docCreateResult: null,
-    docDeleteResult: null,
-    docEditResult: null,
+class DocumentStore extends BaseStore {
+  constructor() {
+    super();
+  }
 
-    setDocs(docs) {
-      this.documentss = docs;
-      this.emitChange('fetchDocs');
-    },
+  setUserDocs(docs) {
+    userDocuments = docs;
+    this.emitChange('getUserDocs');
+  }
 
-    getDocs() {
-      return this.documents;
-    },
+  getUserDocs() {
+    console.log('dara changed');
+    return userDocuments;
+  }
 
-    setDoc(doc) {
-      this.document = doc;
-      this.emitChange('getDoc');
-    },
+  setDoc(doc) {
+    document = doc;
+    this.emitChange('setDoc');
+  }
 
-    getDoc() {
-      return this.document;
-    },
+  getDoc() {
+    return document;
+  }
 
-    setDocCreateResult(result) {
-      this.docCreateResult = result;
-      this.emitChange();
-    },
+  setAllDocs(docs) {
+    allDocuments = docs;
+    this.emitChange('setDocs');
+  }
 
-    getDocCreateResult() {
-      return this.docCreateResult;
-    },
+  getAllDocs() {
+    return allDocuments;
+  }
 
-    setDocEditResult(result) {
-      this.docEditResult = result;
-      this.emitChange('editDoc');
-    },
+  setDocCreationResult(result) {
+    docCreationResult = result;
+    this.emitChange('docCreation');
+  }
 
-    getDocEditResult() {
-      return this.docEditResult;
-    },
+  getDocCreationResult() {
+    return docCreationResult;
+  }
 
-    setDocDeleteResult(result) {
-      this.docDeleteResult = result;
-      this.emitChange();
-    },
+  setDocUpdateResult(result) {
+    docUpdateResult = result;
+    this.emitChange('docUpdate');
+  }
 
-    getDocDeleteResult() {
-      return this.docDeleteResult;
-    }
-  });
+  getDocUpdateResult() {
+    return docUpdateResult;
+  }
 
-  Dispatcher.register(function(action) {
-    switch (action.actionType) {
-      case AppConstants.USER_DOCS:
-        DocumentStore.setDocs(action.data);
-        break;
-      case AppConstants.CREATE_DOC:
-        DocumentStore.setDocCreateResult(action.data);
-        break;
-      case AppConstants.DELETE_DOC:
-        DocumentStore.setDocDeleteResult({
-          data: action.data,
-          statusCode: action.statusCode
-        });
-        break;
-      case AppConstants.EDIT_DOC:
-        DocumentStore.setDocEditResult({
-          data: action.data,
-          statusCode: action.statusCode
-        });
-        break;
-      case AppConstants.GET_DOC:
-        DocumentStore.setDoc(action.data);
-        break;
-      default:
-        // no default action
-    }
+  setDocDeleteResult(result) {
+    docDeleteResult = result;
+    this.emitChange('docDelete');
+  }
 
-    return true;
-  });
+  getDocDeleteResult() {
+    return docDeleteResult;
+  }
+}
 
-  module.exports = DocumentStore;
-})();
+let docStore = new DocumentStore();
+
+docStore.dispatchToken = Dispatcher.register(action => {
+  switch (action.actionType) {
+    case AppConstants.USER_DOCS:
+      docStore.setUserDocs(action.data);
+      break;
+    case AppConstants.CREATE_DOC:
+      docStore.setDocCreationResult(action.data);
+      break;
+    case AppConstants.DELETE_DOC:
+      docStore.setDocDeleteResult(action.data);
+      break;
+    case AppConstants.UPDATE_DOC:
+      docStore.setDocUpdateResult(action.data);
+      break;
+    case AppConstants.GET_ONE_DOC:
+      docStore.setDoc(action.data);
+      break;
+    case AppConstants.GET_ALL_DOCS:
+      docStore.setAllDocs(action.data);
+      break;
+    default:
+      return true;
+  }
+});
+
+export default docStore;

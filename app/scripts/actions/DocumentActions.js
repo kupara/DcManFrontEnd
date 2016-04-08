@@ -22,10 +22,18 @@
       );
     },
 
-    fetchDoc: (docId, token) => {
+    getDoc: (docId, token) => {
       BaseActions.get(
         `/documents/${docId}`,
-        AppConstants.GET_DOC,
+        AppConstants.GET_ONE_DOC,
+        token
+      );
+    },
+
+    getAllDocs: (token) => {
+      BaseActions.get(
+        '/documents',
+        AppConstants.GET_ALL_DOCS,
         token
       );
     },
@@ -38,11 +46,11 @@
       );
     },
 
-    editDoc: (docID, updatedDoc, token) => {
+    updateDoc: (docID, updatedDoc, token) => {
       BaseActions.put(
         `/documents/${docID}`,
         updatedDoc,
-        AppConstants.EDIT_DOC,
+        AppConstants.UPDATE_DOC,
         token
       );
     }

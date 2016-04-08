@@ -1,7 +1,7 @@
 import React from 'react';
 import UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
-import {history} from 'react-router';
+import {history, Link} from 'react-router';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
 
@@ -33,7 +33,7 @@ class SignInForm extends React.Component {
 
   componentWillMount() {
     UserStore.addChangeListener(this.handleSignin);
-    var token = localStorage.getItem('token');
+    var token = window.localStorage.getItem('token');
     if (token) {
       //this.history.pushState(null, '/dashboard');
       console.log(token);
@@ -43,15 +43,14 @@ class SignInForm extends React.Component {
 
   handleSignin() {
     let data = UserStore.getLoginResult();
-    console.log(data);
-    if (data) {
-      if (data.error) {
-        console.log('error-toast');
-      } else {
-        window.localStorage.setItem('token', data.token);
-        this.setState({result: 'successful'});
+    if (data && data.error) {
+        console.log(data.error);
+    } else {
+      window.localStorage.setItem('token', data.token);
+      window.localStorage.setItem('userId', data.user._id);
+      this.setState({result: 'successful'});
+      
         // this.history.pushState(null, '/');
-      }
     }
   }
 

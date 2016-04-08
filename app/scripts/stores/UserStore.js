@@ -11,7 +11,6 @@ let users = null,
   updateResult = null;
 
 class UserStore extends BaseStore {
-
   constructor() {
     super();
   }
@@ -97,6 +96,7 @@ userStore.dispatchToken = Dispatcher.register(action => {
   }
 
   userStore.emitChange();
+  
 });
 
 
