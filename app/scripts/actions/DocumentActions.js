@@ -46,11 +46,11 @@
       );
     },
 
-    editDoc: (docID, updatedDoc, token) => {
+    updateDoc: (docID, updatedDoc, token) => {
       BaseActions.put(
         `/documents/${docID}`,
         updatedDoc,
-        AppConstants.EDIT_DOC,
+        AppConstants.UPDATE_DOC,
         token
       );
     }

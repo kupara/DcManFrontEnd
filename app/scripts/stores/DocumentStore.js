@@ -5,9 +5,9 @@ import BaseStore from './BaseStore';
 let document = null,
   userDocuments = null,
   allDocuments = null,
-  docCreateResult = null,
+  docCreationResult = null,
   docDeleteResult = null,
-  docEditResult = null;
+  docUpdateResult = null;
 
 class DocumentStore extends BaseStore {
   constructor() {
@@ -16,16 +16,17 @@ class DocumentStore extends BaseStore {
 
   setUserDocs(docs) {
     userDocuments = docs;
-    this.emitChange('getDocs');
+    this.emitChange('getUserDocs');
   }
 
   getUserDocs() {
+    console.log('dara changed');
     return userDocuments;
   }
 
   setDoc(doc) {
     document = doc;
-    this.emitChange('getDoc');
+    this.emitChange('setDoc');
   }
 
   getDoc() {
@@ -34,34 +35,34 @@ class DocumentStore extends BaseStore {
 
   setAllDocs(docs) {
     allDocuments = docs;
-    this.emitChange('allDocs');
+    this.emitChange('setDocs');
   }
 
   getAllDocs() {
     return allDocuments;
   }
 
-  setDocCreateResult(result) {
-    docCreateResult = result;
-    this.emitChange();
+  setDocCreationResult(result) {
+    docCreationResult = result;
+    this.emitChange('docCreation');
   }
 
-  getDocCreateResult() {
-    return docCreateResult;
+  getDocCreationResult() {
+    return docCreationResult;
   }
 
-  setDocEditResult(result) {
-    docEditResult = result;
-    this.emitChange('editDoc');
+  setDocUpdateResult(result) {
+    docUpdateResult = result;
+    this.emitChange('docUpdate');
   }
 
-  getDocEditResult() {
-    return docEditResult;
+  getDocUpdateResult() {
+    return docUpdateResult;
   }
 
   setDocDeleteResult(result) {
     docDeleteResult = result;
-    this.emitChange();
+    this.emitChange('docDelete');
   }
 
   getDocDeleteResult() {
@@ -77,19 +78,13 @@ docStore.dispatchToken = Dispatcher.register(action => {
       docStore.setUserDocs(action.data);
       break;
     case AppConstants.CREATE_DOC:
-      docStore.setDocCreateResult(action.data);
+      docStore.setDocCreationResult(action.data);
       break;
     case AppConstants.DELETE_DOC:
-      docStore.setDocDeleteResult({
-        data: action.data,
-        statusCode: action.statusCode
-      });
+      docStore.setDocDeleteResult(action.data);
       break;
-    case AppConstants.EDIT_DOC:
-      docStore.setDocEditResult({
-        data: action.data,
-        statusCode: action.statusCode
-      });
+    case AppConstants.UPDATE_DOC:
+      docStore.setDocUpdateResult(action.data);
       break;
     case AppConstants.GET_ONE_DOC:
       docStore.setDoc(action.data);
@@ -100,8 +95,6 @@ docStore.dispatchToken = Dispatcher.register(action => {
     default:
       return true;
   }
-
-  docStore.emitChange();
-
 });
+
 export default docStore;

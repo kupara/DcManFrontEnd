@@ -1,22 +1,34 @@
-import {EventEmitter} from 'events';
-
-var CHANGE_EVENT = 'change';
+import {
+  EventEmitter
+} from 'events';
 
 class BaseStore extends EventEmitter {
   constructor() {
     super();
   }
 
-  emitChange() {
-    this.emit(CHANGE_EVENT);
+  emitChange(event) {
+    if (event) {
+      this.emit(event);
+    } else {
+      this.emit('change');
+    }
   }
 
-  addChangeListener(callback) {
-    this.on(CHANGE_EVENT, callback);
+  addChangeListener(callback, event) {
+    if (event) {
+      this.on(event, callback);
+    } else {
+      this.on('change', callback);
+    }
   }
 
-  removeChangeListener(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
+  removeChangeListener(callback, event) {
+    if (event) {
+      this.removeListener(event, callback);
+    } else {
+      this.removeListener('change', callback);
+    }
   }
 }
 BaseStore.dispatchToken = null;

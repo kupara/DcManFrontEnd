@@ -1,6 +1,7 @@
 import React from 'react';
 import DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
+import UpdaterModal from '../DocsManagement/UpdaterModal.jsx';
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
 import CardHeader from 'material-ui/lib/card/card-header';
@@ -23,7 +24,7 @@ class DocsList extends React.Component {
     let token = window.localStorage.getItem('token');
     let userId = window.localStorage.getItem('userId');
     DocActions.getUserDocs(userId, token);
-    DocStore.addChangeListener(this.getUserDocs);
+    DocStore.addChangeListener(this.getUserDocs, 'getUserDocs');
   }
 
   getUserDocs() {
@@ -34,12 +35,16 @@ class DocsList extends React.Component {
       });
     }
   }
+  shouldComponentUpdate(hjnj) {
+    console.log('Rerendered')
+    return true;
+  }
 
   render() {
     let renderDoc = function(doc) {
       return (
         <div key={doc._id}>
-          <Card style={{margin: 15}}>
+          <Card style={{marginTop: 20}}>
             <CardHeader
               title={doc.title}
               subtitle={"Created on "+ new Date(doc.dateCreated).toLocaleDateString()}
@@ -50,7 +55,7 @@ class DocsList extends React.Component {
               {doc.content}
             </CardText>
             <CardActions expandable={true}>
-              <FlatButton label="Edit"/>
+              <UpdaterModal doc={doc}/>
               <FlatButton label="Delete"/>
             </CardActions>
           </Card>

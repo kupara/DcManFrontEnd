@@ -22,12 +22,13 @@ class DocsList extends React.Component {
   componentDidMount() {
     let token = window.localStorage.getItem('token');
     DocActions.getAllDocs(token);
-    DocStore.addChangeListener(this.getAllDocs);
+    DocStore.addChangeListener(this.getAllDocs, 'setDocs');
   }
 
   getAllDocs() {
     let data = DocStore.getAllDocs();
     if (data) {
+      console.log('data changed');
       this.setState({
         docs: data
       });
@@ -38,7 +39,7 @@ class DocsList extends React.Component {
     let renderDoc = function(doc) {
       return (
         <div key={doc._id}>
-          <Card style={{margin: 15}}>
+          <Card style={{marginTop: 20}}>
             <CardHeader
               title={doc.title}
               subtitle={"Created on "+ new Date(doc.dateCreated).toLocaleDateString()}
@@ -48,10 +49,6 @@ class DocsList extends React.Component {
             <CardText expandable={true}>
               {doc.content}
             </CardText>
-            <CardActions expandable={true}>
-              <FlatButton label="Edit"/>
-              <FlatButton label="Delete"/>
-            </CardActions>
           </Card>
         </div>
       );
