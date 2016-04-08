@@ -33,7 +33,7 @@ class SignUpForm extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     UserStore.addChangeListener(this.handleSignup);
     var token = localStorage.getItem('token');
     if (token) {

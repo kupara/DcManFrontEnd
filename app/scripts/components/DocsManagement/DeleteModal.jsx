@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import FlatButton from 'material-ui/lib/flat-button';
-import Updater from './Updater.jsx';
+import Deleter from './Deleter.jsx';
 
 const customStyles = {
   content : {
@@ -14,7 +14,7 @@ const customStyles = {
   }
 };
 
-export default class CreatorModal extends React.Component {
+export default class DeleterModal extends React.Component {
   constructor(props) {
     super(props);
     this.closeModal = this.closeModal.bind(this);
@@ -41,14 +41,14 @@ export default class CreatorModal extends React.Component {
     return (
       <span>
         <FlatButton
-          label="Edit"
+          label="Delete"
           onTouchTap = {this.openModal}
-          labelStyle={{color: '#0288D1'}} />
+          labelStyle={{color: 'red'}} />
         <Modal
           isOpen={self.state.modalIsOpen}
           onRequestClose={this.closeModal}
           style={customStyles} >
-          <Updater doc = {this.props.doc} closeModal={this.closeModal}/>
+          <Deleter doc = {this.props.doc} closeModal={this.closeModal}/>
         </Modal>
       </span>
     );

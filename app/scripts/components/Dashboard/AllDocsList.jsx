@@ -28,7 +28,6 @@ class DocsList extends React.Component {
   getAllDocs() {
     let data = DocStore.getAllDocs();
     if (data) {
-      console.log('data changed');
       this.setState({
         docs: data
       });

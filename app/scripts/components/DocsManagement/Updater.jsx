@@ -47,7 +47,6 @@ class DocUpdater extends React.Component {
       } else {
         console.log('Doc Updated Successfully', data);
         DocActions.getUserDocs(userId, token);
-        DocStore.getUserDocs();
         this.props.closeModal();
         // this.history.pushState(null, '/');
       }

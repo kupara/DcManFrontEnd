@@ -31,7 +31,7 @@ class SignInForm extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     UserStore.addChangeListener(this.handleSignin);
     var token = window.localStorage.getItem('token');
     if (token) {
@@ -49,7 +49,7 @@ class SignInForm extends React.Component {
       window.localStorage.setItem('token', data.token);
       window.localStorage.setItem('userId', data.user._id);
       this.setState({result: 'successful'});
-      
+
         // this.history.pushState(null, '/');
     }
   }
