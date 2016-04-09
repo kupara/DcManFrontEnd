@@ -1,4 +1,5 @@
 import React from 'react';
+import {browserHistory} from 'react-router';
 import FlatButton from 'material-ui/lib/flat-button';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
@@ -8,6 +9,8 @@ import SignInForm from './SignIn.jsx';
 
 // Needed for onTouchTap
 injectTapEventPlugin();
+
+let token = window.localStorage.getItem('token');
 
 const style = {
   tab: {
@@ -25,11 +28,11 @@ class Auth extends React.Component {
     super(props);
   }
 
-  handleChange (value) {
-    this.setState({
-      value: value
-    });
-  }
+  // componentDidMount() {
+  // if (token) {
+  //     browserHistory.push('/dashboard');
+  //   }
+  // }
 
   render() {
     return (
@@ -38,10 +41,10 @@ class Auth extends React.Component {
           tabItemContainerStyle={style.tab}
           >
           <Tab label="Sign In">
-            <SignInForm />
+            <SignInForm closeModal={this.props.closeModal}/>
           </Tab>
           <Tab label="Sign Up" >
-            <SignUpForm />
+            <SignUpForm closeModal={this.props.closeModal}/>
           </Tab>
         </Tabs>
       </div>

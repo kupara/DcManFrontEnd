@@ -1,10 +1,18 @@
 import React from 'react';
+import AuthModal from '../Auth/AuthModal.jsx';
+
+let token = window.localStorage.getItem('token');
 
 export default class Landing extends React.Component {
     constructor() {
       super();
     }
 
+    componentDidMount() {
+    if (token) {
+        browserHistory.push('/dashboard');
+      }
+    }
     render() {
       return (
         <div>
@@ -18,7 +26,7 @@ export default class Landing extends React.Component {
                 </div>
               </div>
               <div className="row center">
-                  <a href="#!" className="btn btn-large btn-start">Start Now &raquo;</a>
+                  <a className="btn btn-large btn-start"><AuthModal /></a>
               </div>
             </div>
           </div>

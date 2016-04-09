@@ -48,7 +48,7 @@ export default class AuthModal extends React.Component {
           isOpen={self.state.modalIsOpen}
           onRequestClose={this.closeModal}
           style={customStyles} >
-          <Auth />
+          <Auth closeModal={this.closeModal}/>
         </Modal>
       </div>
     );

@@ -42,6 +42,10 @@ class DocsList extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    DocStore.removeChangeListener(this.getUserDocs, 'getUserDocs');
+  }
+
   render() {
     let renderDoc = function(doc) {
       return (
