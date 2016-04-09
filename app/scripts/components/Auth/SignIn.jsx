@@ -1,7 +1,7 @@
 import React from 'react';
 import UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
-import {history, Link} from 'react-router';
+import {browserHistory} from 'react-router';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
 
@@ -16,11 +16,12 @@ const style = {
 };
 
 class SignInForm extends React.Component {
-  constructor(props) {
+  constructor(props, context) {
     super(props);
+    context.router;
     this.handleFieldChange = this.handleFieldChange.bind(this);
-    this.handleSignin = this.handleSignin.bind(this);
-    this.handleSigninAction = this.handleSigninAction.bind(this);
+    this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleSignInAction = this.handleSignInAction.bind(this);
 
     this.state = {
       user: {
@@ -31,26 +32,24 @@ class SignInForm extends React.Component {
     }
   }
 
-  componentWillMount() {
-    UserStore.addChangeListener(this.handleSignin);
-    var token = window.localStorage.getItem('token');
+  componentDidMount() {
+    UserStore.addChangeListener(this.handleSignIn, 'signIn');
+    let token = window.localStorage.getItem('token');
     if (token) {
-      //this.history.pushState(null, '/dashboard');
-      console.log(token);
+      browserHistory.push('/dashboard');
     }
   }
 
 
-  handleSignin() {
-    let data = UserStore.getLoginResult();
+  handleSignIn() {
+    let data = UserStore.getSignInResult();
     if (data && data.error) {
         console.log(data.error);
     } else {
       window.localStorage.setItem('token', data.token);
       window.localStorage.setItem('userId', data.user._id);
-      this.setState({result: 'successful'});
-      
-        // this.history.pushState(null, '/');
+      browserHistory.push('/dashboard');
+      this.props.closeModal();
     }
   }
 
@@ -61,13 +60,13 @@ class SignInForm extends React.Component {
     this.setState({user: this.state.user});
   }
 
-  handleSigninAction(event) {
+  handleSignInAction(event) {
     event.preventDefault();
     UserActions.login(this.state.user);
   }
 
   componentWillUnmount() {
-    UserStore.removeChangeListener(this.handleSignin, 'login');
+    UserStore.removeChangeListener(this.handleSignIn, 'signIn');
   }
 
   render() {
@@ -90,7 +89,7 @@ class SignInForm extends React.Component {
           <br/>
           <RaisedButton
             label="Sign in"
-            onTouchTap={this.handleSigninAction}
+            onTouchTap={this.handleSignInAction}
             labelStyle={style.button}
             />
         </div>

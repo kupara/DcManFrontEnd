@@ -6,11 +6,11 @@
 
   module.exports = {
     login: (user) => {
-      BaseActions.post('/users/login', user, AppConstants.USER_LOGIN);
+      BaseActions.post('/users/login', user, AppConstants.USER_SIGNIN);
     },
 
     logout: (data, token) => {
-      BaseActions.post('/users/logout', data, AppConstants.USER_LOGOUT, token);
+      BaseActions.post('/users/logout', data, AppConstants.USER_SIGNOUT, token);
     },
 
     signup: (user) => {

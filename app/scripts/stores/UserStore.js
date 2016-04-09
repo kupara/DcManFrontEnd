@@ -5,9 +5,9 @@ import BaseStore from './BaseStore';
 
 let users = null,
   session = null,
-  loginResult = null,
-  logoutResult = null,
-  signupResult = null,
+  signInResult = null,
+  signOutResult = null,
+  signUpResult = null,
   updateResult = null;
 
 class UserStore extends BaseStore {
@@ -32,31 +32,31 @@ class UserStore extends BaseStore {
     return session;
   }
 
-  setLoginResult(login) {
-    loginResult = login;
-    this.emitChange('login');
+  setSignInResult(signIn) {
+    signInResult = signIn;
+    this.emitChange('signIn');
   }
 
-  getLoginResult() {
-    return loginResult;
+  getSignInResult() {
+    return signInResult;
   }
 
-  setLogoutResult(logout) {
-    logoutResult = logout;
+  setSignOutResult(signOut) {
+    signOutResult = signOut;
     this.emitChange();
   }
 
-  getLogoutResult() {
-    return ogoutResult;
+  getSignOutResult() {
+    return signOutResult;
   }
 
-  setSignupResult(signup) {
-    signupResult = signup;
-    this.emitChange('signup');
+  setSignUpResult(signUp) {
+    signUpResult = signUp;
+    this.emitChange('signUp');
   }
 
-  getSignupResult() {
-    return signupResult;
+  getSignUpResult() {
+    return signUpResult;
   }
 
   setUpdateResult(update) {
@@ -73,14 +73,14 @@ let userStore = new UserStore();
 
 userStore.dispatchToken = Dispatcher.register(action => {
   switch (action.actionType) {
-    case AppConstants.USER_LOGIN:
-      userStore.setLoginResult(action.data);
+    case AppConstants.USER_SIGNIN:
+      userStore.setSignInResult(action.data);
       break;
-    case AppConstants.USER_LOGOUT:
-      userStore.setLogoutResult(action.data);
+    case AppConstants.USER_SIGNOUT:
+      userStore.setSignOutResult(action.data);
       break;
     case AppConstants.USER_SIGNUP:
-      userStore.setSignupResult(action.data);
+      userStore.setSignUpResult(action.data);
       break;
     case AppConstants.USER_SESSION:
       userStore.setSession(action.data);
@@ -96,7 +96,7 @@ userStore.dispatchToken = Dispatcher.register(action => {
   }
 
   userStore.emitChange();
-  
+
 });
 
 

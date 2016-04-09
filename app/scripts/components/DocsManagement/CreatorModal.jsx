@@ -1,6 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
 import FlatButton from 'material-ui/lib/flat-button';
+import FloatingActionButton from 'material-ui/lib/floating-action-button';
+import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import Creator from './Creator.jsx';
 
 const customStyles = {
@@ -40,10 +42,11 @@ export default class CreatorModal extends React.Component {
     let self = this;
     return (
       <div>
-        <FlatButton
-          label="Edit"
-          onTouchTap = {this.openModal}
-          labelStyle={{color: '#0288D1'}} />
+        <FloatingActionButton
+          style={{color: '#0288D1'}}
+          onTouchTap = {this.openModal}>
+          <ContentAdd />
+        </FloatingActionButton>
         <Modal
           isOpen={self.state.modalIsOpen}
           onRequestClose={this.closeModal}

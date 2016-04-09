@@ -14,12 +14,14 @@ const style = {
   }
 };
 
+let token = localStorage.getItem('token');
+
 class SignUpForm extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.handleFieldChange = this.handleFieldChange.bind(this);
-    this.handleSignup = this.handleSignup.bind(this);
-    this.handleSignupAction = this.handleSignupAction.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
+    this.handleSignUpAction = this.handleSignUpAction.bind(this);
 
     this.state = {
       user: {
@@ -33,26 +35,19 @@ class SignUpForm extends React.Component {
     }
   }
 
-  componentWillMount() {
-    UserStore.addChangeListener(this.handleSignup);
-    var token = localStorage.getItem('token');
-    if (token) {
-      //this.history.pushState(null, '/dashboard');
-      console.log(token);
-    }
+  componentDidMount() {
+    UserStore.addChangeListener(this.handleSignUp, 'signUp');
   }
 
 
-  handleSignup() {
-    let data = UserStore.getSignupResult();
-    console.log(data);
+  handleSignUp() {
+    let data = UserStore.getSignUpResult();
     if (data) {
       if (data.error) {
-        console.log('error-toast');
+        console.log(data.error);
       } else {
         window.localStorage.setItem('token', data.token);
         window.localStorage.setItem('userId', data.user._id);
-        this.setState({result: 'signup successful'});
         // this.history.pushState(null, '/');
       }
     }
@@ -65,13 +60,13 @@ class SignUpForm extends React.Component {
     this.setState({user: this.state.user});
   }
 
-  handleSignupAction(event) {
+  handleSignUpAction(event) {
     event.preventDefault();
-    UserActions.signup(this.state.user);
+    UserActions.signUp(this.state.user);
   }
 
   componentWillUnmount() {
-    UserStore.removeChangeListener(this.handleSignup);
+    UserStore.removeChangeListener(this.handleSignUp, 'signUp');
   }
 
   render() {
@@ -113,7 +108,7 @@ class SignUpForm extends React.Component {
           <br/>
           <RaisedButton
             label="Sign Up"
-            onTouchTap = {this.handleSignupAction}
+            onTouchTap = {this.handleSignUpAction}
             labelStyle={style.button}
             />
         </div>

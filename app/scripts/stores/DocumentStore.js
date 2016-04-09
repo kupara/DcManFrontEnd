@@ -20,7 +20,6 @@ class DocumentStore extends BaseStore {
   }
 
   getUserDocs() {
-    console.log('dara changed');
     return userDocuments;
   }
 

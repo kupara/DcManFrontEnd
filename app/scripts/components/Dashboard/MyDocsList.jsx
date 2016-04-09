@@ -1,7 +1,9 @@
 import React from 'react';
 import DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
+import CreatorModal from '../DocsManagement/CreatorModal.jsx';
 import UpdaterModal from '../DocsManagement/UpdaterModal.jsx';
+import DeleteModal from '../DocsManagement/DeleteModal.jsx';
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
 import CardHeader from 'material-ui/lib/card/card-header';
@@ -10,6 +12,10 @@ import CardTitle from 'material-ui/lib/card/card-title';
 import CardText from 'material-ui/lib/card/card-text';
 import FlatButton from 'material-ui/lib/flat-button';
 
+
+const style = {
+  marginRight: 20
+};
 
 class DocsList extends React.Component {
   constructor(props) {
@@ -35,9 +41,9 @@ class DocsList extends React.Component {
       });
     }
   }
-  shouldComponentUpdate(hjnj) {
-    console.log('Rerendered')
-    return true;
+
+  componentWillUnmount() {
+    DocStore.removeChangeListener(this.getUserDocs, 'getUserDocs');
   }
 
   render() {
@@ -56,7 +62,7 @@ class DocsList extends React.Component {
             </CardText>
             <CardActions expandable={true}>
               <UpdaterModal doc={doc}/>
-              <FlatButton label="Delete"/>
+              <DeleteModal doc={doc}/>
             </CardActions>
           </Card>
         </div>
@@ -65,6 +71,7 @@ class DocsList extends React.Component {
     return (
       <div>
         {this.state.docs.map(renderDoc)}
+        <CreatorModal />
       </div>
     );
   }

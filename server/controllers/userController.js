@@ -143,7 +143,6 @@
       Documents.findById(req.params.id, (err, document) => {
         if (document) {
           if (req.decoded._id === document.ownerId.toString()) {
-
             next();
           } else if (req.decoded.role === 'admin') {
             next();

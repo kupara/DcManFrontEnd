@@ -15,13 +15,15 @@ const styles = {
   }
 };
 
+let userId = window.localStorage.getItem('userId');
+let token = window.localStorage.getItem('token');
+
 class DocCreator extends React.Component {
   constructor(props) {
     super(props);
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.handleDocCreation = this.handleDocCreation.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    let userId = window.localStorage.getItem('userId');
     this.state = {
       doc: {
         title: '',
@@ -31,12 +33,10 @@ class DocCreator extends React.Component {
     }
   }
 
-  componentWillMount() {
-    DocStore.addChangeListener(this.handleDocCreation);
-    let token = window.localStorage.getItem('token');
+  componentDidMount() {
+    DocStore.addChangeListener(this.handleDocCreation, 'docCreation');
     if (token) {
-      //this.history.pushState(null, '/dashboard');
-      console.log(token);
+      // console.log(token);
     }
   }
 
@@ -45,11 +45,11 @@ class DocCreator extends React.Component {
     let data = DocStore.getDocCreationResult();
     if (data) {
       if (data.error) {
-        console.log('error-toast');
+        console.log(data.error);
       } else {
         console.log('Doc Created Successfully', data);
-        DocActions.getDoc();
-        window.Materialize.toast('Documenr created successfully!', 2000, 'success-toast');
+        DocActions.getUserDocs(userId, token);
+        this.props.closeModal();
         // this.history.pushState(null, '/');
       }
     }
@@ -64,13 +64,11 @@ class DocCreator extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let token = window.localStorage.getItem('token');
     DocActions.createDoc(this.state.doc, token);
-    this.props.closeModal();
   }
 
   componentWillUnmount() {
-    DocStore.removeChangeListener(this.handleDocCreation);
+    DocStore.removeChangeListener(this.handleDocCreation, 'docCreation');
   }
 
   render() {

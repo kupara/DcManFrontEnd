@@ -5,7 +5,7 @@
     request = require('superagent');
 
   module.exports = {
-    get: (url, actionType, token=null) => {
+    get: (url, actionType, token = null) => {
       request
         .get(url)
         .set('x-access-token', token)
@@ -17,10 +17,9 @@
         });
     },
 
-    delete: (url, data, actionType, token = null) => {
+    delete: (url, actionType, token) => {
       request
         .delete(url)
-        .send(data || {})
         .set('x-access-token', token)
         .end((err, result) => {
           Dispatcher.dispatch({
