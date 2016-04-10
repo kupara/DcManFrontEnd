@@ -1,5 +1,4 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
 import Card from 'material-ui/lib/card/card';
 import UserDocs from './MyDocsList.jsx';
 import AllDocs from './AllDocsList.jsx';
@@ -30,13 +29,6 @@ class Dash extends React.Component {
   constructor(props) {
     super(props);
   }
-
-  componentDidMount() {
-  if (!token) {
-      browserHistory.push('/');
-    }
-  }
-
 
   render() {
     return (

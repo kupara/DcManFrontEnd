@@ -1,4 +1,5 @@
 import React from 'react';
+import {browserHistory} from 'react-router';
 import DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
 import CreatorModal from '../DocsManagement/CreatorModal.jsx';
@@ -27,10 +28,14 @@ class DocsList extends React.Component {
   }
 
   componentDidMount() {
+    DocStore.addChangeListener(this.getUserDocs, 'getUserDocs');
     let token = window.localStorage.getItem('token');
     let userId = window.localStorage.getItem('userId');
-    DocActions.getUserDocs(userId, token);
-    DocStore.addChangeListener(this.getUserDocs, 'getUserDocs');
+    if(token) {
+      DocActions.getUserDocs(userId, token);
+    } else {
+      browserHistory.push('/');
+    }
   }
 
   getUserDocs() {

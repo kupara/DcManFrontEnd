@@ -28,11 +28,11 @@ class Auth extends React.Component {
     super(props);
   }
 
-  // componentDidMount() {
-  // if (token) {
-  //     browserHistory.push('/dashboard');
-  //   }
-  // }
+  componentDidMount() {
+  if (token) {
+      browserHistory.push('/dashboard');
+    }
+  }
 
   render() {
     return (

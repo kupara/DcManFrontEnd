@@ -1,4 +1,5 @@
 import React from 'react';
+import {browserHistory} from 'react-router';
 import DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
 import Card from 'material-ui/lib/card/card';
@@ -21,8 +22,12 @@ class DocsList extends React.Component {
   }
 
   componentDidMount() {
-    DocActions.getAllDocs(token);
     DocStore.addChangeListener(this.getAllDocs, 'setDocs');
+    if(token) {
+      DocActions.getAllDocs(token);
+    } else {
+      browserHistory.push('/');
+    }
   }
 
   getAllDocs() {
