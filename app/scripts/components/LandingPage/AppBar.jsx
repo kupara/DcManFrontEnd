@@ -2,6 +2,7 @@ import React from 'react';
 import AppBar from 'material-ui/lib/app-bar';
 import IconButton from 'material-ui/lib/icon-button';
 import FlatButton from 'material-ui/lib/flat-button';
+import FontIcon from 'material-ui/lib/font-icon';
 import AuthModal from '../Auth/AuthModal.jsx';
 
 class NavAppBar extends React.Component {
@@ -14,9 +15,8 @@ class NavAppBar extends React.Component {
       <AppBar
         title="DCMan"
         style={{backgroundColor: '#0288D1'}}
-        iconElementRight={
-            <AuthModal />
-          }
+        iconClassNameLeft="muidocs-icon-action-home"
+        iconElementRight={<AuthModal />}
       />);
     }
 }

@@ -1,6 +1,6 @@
 .dcman {
   margin: 0 auto;
-  max-width: 1140px;
+  width: 60%;
 }
 .section__hero {
   height: 100vh;
@@ -39,4 +39,16 @@
 }
 .btn-start:hover {
   background-color: #E34BFD;
+}
+@media screen and (max-width: 880px) {
+  .profile {
+    display: none;
+  }
+  .dcman {
+    margin: 0 auto;
+    width: 100%;
+  }
+  .s9 {
+    width: 100% !important;
+  }
 }

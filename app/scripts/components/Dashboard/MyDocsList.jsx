@@ -33,8 +33,6 @@ class DocsList extends React.Component {
     let userId = window.localStorage.getItem('userId');
     if(token) {
       DocActions.getUserDocs(userId, token);
-    } else {
-      browserHistory.push('/');
     }
   }
 

@@ -10,7 +10,6 @@ import CardTitle from 'material-ui/lib/card/card-title';
 import CardText from 'material-ui/lib/card/card-text';
 import FlatButton from 'material-ui/lib/flat-button';
 
-let token = window.localStorage.getItem('token');
 
 class DocsList extends React.Component {
   constructor(props) {
@@ -23,10 +22,9 @@ class DocsList extends React.Component {
 
   componentDidMount() {
     DocStore.addChangeListener(this.getAllDocs, 'setDocs');
+    let token = window.localStorage.getItem('token');
     if(token) {
       DocActions.getAllDocs(token);
-    } else {
-      browserHistory.push('/');
     }
   }
 

@@ -7,13 +7,18 @@ import Creator from './Creator.jsx';
 
 const customStyles = {
   content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  },
+  floatingButton : {
+      position: 'fixed',
+      left: '90%',
+      bottom: '50px'
+    }
 };
 
 export default class CreatorModal extends React.Component {
@@ -43,8 +48,9 @@ export default class CreatorModal extends React.Component {
     return (
       <div>
         <FloatingActionButton
-          style={{color: '#0288D1'}}
-          onTouchTap = {this.openModal}>
+          style={customStyles.floatingButton}
+          onTouchTap = {this.openModal}
+          backgroundColor="#0288D1">
           <ContentAdd />
         </FloatingActionButton>
         <Modal

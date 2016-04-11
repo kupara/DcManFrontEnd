@@ -26,7 +26,7 @@
           ]
         };
       }
-      if (req.query.role === 'user' && req.decoded.role === 'user') {
+      if (req.query.role === 'user' || req.decoded.role === 'user') {
         query = {
           $or: [{
               ownerId: {
@@ -44,6 +44,21 @@
       if (req.query.role === 'viewer' || req.decoded.role === 'viewer') {
         query.accessLevel = {
           $eq: 'public'
+        };
+      }
+      if (req.decoded.role === 'user') {
+        query = {
+          $or: [{
+              ownerId: {
+                $eq: req.decoded._id
+              }
+            },
+            {
+              accessLevel: {
+                $eq: 'public'
+              }
+            }
+          ]
         };
       }
 
@@ -120,8 +135,8 @@
               if (req.body.content) {
                 document.content = req.body.content;
               }
-              if (req.body.access) {
-                document.access = req.body.access;
+              if (req.body.accessLevel) {
+                document.accessLevel = req.body.accessLevel;
               }
               document.lastModified = Date.now();
               document.save((err, document) => {

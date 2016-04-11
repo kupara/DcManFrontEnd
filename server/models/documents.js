@@ -26,7 +26,7 @@
      accessLevel: {
        type: String,
        enum: ['admin', 'private', 'public'],
-       default: 'public'
+       default: 'private'
      },
      lastModified: {
        type: Date,
