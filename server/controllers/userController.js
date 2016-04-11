@@ -123,7 +123,7 @@
       if (token) {
         jwt.verify(token, secretKey, (err, decoded) => {
           if (err) {
-            res.status(401).send({
+            return res.status(401).send({
               error: 'Failed to Authenticate'
             });
           } else {
@@ -133,7 +133,7 @@
           }
         });
       } else {
-        res.status(401).send({
+        return res.status(401).send({
           error: 'You are not authenticated'
         });
       }
@@ -202,7 +202,7 @@
     },
 
     session: (req, res) => {
-      User.findById(req.decoded.id, (err, user) => {
+      User.findById(req.decoded._id, (err, user) => {
         if (err || !user) {
           res.json({
             loggedIn: 'false'

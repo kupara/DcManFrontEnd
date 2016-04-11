@@ -8,11 +8,6 @@ export default class Landing extends React.Component {
       super();
     }
 
-    componentDidMount() {
-    if (token) {
-        browserHistory.push('/dashboard');
-      }
-    }
     render() {
       return (
         <div>

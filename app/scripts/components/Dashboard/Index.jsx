@@ -1,8 +1,10 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-import Card from 'material-ui/lib/card/card';
+import UserActions from '../../actions/UserActions';
+import UserStore from '../../stores/UserStore';
 import UserDocs from './MyDocsList.jsx';
 import AllDocs from './AllDocsList.jsx';
+import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
 import CardHeader from 'material-ui/lib/card/card-header';
 import CardMedia from 'material-ui/lib/card/card-media';
@@ -29,19 +31,33 @@ let token = window.localStorage.getItem('token');
 class Dash extends React.Component {
   constructor(props) {
     super(props);
+    this.getSession = this.getSession.bind(this);
   }
 
   componentDidMount() {
-  if (!token) {
+    UserActions.session();
+    UserStore.addChangeListener(this.getSession, 'session');
+  }
+
+  getSession() {
+    let data = UserStore.getSession();
+    console.log('session', data);
+    if (data && !data.loggedIn) {
       browserHistory.push('/');
+    } else {
+      browserHistory.push('/dashboard');
     }
+  }
+
+  componentWillUnmount() {
+    UserStore.removeChangeListener(this.getSession, 'session');
   }
 
 
   render() {
     return (
-      <div className="row">
-        <div className="col s3">
+      <div className="row dcman">
+        <div className="col s3 profile">
           <Card>
             <CardMedia>
               <img src="images/profile.png" />

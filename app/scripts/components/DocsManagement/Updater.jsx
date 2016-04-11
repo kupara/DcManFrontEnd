@@ -3,6 +3,8 @@ import DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
 import {history} from 'react-router';
 import TextField from 'material-ui/lib/text-field';
+import SelectField from 'material-ui/lib/select-field';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 import RaisedButton from 'material-ui/lib/raised-button';
 
 const styles = {
@@ -21,21 +23,20 @@ class DocUpdater extends React.Component {
   constructor(props) {
     super(props);
     this.handleFieldChange = this.handleFieldChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleDocUpdate = this.handleDocUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       doc: {
         title: this.props.doc.title,
-        content: this.props.doc.content
+        content: this.props.doc.content,
+        accessLevel: this.props.doc.accessLevel
       }
     }
   }
 
   componentDidMount() {
     DocStore.on('docUpdate', this.handleDocUpdate);
-    if (token) {
-      //this.history.pushState(null, '/dashboard');
-    }
   }
 
 
@@ -65,6 +66,10 @@ class DocUpdater extends React.Component {
     DocActions.updateDoc(this.props.doc._id, this.state.doc, token);
   }
 
+  handleChange(event, index, value) {
+    this.state.doc['accessLevel'] = value;
+  }
+
   componentWillUnmount() {
     DocStore.removeChangeListener(this.handleDocUpdate, 'docUpdate');
   }
@@ -89,8 +94,14 @@ class DocUpdater extends React.Component {
             onChange={this.handleFieldChange}
             /><br/>
           <br/>
+          <span>Select Access Level:</span> &nbsp;
+          <SelectField value={this.state.accessLevel} onChange={this.handleChange}>
+            <MenuItem value={"admin"} primaryText="admin"/>
+            <MenuItem value={"private"} primaryText="private"/>
+            <MenuItem value={"public"} primaryText="public"/>
+          </SelectField><br/><br/>
           <RaisedButton
-            label="Edit"
+            label="Save"
             onTouchTap={this.handleSubmit}
             />
         </div>

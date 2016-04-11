@@ -21,7 +21,8 @@
       BaseActions.put(`/users/${userID}`, user, AppConstants.UPDATE_USER, token);
     },
 
-    session: (token) => {
+    session: () => {
+      let token = window.localStorage.getItem('token');
       BaseActions.get('/users/session', AppConstants.USER_SESSION, token);
     },
 

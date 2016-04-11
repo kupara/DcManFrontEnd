@@ -3,6 +3,8 @@ import DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
 import {history} from 'react-router';
 import TextField from 'material-ui/lib/text-field';
+import SelectField from 'material-ui/lib/select-field';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 import RaisedButton from 'material-ui/lib/raised-button';
 
 const styles = {
@@ -15,29 +17,26 @@ const styles = {
   }
 };
 
-let userId = window.localStorage.getItem('userId');
-let token = window.localStorage.getItem('token');
-
 class DocCreator extends React.Component {
   constructor(props) {
     super(props);
     this.handleFieldChange = this.handleFieldChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleDocCreation = this.handleDocCreation.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    let userId = window.localStorage.getItem('userId');
     this.state = {
       doc: {
         title: '',
         content: '',
-        ownerId: userId
+        ownerId: userId,
+        accessLevel: 'private'
       }
     }
   }
 
   componentDidMount() {
     DocStore.addChangeListener(this.handleDocCreation, 'docCreation');
-    if (token) {
-      // console.log(token);
-    }
   }
 
 
@@ -47,6 +46,8 @@ class DocCreator extends React.Component {
       if (data.error) {
         console.log(data.error);
       } else {
+        let token = window.localStorage.getItem('token');
+        let userId = window.localStorage.getItem('userId');
         console.log('Doc Created Successfully', data);
         DocActions.getUserDocs(userId, token);
         this.props.closeModal();
@@ -62,8 +63,14 @@ class DocCreator extends React.Component {
     this.setState({doc: this.state.doc});
   }
 
+  handleChange(event, index, value) {
+    this.state.doc['accessLevel'] = value;
+    this.setState({doc: this.state.doc});
+  }
+
   handleSubmit(event) {
     event.preventDefault();
+    let token = window.localStorage.getItem('token');
     DocActions.createDoc(this.state.doc, token);
   }
 
@@ -89,6 +96,12 @@ class DocCreator extends React.Component {
             onChange={this.handleFieldChange}
             /><br/>
           <br/>
+          <span>Select Access Level:</span> &nbsp;
+          <SelectField value={this.state.accessLevel} onChange={this.handleChange}>
+            <MenuItem value={"admin"} primaryText="admin"/>
+            <MenuItem value={"private"} primaryText="private"/>
+            <MenuItem value={"public"} primaryText="public"/>
+          </SelectField><br/><br/>
           <RaisedButton
             label="Create"
             onTouchTap={this.handleSubmit}

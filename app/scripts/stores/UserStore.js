@@ -23,8 +23,9 @@ class UserStore extends BaseStore {
     this.emitChange();
   }
 
-  setSession(session) {
-    this.session = session;
+  setSession(result) {
+    console.log(result)
+    session = result;
     this.emitChange('session');
   }
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
+import UserActions from '../../actions/UserActions';
+import UserStore from '../../stores/UserStore';
 import FlatButton from 'material-ui/lib/flat-button';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
@@ -26,13 +28,26 @@ const style = {
 class Auth extends React.Component {
   constructor(props) {
     super(props);
+    this.getSession = this.getSession.bind(this);
   }
 
-  // componentDidMount() {
-  // if (token) {
-  //     browserHistory.push('/dashboard');
-  //   }
-  // }
+  componentDidMount() {
+    UserActions.session();
+    UserStore.addChangeListener(this.getSession, 'session');
+  }
+
+  getSession() {
+    let data = UserStore.getSession();
+    if (data && data.error) {
+      browserHistory.push('/');
+    } else {
+      browserHistory.push('/dashboard');
+    }
+  }
+
+  componentWillUnmount() {
+    UserStore.removeChangeListener(this.getSession, 'session');
+  }
 
   render() {
     return (

@@ -13,8 +13,6 @@ const styles = {
     margin: '0 auto'
   }
 };
-let token = window.localStorage.getItem('token');
-let userId = window.localStorage.getItem('userId');
 
 class DocDeleter extends React.Component {
   constructor(props) {
@@ -26,8 +24,6 @@ class DocDeleter extends React.Component {
 
   componentDidMount() {
     DocStore.on('docDelete', this.handleDocDelete);
-    if (token) {
-    }
   }
 
 
@@ -37,6 +33,8 @@ class DocDeleter extends React.Component {
       console.log(data.error);
     } else {
       console.log('Doc Deleted Successfully', data);
+      let token = window.localStorage.getItem('token');
+      let userId = window.localStorage.getItem('userId');
       DocActions.getUserDocs(userId, token);
       this.props.closeModal();
     }
@@ -44,6 +42,7 @@ class DocDeleter extends React.Component {
 
   handleDelete(event) {
     event.preventDefault();
+    let token = window.localStorage.getItem('token');
     DocActions.deleteDoc(this.props.doc._id, token);
   }
 
@@ -65,6 +64,7 @@ class DocDeleter extends React.Component {
           <RaisedButton
             label="Delete"
             onTouchTap={this.handleDelete}
+            labelStyle={{color: 'red'}}
             />
           &nbsp; &nbsp;
           <RaisedButton
