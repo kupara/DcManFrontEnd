@@ -207,7 +207,7 @@
             loggedIn: 'false'
           });
         } else {
-          let userData = _.pick(user, '_id', 'username', 'email');
+          let userData = _.pick(user, '_id', 'name', 'username', 'role', 'email');
           return res.json({
             user: userData,
             loggedIn: user.loggedIn.toString()

@@ -5,15 +5,15 @@
     BaseActions  = require('./BaseActions');
 
   module.exports = {
-    login: (user) => {
+    signIn: (user) => {
       BaseActions.post('/users/login', user, AppConstants.USER_SIGNIN);
     },
 
-    logout: (token) => {
+    signOut: (token) => {
       BaseActions.post('/users/logout', null, AppConstants.USER_SIGNOUT, token);
     },
 
-    signup: (user) => {
+    signUp: (user) => {
       BaseActions.post('/users', user, AppConstants.USER_SIGNUP);
     },
 

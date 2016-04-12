@@ -1,8 +1,11 @@
 import React from 'react';
+import {browserHistory} from 'react-router';
 import UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
+import SelectField from 'material-ui/lib/select-field';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 
 const style = {
   button: {
@@ -22,14 +25,15 @@ class SignUpForm extends React.Component {
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleSignUpAction = this.handleSignUpAction.bind(this);
-
+    this.handleChange = this.handleChange.bind(this);
     this.state = {
       user: {
         firstname: '',
         lastname: '',
         username: '',
         email: '',
-        password: ''
+        password: '',
+        role: ''
       },
       result: ''
     }
@@ -48,7 +52,8 @@ class SignUpForm extends React.Component {
       } else {
         window.localStorage.setItem('token', data.token);
         window.localStorage.setItem('userId', data.user._id);
-        // this.history.pushState(null, '/');
+        browserHistory.push('/dashboard');
+        this.props.closeModal();
       }
     }
   }
@@ -57,6 +62,11 @@ class SignUpForm extends React.Component {
     let field = event.target.name;
     let value = event.target.value;
     this.state.user[field] = value;
+    this.setState({user: this.state.user});
+  }
+
+  handleChange(event, index, value) {
+    this.state.user['role'] = value;
     this.setState({user: this.state.user});
   }
 
@@ -106,6 +116,12 @@ class SignUpForm extends React.Component {
             onChange={this.handleFieldChange}
             /><br/>
           <br/>
+          <span>Select Role:</span> &nbsp;
+          <SelectField value={this.state.role} onChange={this.handleChange}>
+            <MenuItem value={"admin"} primaryText="admin"/>
+            <MenuItem value={"user"} primaryText="user"/>
+            <MenuItem value={"viewer"} primaryText="viewer"/>
+          </SelectField><br/><br/>
           <RaisedButton
             label="Sign Up"
             onTouchTap = {this.handleSignUpAction}

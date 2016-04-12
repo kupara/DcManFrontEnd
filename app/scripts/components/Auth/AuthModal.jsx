@@ -74,7 +74,7 @@ handleSignOut() {
   handleSignOutAction(event) {
     event.preventDefault();
     let token = window.localStorage.getItem('token');
-    UserActions.logout(token);
+    UserActions.signOut(token);
   }
 
   componentWillUnmount() {

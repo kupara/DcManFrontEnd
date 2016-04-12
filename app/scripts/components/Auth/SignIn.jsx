@@ -62,7 +62,7 @@ class SignInForm extends React.Component {
 
   handleSignInAction(event) {
     event.preventDefault();
-    UserActions.login(this.state.user);
+    UserActions.signIn(this.state.user);
   }
 
   componentWillUnmount() {

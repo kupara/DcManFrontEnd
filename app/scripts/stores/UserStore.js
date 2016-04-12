@@ -18,13 +18,12 @@ class UserStore extends BaseStore {
     return users;
   }
 
-  setUsers(user) {
-    users = user;
+  setUsers(result) {
+    users = result;
     this.emitChange();
   }
 
   setSession(result) {
-    console.log(result)
     session = result;
     this.emitChange('session');
   }

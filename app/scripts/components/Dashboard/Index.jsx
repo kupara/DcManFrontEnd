@@ -3,6 +3,7 @@ import {browserHistory} from 'react-router';
 import UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
 import UserDocs from './MyDocsList.jsx';
+import UserInfo from './UserInfo.jsx';
 import AllDocs from './AllDocsList.jsx';
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
@@ -39,7 +40,6 @@ class Dash extends React.Component {
 
   getSession() {
     let data = UserStore.getSession();
-    console.log('session', data);
     if (data && !data.loggedIn) {
       browserHistory.push('/');
     } else {
@@ -55,18 +55,10 @@ class Dash extends React.Component {
   render() {
     return (
       <div className="row dcman">
-        <div className="col s3 profile">
-          <Card>
-            <CardMedia>
-              <img src="images/profile.png" />
-            </CardMedia>
-            <CardTitle title="Your Name" subtitle="@username" />
-            <CardText>
-              Here is where the user info will go.
-            </CardText>
-          </Card>
+        <div className="col s4 profile">
+          <UserInfo />
         </div>
-        <div className="col s9">
+        <div className="col s8 docsList">
           <Tabs tabItemContainerStyle={styles.tab}>
             <Tab label="My Docs" >
               <UserDocs />

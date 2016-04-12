@@ -51,7 +51,6 @@ class DocCreator extends React.Component {
         console.log('Doc Created Successfully', data);
         DocActions.getUserDocs(userId, token);
         this.props.closeModal();
-        // this.history.pushState(null, '/');
       }
     }
   }
