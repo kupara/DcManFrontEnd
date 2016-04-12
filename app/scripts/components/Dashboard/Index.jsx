@@ -26,8 +26,6 @@ const styles = {
   }
 };
 
-let token = window.localStorage.getItem('token');
-
 class Dash extends React.Component {
   constructor(props) {
     super(props);

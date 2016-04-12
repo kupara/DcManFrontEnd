@@ -44,7 +44,7 @@ class UserStore extends BaseStore {
 
   setSignOutResult(signOut) {
     signOutResult = signOut;
-    this.emitChange();
+    this.emitChange('signOut');
   }
 
   getSignOutResult() {

@@ -119,7 +119,6 @@
 
     authenticate: (req, res, next) => {
       let token = req.headers['x-access-token'] || req.body.token;
-
       if (token) {
         jwt.verify(token, secretKey, (err, decoded) => {
           if (err) {
@@ -226,7 +225,8 @@
             return next(err);
           } else {
             res.json({
-              message: 'Successfully logged out'
+              message: 'Successfully logged out',
+              loggedIn: false
             });
           }
         });
