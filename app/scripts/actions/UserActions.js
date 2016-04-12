@@ -9,8 +9,8 @@
       BaseActions.post('/users/login', user, AppConstants.USER_SIGNIN);
     },
 
-    logout: (data, token) => {
-      BaseActions.post('/users/logout', data, AppConstants.USER_SIGNOUT, token);
+    logout: (token) => {
+      BaseActions.post('/users/logout', null, AppConstants.USER_SIGNOUT, token);
     },
 
     signup: (user) => {
