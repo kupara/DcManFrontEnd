@@ -54,7 +54,7 @@ class Auth extends React.Component {
       <div className='container' style={style.auth}>
         <Tabs
           tabItemContainerStyle={style.tab}
-          >
+          inkBarStyle={{backgroundColor: "#0082ff"}}>
           <Tab label="Sign In"
             style={{color: "#0082ff"}} >
             <SignInForm closeModal={this.props.closeModal}/>

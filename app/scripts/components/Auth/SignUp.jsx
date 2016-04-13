@@ -17,8 +17,6 @@ const style = {
   }
 };
 
-let token = localStorage.getItem('token');
-
 class SignUpForm extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -34,8 +32,7 @@ class SignUpForm extends React.Component {
         email: '',
         password: '',
         role: ''
-      },
-      result: ''
+      }
     }
   }
 
@@ -46,15 +43,14 @@ class SignUpForm extends React.Component {
 
   handleSignUp() {
     let data = UserStore.getSignUpResult();
-    if (data) {
-      if (data.error) {
-        console.log(data.error);
-      } else {
-        window.localStorage.setItem('token', data.token);
-        window.localStorage.setItem('userId', data.user._id);
-        browserHistory.push('/dashboard');
-        this.props.closeModal();
-      }
+    if (data && data.error) {
+      window.Materialize.toast(data.error.message, 2000, 'error-toast');
+    } else {
+      window.localStorage.setItem('token', data.token);
+      window.localStorage.setItem('userId', data.user._id);
+      window.Materialize.toast(data.message, 2000, 'success-toast');
+      browserHistory.push('/dashboard');
+      this.props.closeModal();
     }
   }
 
@@ -74,6 +70,12 @@ class SignUpForm extends React.Component {
     event.preventDefault();
     UserActions.signUp(this.state.user);
   }
+
+  handleRequestClose() {
+    this.setState({
+      open: false
+    });
+  };
 
   componentWillUnmount() {
     UserStore.removeChangeListener(this.handleSignUp, 'signUp');

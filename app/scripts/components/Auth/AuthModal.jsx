@@ -8,12 +8,12 @@ import Auth from './Auth.jsx';
 
 const customStyles = {
   content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
   }
 };
 
@@ -52,8 +52,8 @@ export default class AuthModal extends React.Component {
 
 handleSignOut() {
   let data = UserStore.getSignOutResult();
-  console.log(data);
   if (data && !data.err) {
+    window.Materialize.toast(data.message, 4000, 'success-toast rounded');
     window.localStorage.removeItem('token');
     browserHistory.push('/');
   }

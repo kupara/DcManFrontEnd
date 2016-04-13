@@ -43,15 +43,13 @@ class DocUpdater extends React.Component {
 
   handleDocUpdate() {
     let data = DocStore.getDocUpdateResult();
-    if (data) {
-      if (data.error) {
-        console.log('error-toast');
-      } else {
-        console.log('Doc Updated Successfully', data);
-        DocActions.getUserDocs(userId, token);
-        this.props.closeModal();
-        // this.history.pushState(null, '/');
-      }
+    if (data && data.error) {
+      window.Materialize.toast(data.error.message, 2000, 'error-toast rounded');
+    } else {
+      window.Materialize.toast(data.message, 2000, 'success-toast rounded');
+      DocActions.getUserDocs(userId, token);
+      this.props.closeModal();
+      // this.history.pushState(null, '/');
     }
   }
 
