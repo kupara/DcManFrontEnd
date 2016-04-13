@@ -14,7 +14,8 @@ class NavAppBar extends React.Component {
     return(
       <AppBar
         title="DCMan"
-        style={{backgroundColor: '#0288D1'}}
+        titleStyle={{color: "#0082ff"}}
+        style={{backgroundColor: "#f5f5f5"}}
         iconClassNameLeft="muidocs-icon-action-home"
         iconElementRight={<AuthModal />}
       />);

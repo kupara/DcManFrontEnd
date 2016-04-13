@@ -71,7 +71,7 @@
         if (err) {
           res.send(err);
         } else {
-          let userData = _.pick(user, '_id', 'username', 'email');
+          let userData = _.pick(user, '_id', 'username', 'role', 'email');
           res.json(userData);
         }
       });
@@ -79,7 +79,7 @@
 
     update: (req, res) => {
       let id = req.params.id;
-      User.findByIdAndUpdate(id, req.body, (err, user) => {
+      User.findById(id, (err, user) => {
         if (err) {
           res.send(err);
         } else if (!user) {
@@ -89,9 +89,27 @@
             }
           });
         } else {
-          res.send({
-            message: 'User updated successfully',
-            user: user
+          if (req.body.email) {
+            user.email = req.body.email;
+          }
+          if (req.body.password) {
+            user.password = req.body.password;
+          }
+          if (req.body.role) {
+            user.role = req.body.role;
+          }
+          console.log(user);
+          user.save((err, user) => {
+            if(err) {
+              res.status(501).send({
+                error: err
+              });
+            } else {
+              res.send({
+                message: 'User updated successfully',
+                user: user
+              });
+            }
           });
         }
       });

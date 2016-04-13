@@ -1,8 +1,6 @@
 import React from 'react';
 import AuthModal from '../Auth/AuthModal.jsx';
 
-let token = window.localStorage.getItem('token');
-
 export default class Landing extends React.Component {
     constructor() {
       super();

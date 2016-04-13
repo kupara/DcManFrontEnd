@@ -1,6 +1,7 @@
 import React from 'react';
 import UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
+import UpdaterModal from './UpdaterModal.jsx';
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
 import CardMedia from 'material-ui/lib/card/card-media';
@@ -18,21 +19,24 @@ class UserInfo extends React.Component {
   }
 
   componentDidMount() {
-    UserActions.session();
-    UserStore.addChangeListener(this.getUserInfo, 'session');
+    let token = window.localStorage.getItem('token');
+    let userId = window.localStorage.getItem('userId');
+    UserActions.getUser(userId, token);
+    UserStore.addChangeListener(this.getUserInfo, 'userInfo');
   }
 
   getUserInfo() {
-    let data = UserStore.getSession();
-    if (data && data.loggedIn) {
+    let data = UserStore.getUser();
+    console.log('UserInfo', data);
+    if (data) {
       this.setState({
-        user: data.user
+        user: data
       });
     }
   }
 
   componentWillUnmount() {
-    UserStore.removeChangeListener(this.getUserInfo, 'session');
+    UserStore.removeChangeListener(this.getUserInfo, 'userInfo');
   }
 
   render() {
@@ -46,10 +50,9 @@ class UserInfo extends React.Component {
           Email: {this.state.user.email}
         </CardText>
         <CardActions>
-          <FlatButton label="Modify" />
+          <UpdaterModal user={this.state.user} />
         </CardActions>
       </Card>
-
     );
   }
 }

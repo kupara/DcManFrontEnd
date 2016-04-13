@@ -39,9 +39,15 @@ module.exports = {
       }
     }, {
       test: /\.css?$/,
-      include: path.join(__dirname, 'app', 'styles'),
+      include: path.join(__dirname, 'app'),
       exclude: [path.resolve(__dirname, 'node_modules')],
       loader: 'style-loader!css-loader'
+    },
+    {
+      test: /\.jpg?$/,
+      include: path.join(__dirname, 'app'),
+      exclude: [path.resolve(__dirname, 'node_modules')],
+      loader: 'url-loader'
     }]
   },
 

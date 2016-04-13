@@ -2,7 +2,7 @@
   'use strict';
 
   const supertest = require('supertest'),
-    server = require('../dcman'),
+    server = require('../server'),
     request = supertest(server),
     helper = require('./helpers/helper');
 
@@ -14,7 +14,7 @@
       done();
     });
   });
-    
+
      // TESTS FOR ROLES
   describe('Role suite', function() {
     it('creates a role with a title defined', function(done) {

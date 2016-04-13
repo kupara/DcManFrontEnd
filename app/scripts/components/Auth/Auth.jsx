@@ -16,7 +16,7 @@ let token = window.localStorage.getItem('token');
 
 const style = {
   tab: {
-    backgroundColor: '#0288D1'
+    backgroundColor: '#f5f5f5'
   },
   auth: {
     width: '100%',
@@ -55,10 +55,12 @@ class Auth extends React.Component {
         <Tabs
           tabItemContainerStyle={style.tab}
           >
-          <Tab label="Sign In">
+          <Tab label="Sign In"
+            style={{color: "#0082ff"}} >
             <SignInForm closeModal={this.props.closeModal}/>
           </Tab>
-          <Tab label="Sign Up" >
+          <Tab label="Sign Up"
+            style={{color: "#0082ff"}} >
             <SignUpForm closeModal={this.props.closeModal}/>
           </Tab>
         </Tabs>

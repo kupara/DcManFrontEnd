@@ -17,10 +17,13 @@
       BaseActions.post('/users', user, AppConstants.USER_SIGNUP);
     },
 
-    update: (userID, user, token) => {
+    updateUser: (userID, user, token) => {
       BaseActions.put(`/users/${userID}`, user, AppConstants.UPDATE_USER, token);
     },
 
+    getUser: (userID, token) => {
+      BaseActions.get(`/users/${userID}`, AppConstants.GET_USER, token);
+    },
     session: () => {
       let token = window.localStorage.getItem('token');
       BaseActions.get('/users/session', AppConstants.USER_SESSION, token);

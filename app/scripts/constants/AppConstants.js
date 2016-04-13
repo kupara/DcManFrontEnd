@@ -11,6 +11,7 @@
     USER_DOCS: null,
     GET_ONE_DOC: null,
     GET_ALL_DOCS: null,
+    GET_USER: null,
     GET_USERS: null,
     USER_SIGNIN: null,
     USER_SIGNOUT: null,

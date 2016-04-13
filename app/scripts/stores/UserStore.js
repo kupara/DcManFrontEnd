@@ -3,7 +3,8 @@ import Dispatcher from '../dispatcher/AppDispatcher';
 import BaseStore from './BaseStore';
 
 
-let users = null,
+let user = null,
+  users = null,
   session = null,
   signInResult = null,
   signOutResult = null,
@@ -21,6 +22,15 @@ class UserStore extends BaseStore {
   setUsers(result) {
     users = result;
     this.emitChange();
+  }
+
+  getUser() {
+    return user;
+  }
+
+  setUser(result) {
+    user = result;
+    this.emitChange('userInfo');
   }
 
   setSession(result) {
@@ -61,7 +71,7 @@ class UserStore extends BaseStore {
 
   setUpdateResult(update) {
     updateResult = update;
-    this.emitChange('update');
+    this.emitChange('userUpdate');
   }
 
   getUpdateResult() {
@@ -85,11 +95,14 @@ userStore.dispatchToken = Dispatcher.register(action => {
     case AppConstants.USER_SESSION:
       userStore.setSession(action.data);
       break;
-    case AppConstants.USER_UPDATE:
+    case AppConstants.UPDATE_USER:
       userStore.setUpdateResult(action.data);
       break;
     case AppConstants.GET_USERS:
       userStore.setUsers(action.data);
+      break;
+    case AppConstants.GET_USER:
+      userStore.setUser(action.data);
       break;
     default:
       return;

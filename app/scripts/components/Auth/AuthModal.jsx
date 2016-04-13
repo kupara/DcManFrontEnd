@@ -91,12 +91,12 @@ handleSignOut() {
           <FlatButton
             label="Sign out"
             onTouchTap = {this.handleSignOutAction}
-            labelStyle={{color: '#FFF'}} />
+            labelStyle={{color: '#0082ff'}} />
           :
           <FlatButton
             label="Sign in"
             onTouchTap = {this.openModal}
-            labelStyle={{color: '#FFF'}} />
+            labelStyle={{color: '#0082ff'}} />
         }
 
         <Modal

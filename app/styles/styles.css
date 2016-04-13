@@ -4,11 +4,10 @@
 }
 .section__hero {
   height: 100vh;
-  height: auto;
   padding-top: 5%;
   padding-bottom: 5%;
   position: relative;
-  background-color: #03A9F4;
+  background: url("../images/background.jpg");
 }
 .section__hero h3 {
   color: white;
@@ -47,7 +46,6 @@
     width: 90%;
   }
 }
-
 
 @media screen and (max-width: 880px) {
   .profile {

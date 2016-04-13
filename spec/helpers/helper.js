@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var server = require('../../dcman'),
+  var server = require('../../server'),
     request = require('supertest');
 
   module.exports = {
@@ -17,7 +17,7 @@
         done(res.body);
       });
     },
-    
+
     userLogin: function(done) {
       request(server)
       .post('/users/login')
@@ -30,7 +30,7 @@
         done(res.body);
       });
     },
-    
+
     viewerLogin: function(done) {
       request(server)
       .post('/users/login')
@@ -43,7 +43,7 @@
         done(res.body);
       });
     },
-    
+
     createUser: function(done) {
       request(server)
       .post('/users')
@@ -60,7 +60,7 @@
         done(res.body);
       });
     },
-    
+
     createDoc: function(token, id, done) {
       request(server)
       .post('/documents')

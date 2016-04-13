@@ -2,7 +2,7 @@
   'use strict';
 
   const supertest = require('supertest'),
-    server = require('../dcman'),
+    server = require('../server'),
     request = supertest(server),
     helper = require('./helpers/helper');
 
@@ -106,7 +106,7 @@
           ownerId: '56f3b1e608588e1d4c54744d',
           title: 'Create Test Document',
           content: 'This document has been created by a test spec on the 14th',
-          accessLevel: 'private',
+          accessLevel: 'private'
         })
         .set('Accept', 'application/json')
         .set('x-access-token', adminToken)
@@ -193,7 +193,7 @@
             done();
           });
     });
-   
+
     it('returns all documents accessible to a specific role ', function (done) {
       request
         .get('/documents?role=user')
@@ -222,7 +222,7 @@
           .set('Accept', 'application/json')
           .end(function (err, res) {
             expect(err).toBeNull();
-          
+
             expect(res.status).toBe(200);
             expect(res.body).toBeDefined();
             expect(res.body.document.title).toBe('Updated Title');
@@ -231,7 +231,7 @@
           });
       });
     });
-    
+
     it('allows an admin to update a document', function (done) {
       helper.createDoc(userToken, userId, function (body) {
         let doc_id = body.document._id;
@@ -262,7 +262,7 @@
           .put('/documents/' + doc_id)
           .send({
             title: 'Updated Title',
-            content: 'This document just got updated',
+            content: 'This document just got updated'
           })
           .set('x-access-token', viewerToken)
           .set('Accept', 'application/json')
@@ -275,7 +275,7 @@
           });
       });
     });
-    
+
     it('does not allow a user to edit an admin document', function (done) {
       helper.createDoc(adminToken, adminId, function (body) {
         let doc_id = body.document._id;
@@ -283,7 +283,7 @@
           .put('/documents/' + doc_id)
           .send({
             title: 'Updated Title',
-            content: 'This document just got updated',
+            content: 'This document just got updated'
           })
           .set('x-access-token', viewerToken)
           .set('Accept', 'application/json')
@@ -313,7 +313,7 @@
           });
       });
     });
-    
+
     it('allows a user to delete their own document', function (done) {
       helper.createDoc(userToken, userId, function (body) {
         let doc_id = body.document._id;
@@ -361,7 +361,7 @@
           });
       });
     });
-    
+
     it('returns the documents containing the provided search term', function (done) {
       request
         .get('/documents/results?q=viewed')

@@ -26,6 +26,7 @@ class DocUpdater extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleDocUpdate = this.handleDocUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     this.state = {
       doc: {
         title: this.props.doc.title,
@@ -66,6 +67,11 @@ class DocUpdater extends React.Component {
     DocActions.updateDoc(this.props.doc._id, this.state.doc, token);
   }
 
+  handleCancel(event) {
+    event.preventDefault();
+    this.props.closeModal();
+  }
+
   handleChange(event, index, value) {
     this.state.doc['accessLevel'] = value;
   }
@@ -103,6 +109,10 @@ class DocUpdater extends React.Component {
           <RaisedButton
             label="Save"
             onTouchTap={this.handleSubmit}
+            /> &nbsp; &nbsp;
+          <RaisedButton
+            label="Cancel"
+            onTouchTap={this.handleCancel}
             />
         </div>
       </div>
