@@ -27,7 +27,6 @@ class UserInfo extends React.Component {
 
   getUserInfo() {
     let data = UserStore.getUser();
-    console.log('UserInfo', data);
     if (data) {
       this.setState({
         user: data

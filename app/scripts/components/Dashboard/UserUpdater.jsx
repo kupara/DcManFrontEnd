@@ -42,9 +42,10 @@ class UserUpdater extends React.Component {
   handleUserUpdate() {
     let data = UserStore.getUpdateResult();
     if (data && data.err) {
-      console.log(data.err);
+      window.Materialize.toast(data.err, 2000, 'error-toast rounded');
+
     } else {
-      console.log('User Updated Successfully', data);
+      window.Materialize.toast(data.message, 2000, 'success-toast rounded');
       let token = window.localStorage.getItem('token');
       let userId = window.localStorage.getItem('userId');
       UserActions.getUser(userId, token);

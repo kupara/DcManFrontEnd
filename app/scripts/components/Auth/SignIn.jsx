@@ -18,17 +18,14 @@ const style = {
 class SignInForm extends React.Component {
   constructor(props, context) {
     super(props);
-    context.router;
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.handleSignIn = this.handleSignIn.bind(this);
     this.handleSignInAction = this.handleSignInAction.bind(this);
-
     this.state = {
       user: {
         username: '',
         password: ''
-      },
-      result: ''
+      }
     }
   }
 
@@ -44,10 +41,11 @@ class SignInForm extends React.Component {
   handleSignIn() {
     let data = UserStore.getSignInResult();
     if (data && data.error) {
-        console.log(data.error);
+      window.Materialize.toast(data.error.message, 2000, 'error-toast rounded');
     } else {
       window.localStorage.setItem('token', data.token);
       window.localStorage.setItem('userId', data.user._id);
+      window.Materialize.toast(data.message, 2000, 'success-toast rounded');
       browserHistory.push('/dashboard');
       this.props.closeModal();
     }
@@ -57,12 +55,20 @@ class SignInForm extends React.Component {
     let field = event.target.name;
     let value = event.target.value;
     this.state.user[field] = value;
-    this.setState({user: this.state.user});
+    this.setState({
+      user: this.state.user
+    });
   }
 
   handleSignInAction(event) {
     event.preventDefault();
     UserActions.signIn(this.state.user);
+  }
+  handleRequestClose() {
+    this.setState({
+      success: false,
+      failure: false
+    });
   }
 
   componentWillUnmount() {

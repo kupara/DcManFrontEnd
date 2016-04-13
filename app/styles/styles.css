@@ -59,3 +59,11 @@
     width: 100% !important;
   }
 }
+
+.error-toast {
+  background-color: rgba(210, 57, 57, 1);
+}
+
+.success-toast {
+  background-color: #0c3;
+}

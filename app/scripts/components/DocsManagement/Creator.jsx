@@ -44,11 +44,11 @@ class DocCreator extends React.Component {
     let data = DocStore.getDocCreationResult();
     if (data) {
       if (data.error) {
-        console.log(data.error);
+        window.Materialize.toast(data.error.message, 2000, 'error-toast rounded');
       } else {
         let token = window.localStorage.getItem('token');
         let userId = window.localStorage.getItem('userId');
-        console.log('Doc Created Successfully', data);
+        window.Materialize.toast(data.message, 2000, 'success-toast rounded');
         DocActions.getUserDocs(userId, token);
         this.props.closeModal();
       }

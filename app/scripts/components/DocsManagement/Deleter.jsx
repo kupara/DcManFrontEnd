@@ -30,9 +30,10 @@ class DocDeleter extends React.Component {
   handleDocDelete() {
     let data = DocStore.getDocDeleteResult();
     if (data && data.error) {
-      console.log(data.error);
+      window.Materialize.toast(data.error.message, 2000, 'error-toast rounded');
+
     } else {
-      console.log('Doc Deleted Successfully', data);
+      window.Materialize.toast(data.message, 2000, 'success-toast rounded');
       let token = window.localStorage.getItem('token');
       let userId = window.localStorage.getItem('userId');
       DocActions.getUserDocs(userId, token);
