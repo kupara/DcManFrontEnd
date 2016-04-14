@@ -98,7 +98,6 @@
           if (req.body.role) {
             user.role = req.body.role;
           }
-          console.log(user);
           user.save((err, user) => {
             if(err) {
               res.status(501).send({

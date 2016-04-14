@@ -1,6 +1,6 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-import DocActions from '../../actions/DocumentActions';
+import * as DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';

@@ -1,6 +1,6 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-import UserActions from '../../actions/UserActions';
+import * as UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
 import UserDocs from './MyDocsList.jsx';
 import UserInfo from './UserInfo.jsx';

@@ -1,5 +1,5 @@
 import React from 'react';
-import UserActions from '../../actions/UserActions';
+import * as UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
 import UpdaterModal from './UpdaterModal.jsx';
 import Card from 'material-ui/lib/card/card';

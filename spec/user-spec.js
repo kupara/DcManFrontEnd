@@ -207,7 +207,7 @@
 
     it('successfully logs a user out', function (done) {
       request
-        .get('/users/logout')
+        .post('/users/logout')
         .set('x-access-token', adminToken)
         .set('Accept', 'application/json')
         .end(function (err, res) {

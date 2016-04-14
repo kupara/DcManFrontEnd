@@ -1,5 +1,5 @@
 import React from 'react';
-import DocActions from '../../actions/DocumentActions';
+import * as DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
 import {history} from 'react-router';
 import TextField from 'material-ui/lib/text-field';

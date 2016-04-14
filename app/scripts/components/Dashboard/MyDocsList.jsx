@@ -1,6 +1,6 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-import DocActions from '../../actions/DocumentActions';
+import * as DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
 import CreatorModal from '../DocsManagement/CreatorModal.jsx';
 import UpdaterModal from '../DocsManagement/UpdaterModal.jsx';

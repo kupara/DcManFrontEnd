@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import {browserHistory} from 'react-router';
-import UserActions from '../../actions/UserActions';
+import * as UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
 import FlatButton from 'material-ui/lib/flat-button';
 import Auth from './Auth.jsx';

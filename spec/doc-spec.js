@@ -203,7 +203,7 @@
           expect(err).toBeNull();
           expect(res.status).toBe(200);
           expect(Array.isArray(res.body)).toBeTruthy();
-          expect(res.body.length).toBe(3);
+          expect(res.body.length).toBe(4);
           done();
         });
     });

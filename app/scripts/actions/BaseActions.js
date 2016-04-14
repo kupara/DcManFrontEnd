@@ -1,58 +1,58 @@
-(() => {
-  'use strict';
+import Dispatcher from '../dispatcher/AppDispatcher';
+import request from 'superagent';
 
-  const Dispatcher = require('../dispatcher/AppDispatcher'),
-    request = require('superagent');
+class BaseActions {
+   get(url, actionType, token = null) {
+     request
+       .get(url)
+       .set('x-access-token', token)
+       .end((err, result) => {
+         Dispatcher.dispatch({
+           actionType: actionType,
+           data: result.body
+         });
+       });
+   }
 
-  module.exports = {
-    get: (url, actionType, token = null) => {
-      request
-        .get(url)
-        .set('x-access-token', token)
-        .end((err, result) => {
-          Dispatcher.dispatch({
-            actionType: actionType,
-            data: result.body
-          });
-        });
-    },
+   delete(url, actionType, token) {
+     request
+       .delete(url)
+       .set('x-access-token', token)
+       .end((err, result) => {
+         Dispatcher.dispatch({
+           actionType: actionType,
+           data: result.body
+         });
+       });
+   }
 
-    delete: (url, actionType, token) => {
-      request
-        .delete(url)
-        .set('x-access-token', token)
-        .end((err, result) => {
-          Dispatcher.dispatch({
-            actionType: actionType,
-            data: result.body
-          });
-        });
-    },
+   put(url, data, actionType, token = null) {
+     request
+       .put(url)
+       .send(data)
+       .set('x-access-token', token)
+       .end((err, result) => {
+         Dispatcher.dispatch({
+           actionType: actionType,
+           data: result.body
+         });
+       });
+   }
 
-    put: (url, data, actionType, token = null) => {
-      request
-        .put(url)
-        .send(data)
-        .set('x-access-token', token)
-        .end((err, result) => {
-          Dispatcher.dispatch({
-            actionType: actionType,
-            data: result.body
-          });
-        });
-    },
+   post(url, data, actionType, token = null) {
+     request
+       .post(url)
+       .send(data)
+       .set('x-access-token', token)
+       .end((err, result) => {
+         Dispatcher.dispatch({
+           actionType: actionType,
+           data: result.body
+         });
+       });
+   }
+ }
 
-    post: (url, data, actionType, token = null) => {
-      request
-        .post(url)
-        .send(data)
-        .set('x-access-token', token)
-        .end((err, result) => {
-          Dispatcher.dispatch({
-            actionType: actionType,
-            data: result.body
-          });
-        });
-    }
-  };
-})();
+ let baseActions = new BaseActions();
+
+ export default baseActions;
