@@ -1,5 +1,6 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
+import Select from 'react-select';
 import * as UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
 import TextField from 'material-ui/lib/text-field';
@@ -13,7 +14,7 @@ const style = {
     color: '#0288D1'
   },
   form: {
-    margin: '0 auto'
+    margin: '50px auto'
   }
 };
 
@@ -23,7 +24,7 @@ class SignUpForm extends React.Component {
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleSignUpAction = this.handleSignUpAction.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleRoleSelect = this.handleRoleSelect.bind(this);
     this.state = {
       user: {
         firstname: '',
@@ -32,13 +33,18 @@ class SignUpForm extends React.Component {
         email: '',
         password: '',
         role: ''
-      }    }
+      },
+      roles: [
+        { value: 'owner', label: 'Owner' },
+        { value: 'admin', label: 'Admin' },
+        { value: 'user',  label: 'User' }
+      ]
+    }
   }
 
   componentWillMount() {
     UserStore.addChangeListener(this.handleSignUp, 'signUp');
   }
-
 
   handleSignUp() {
     let data = UserStore.getSignUpResult();
@@ -57,27 +63,22 @@ class SignUpForm extends React.Component {
     let field = event.target.name;
     let value = event.target.value;
     this.state.user[field] = value;
-    this.setState({
-      user: this.state.user
-    });
+    this.setState({user: this.state.user});
   }
 
-  handleChange(event, index, value) {
-    this.state.user['role'] = value;
-    this.setState({
-      user: this.state.user
-    });
+  handleRoleSelect(role) {
+    this.state.user['role'] = role.value;
+    this.setState({user: this.state.user});
   }
 
   handleSignUpAction(event) {
     event.preventDefault();
+    console.log(this.state.user);
     UserActions.signUp(this.state.user);
   }
 
   handleRequestClose() {
-    this.setState({
-      open: false
-    });
+    this.setState({open: false});
   };
 
   componentWillUnmount() {
@@ -87,52 +88,45 @@ class SignUpForm extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col s12" style={style.form}>
-          <TextField
-            name="firstname"
-            floatingLabelText="First Name"
-            fullWidth={true}
-            onChange={this.handleFieldChange}
-            />
-          &nbsp; &nbsp;
-          <TextField
-            name="lastname"
-            floatingLabelText="Last Name"
-            fullWidth={true}
-            onChange={this.handleFieldChange}
-            /><br/>
-          <TextField
-            name="username"
-            floatingLabelText="Username"
-            fullWidth={true}
-            onChange={this.handleFieldChange}
-            /><br/>
-          <TextField
-            name="email"
-            floatingLabelText="Email Address"
-            fullWidth={true}
-            onChange={this.handleFieldChange}
-            /><br/>
-          <TextField
-            name="password"
-            floatingLabelText="Password"
-            fullWidth={true}
-            type="password"
-            onChange={this.handleFieldChange}
-            /><br/>
+        <form className="col s12" onSubmit={this.handleSignUpAction}>
+          <div className="input-field col m6 s12">
+            <input className="validate" id="firstname" name="firstname" onChange={this.handleFieldChange} required type="text"/>
+            <label htmlFor="firstname">First Name</label>
+          </div>
+          <div className="input-field col m6 s12">
+            <input className="validate" id="lastname" name="lastname" onChange={this.handleFieldChange} required type="text"/>
+            <label htmlFor="lastname">Last Name</label>
+          </div>
+          <div className="input-field col m6 s12">
+            <input className="validate" id="username" name="username" onChange={this.handleFieldChange} required type="text"/>
+            <label htmlFor="username">Username</label>
+          </div>
+          <div className="input-field col s12">
+            <input className="validate" id="email" name="email" onChange={this.handleFieldChange} required type="email"/>
+            <label htmlFor="email">Email</label>
+          </div>
+          <div className="input-field col s12">
+            <input className="validate" id="password" name="password" onChange={this.handleFieldChange} required type="password"/>
+            <label htmlFor="password">Password</label>
+          </div>
+          <div className="input-field col s12">
+            <Select
+               name="role"
+               onChange={this.handleRoleSelect}
+               options={this.state.roles}
+               placeholder="Select Role"
+               value={this.state.role}
+             />
+          </div>
           <br/>
-          <span>Select Role:</span> &nbsp;
-          <SelectField value={this.state.role} onChange={this.handleChange}>
-            <MenuItem value={"admin"} primaryText="admin"/>
-            <MenuItem value={"user"} primaryText="user"/>
-            <MenuItem value={"viewer"} primaryText="viewer"/>
-          </SelectField><br/><br/>
-          <RaisedButton
-            label="Sign Up"
-            onTouchTap = {this.handleSignUpAction}
-            labelStyle={style.button}
-            />
-        </div>
+          <div className="col s12">
+            <div className="center">
+              <button className="btn waves-effect waves-light blue" name="action" type="submit">
+                Sign up
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     );
   }

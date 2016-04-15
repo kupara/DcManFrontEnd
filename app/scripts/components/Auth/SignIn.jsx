@@ -11,7 +11,7 @@ const style = {
     color: '#0288D1'
   },
   form: {
-    margin: '0 auto'
+    margin: '50px auto'
   }
 };
 
@@ -81,27 +81,26 @@ class SignInForm extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col s12" style={style.form}>
-          <TextField
-            name="username"
-            floatingLabelText="Username"
-            fullWidth={true}
-            onChange={this.handleFieldChange}
-            /><br/>
-          <TextField
-            name="password"
-            floatingLabelText="Password"
-            type="password"
-            fullWidth={true}
-            onChange={this.handleFieldChange}
-            /><br/>
+        <form className="col s12" onSubmit={this.handleSignInAction}>
+          <div className="input-field col s12">
+            <input className="validate" id="username" name="username" onChange={this.handleFieldChange} required type="text"/>
+            <label htmlFor="username">Username</label>
+          </div>
           <br/>
-          <RaisedButton
-            label="Sign in"
-            onTouchTap={this.handleSignInAction}
-            labelStyle={style.button}
-            />
-        </div>
+          <div className="input-field col s12">
+            <input className="validate" id="password" name="password" onChange={this.handleFieldChange} required type="password"/>
+            <label htmlFor="password">Password</label>
+          </div>
+
+          <br/>
+          <div className="col s12">
+            <div className="center">
+              <button className="btn waves-effect waves-light blue" name="action" type="submit">
+                Sign In
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     );
   }
