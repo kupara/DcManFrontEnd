@@ -1,5 +1,4 @@
 import React from 'react';
-import AuthModal from '../Auth/AuthModal.jsx';
 
 export default class Landing extends React.Component {
     constructor() {
@@ -19,7 +18,7 @@ export default class Landing extends React.Component {
                 </div>
               </div>
               <div className="row center">
-                  <a className="btn btn-large btn-start"><AuthModal /></a>
+                Sign Up Today
               </div>
             </div>
           </div>

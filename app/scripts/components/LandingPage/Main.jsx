@@ -9,7 +9,6 @@ export default class Main extends React.Component {
   constructor() {
     super();
     this.state = {
-      user: {},
       loggedIn: false
     }
   }
@@ -19,7 +18,6 @@ export default class Main extends React.Component {
       <div>
         <NavAppBar
           loggedIn={this.state.loggedIn}
-          setUser={this.state.user}
           />
         <div>
           {this.props.children}

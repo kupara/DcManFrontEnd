@@ -29,8 +29,11 @@ class SignInForm extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     UserStore.addChangeListener(this.handleSignIn, 'signIn');
+  }
+
+  componentDidMount() {
     let token = window.localStorage.getItem('token');
     if (token) {
       browserHistory.push('/dashboard');

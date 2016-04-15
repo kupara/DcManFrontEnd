@@ -16,8 +16,6 @@ const styles = {
     margin: '0 auto'
   }
 };
-let token = window.localStorage.getItem('token');
-let userId = window.localStorage.getItem('userId');
 
 class DocUpdater extends React.Component {
   constructor(props) {
@@ -36,10 +34,9 @@ class DocUpdater extends React.Component {
     }
   }
 
-  componentDidMount() {
-    DocStore.on('docUpdate', this.handleDocUpdate);
+  componentWillMount() {
+    DocStore.addChangeListener(this.handleDocUpdate, 'docUpdate');
   }
-
 
   handleDocUpdate() {
     let data = DocStore.getDocUpdateResult();
@@ -47,6 +44,8 @@ class DocUpdater extends React.Component {
       window.Materialize.toast(data.error.message, 2000, 'error-toast rounded');
     } else {
       window.Materialize.toast(data.message, 2000, 'success-toast rounded');
+      let token = window.localStorage.getItem('token');
+      let userId = window.localStorage.getItem('userId');
       DocActions.getUserDocs(userId, token);
       this.props.closeModal();
       // this.history.pushState(null, '/');

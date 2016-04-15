@@ -7239,7 +7239,7 @@
 	    // This is a way to detect if Component is a stateless arrow function
 	    // component, which is not newable. It might not be 100% reliable but is
 	    // something we can do until we start detecting that Component extends
-	    // React.Component. We already assume that typeof Component === 'function'.
+	    // Component. We already assume that typeof Component === 'function'.
 	    var canInstantiate = ('prototype' in Component);
 
 	    if (canInstantiate) {
@@ -7266,9 +7266,9 @@
 	      if (inst.render == null) {
 	        process.env.NODE_ENV !== 'production' ? warning(false, '%s(...): No `render` method found on the returned component ' + 'instance: you may have forgotten to define `render`, returned ' + 'null/false from a stateless component, or tried to render an ' + 'element whose type is a function that isn\'t a React component.', Component.displayName || Component.name || 'Component') : undefined;
 	      } else {
-	        // We support ES6 inheriting from React.Component, the module pattern,
+	        // We support ES6 inheriting from Component, the module pattern,
 	        // and stateless components, but not ES6 classes that don't extend
-	        process.env.NODE_ENV !== 'production' ? warning(Component.prototype && Component.prototype.isReactComponent || !canInstantiate || !(inst instanceof Component), '%s(...): React component classes must extend React.Component.', Component.displayName || Component.name || 'Component') : undefined;
+	        process.env.NODE_ENV !== 'production' ? warning(Component.prototype && Component.prototype.isReactComponent || !canInstantiate || !(inst instanceof Component), '%s(...): React component classes must extend Component.', Component.displayName || Component.name || 'Component') : undefined;
 	      }
 	    }
 
@@ -7719,7 +7719,7 @@
 	   * Lazily allocates the refs object and stores `component` as `ref`.
 	   *
 	   * @param {string} ref Reference name.
-	   * @param {component} component Component to store as `ref`.
+	   * @param React component Component to store as `ref`.
 	   * @final
 	   * @private
 	   */

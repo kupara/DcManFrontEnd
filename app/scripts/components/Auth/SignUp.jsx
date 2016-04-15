@@ -18,8 +18,8 @@ const style = {
 };
 
 class SignUpForm extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleSignUpAction = this.handleSignUpAction.bind(this);
@@ -32,11 +32,10 @@ class SignUpForm extends React.Component {
         email: '',
         password: '',
         role: ''
-      }
-    }
+      }    }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     UserStore.addChangeListener(this.handleSignUp, 'signUp');
   }
 
@@ -44,11 +43,11 @@ class SignUpForm extends React.Component {
   handleSignUp() {
     let data = UserStore.getSignUpResult();
     if (data && data.error) {
-      window.Materialize.toast(data.error.message, 2000, 'error-toast');
+      window.Materialize.toast(data.error.message, 2000, 'error-toast rounded');
     } else {
       window.localStorage.setItem('token', data.token);
       window.localStorage.setItem('userId', data.user._id);
-      window.Materialize.toast(data.message, 2000, 'success-toast');
+      window.Materialize.toast(data.message, 2000, 'success-toast rounded');
       browserHistory.push('/dashboard');
       this.props.closeModal();
     }
@@ -58,12 +57,16 @@ class SignUpForm extends React.Component {
     let field = event.target.name;
     let value = event.target.value;
     this.state.user[field] = value;
-    this.setState({user: this.state.user});
+    this.setState({
+      user: this.state.user
+    });
   }
 
   handleChange(event, index, value) {
     this.state.user['role'] = value;
-    this.setState({user: this.state.user});
+    this.setState({
+      user: this.state.user
+    });
   }
 
   handleSignUpAction(event) {

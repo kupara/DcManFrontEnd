@@ -34,7 +34,7 @@ class Dash extends React.Component {
     this.getSession = this.getSession.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     UserActions.session();
     UserStore.addChangeListener(this.getSession, 'session');
   }

@@ -27,8 +27,11 @@ class DocsList extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     DocStore.addChangeListener(this.getUserDocs, 'getUserDocs');
+  }
+
+  componentDidMount() {
     let token = window.localStorage.getItem('token');
     let userId = window.localStorage.getItem('userId');
     if(token) {

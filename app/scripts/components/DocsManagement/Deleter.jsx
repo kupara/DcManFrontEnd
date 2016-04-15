@@ -22,8 +22,8 @@ class DocDeleter extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  componentDidMount() {
-    DocStore.on('docDelete', this.handleDocDelete);
+  componentWillMount() {
+    DocStore.addChangeListener(this.handleDocDelete, 'docDelete');
   }
 
 

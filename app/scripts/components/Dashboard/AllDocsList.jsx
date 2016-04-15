@@ -20,8 +20,10 @@ class DocsList extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     DocStore.addChangeListener(this.getAllDocs, 'setDocs');
+  }
+  componentDidMount() {
     let token = window.localStorage.getItem('token');
     if(token) {
       DocActions.getAllDocs(token);

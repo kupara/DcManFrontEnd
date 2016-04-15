@@ -23,7 +23,6 @@ class RoleStore extends React.Component {
   getCreatedRole() {
     return this.createdRole;
   }
-
 }
 
 let roleStore = new RoleStore();

@@ -35,7 +35,7 @@ class DocCreator extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     DocStore.addChangeListener(this.handleDocCreation, 'docCreation');
   }
 

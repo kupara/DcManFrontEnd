@@ -25,13 +25,14 @@ export default class AuthModal extends React.Component {
     this.getSession = this.getSession.bind(this);
     this.handleSignOut = this.handleSignOut.bind(this);
     this.handleSignOutAction = this.handleSignOutAction.bind(this);
+    this.handleDash = this.handleDash.bind(this);
     this.state = {
       modalIsOpen: false,
       loggedIn: false
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     UserActions.session();
     UserStore.addChangeListener(this.getSession, 'session');
     UserStore.addChangeListener(this.handleSignOut, 'signOut');
@@ -53,6 +54,9 @@ export default class AuthModal extends React.Component {
 handleSignOut() {
   let data = UserStore.getSignOutResult();
   if (data && !data.err) {
+    this.setState({
+      loggedIn: false
+    });
     window.Materialize.toast(data.message, 4000, 'success-toast rounded');
     window.localStorage.removeItem('token');
     browserHistory.push('/');
@@ -77,6 +81,11 @@ handleSignOut() {
     UserActions.signOut(token);
   }
 
+  handleDash() {
+    event.preventDefault();
+    browserHistory.push('/dashboard');
+  }
+
   componentWillUnmount() {
     UserStore.removeChangeListener(this.getSession, 'session');
     UserStore.removeChangeListener(this.handleSignOut, 'signOut');
@@ -88,10 +97,16 @@ handleSignOut() {
       <div>
         {(this.state.loggedIn === true)
           ?
-          <FlatButton
-            label="Sign out"
-            onTouchTap = {this.handleSignOutAction}
-            labelStyle={{color: '#0082ff'}} />
+          <span>
+            <FlatButton
+              label="dashboard"
+              onTouchTap = {this.handleDash}
+              labelStyle={{color: '#0082ff'}} />
+            <FlatButton
+              label="Sign out"
+              onTouchTap = {this.handleSignOutAction}
+              labelStyle={{color: '#0082ff'}} />
+          </span>
           :
           <FlatButton
             label="Sign in"
