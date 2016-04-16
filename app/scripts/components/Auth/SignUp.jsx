@@ -101,15 +101,15 @@ class SignUpForm extends React.Component {
             <input className="validate" id="username" name="username" onChange={this.handleFieldChange} required type="text"/>
             <label htmlFor="username">Username</label>
           </div>
-          <div className="input-field col s12">
+          <div className="input-field col m6 s12">
             <input className="validate" id="email" name="email" onChange={this.handleFieldChange} required type="email"/>
             <label htmlFor="email">Email</label>
           </div>
-          <div className="input-field col s12">
+          <div className="input-field col m6 s12">
             <input className="validate" id="password" name="password" onChange={this.handleFieldChange} required type="password"/>
             <label htmlFor="password">Password</label>
           </div>
-          <div className="input-field col s12">
+          <div className="input-field col m6 s12">
             <Select
                name="role"
                onChange={this.handleRoleSelect}
