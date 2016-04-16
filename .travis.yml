@@ -4,10 +4,12 @@ node_js:
 
 services:
   - mongodb
-  
+
 after_script:
   - npm run coverage
 
+after_success:
+  - npm run codecov
 addons:
     code_climate:
         repo_token: ae75e86e098639869535b9e696e468b95fa0da6dc722d0a37a1f82a07d03b87e
