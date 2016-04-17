@@ -12,8 +12,6 @@ import SignInForm from './SignIn.jsx';
 // Needed for onTouchTap
 injectTapEventPlugin();
 
-let token = window.localStorage.getItem('token');
-
 const style = {
   tab: {
     backgroundColor: '#f5f5f5'

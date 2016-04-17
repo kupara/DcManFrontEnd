@@ -15,8 +15,9 @@ describe('Landing component', function() {
     expect(component.text()).toMatch(/Helps you create and manage documents online/);
   });
 
-  it('renders the correct component', function() {
-    const component = mount(<Landing />);
+  it('renders the component correctly', function() {
+    const component = shallow(<Landing />);
+    expect(component.hasClass('section')).toEqual(true);
     expect(component.find('.section').length).toEqual(1);
     expect(component.find('.container').length).toEqual(1);
     expect(component.find('.header').length).toEqual(3);
