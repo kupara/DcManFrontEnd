@@ -65,7 +65,7 @@ describe ('SignIn Form Tests', function() {
       component.unmount();
     });
 
-    it('handleSignIn', function() {
+    it('handleSignIn correct password', function() {
       let signInComponent = shallow(<SignIn />);
       sinon.stub(UserActions, 'session').returns(true);
       let instance = signInComponent.instance();
@@ -90,12 +90,37 @@ describe ('SignIn Form Tests', function() {
       UserStore.getSignInResult.restore();
       browserHistory.push.restore();
       UserActions.session.restore();
+      localStorage.setItem.restore();
     });
 
-    it('should call handleSignInAction on clicking Sign In', function() {
+    it('handleSignIn invalid password/username', function() {
+      let signInComponent = shallow(<SignIn />);
+      sinon.stub(UserActions, 'session').returns(true);
+      let instance = signInComponent.instance();
+      let data = {
+        error: {
+          message: 'invalid credentials'
+        }
+      };
+      UserStore.setSignInResult(data);
+      sinon.spy(instance, 'handleSignIn');
+      sinon.spy(UserStore, 'getSignInResult');
+      sinon.spy(localStorage, 'setItem');
+      sinon.spy(browserHistory, 'push');
+      instance.handleSignIn();
+      expect(UserStore.getSignInResult.called).toBe(true);
+      expect(window.Materialize.toast.withArgs(data.error.message).called).toBe(true);
+      instance.handleSignIn.restore();
+      UserStore.getSignInResult.restore();
+      browserHistory.push.restore();
+      UserActions.session.restore();
+      localStorage.setItem.restore();
+    });
+
+    it('should call handleSignInAction with Sign In data', function() {
       sinon.stub(UserActions, 'signIn').returns(true);
       let instance = component.instance();
-      instance.setState({
+      component.setState({
         user: {
           username: 'edwin',
           password: 'password'
@@ -107,11 +132,30 @@ describe ('SignIn Form Tests', function() {
       };
       sinon.spy(instance, 'handleSignInAction');
       sinon.spy(signInEvent, 'preventDefault');
-      instance.handleSignInAction(signInEvent);
+      component.find('form').simulate('submit', signInEvent);
       expect(signInEvent.preventDefault.called).toBe(true);
-      expect(instance.handleSignInAction.calledOnce).toBe(true);
       expect(UserActions.signIn.withArgs(component.state().user).called).toBe(true);
-      instance.handleSignInAction.restore();
+      UserActions.signIn.restore();
+    });
+
+    it('should not call handleSignInAction without Sign In data', function() {
+      sinon.stub(UserActions, 'signIn').returns(true);
+      let instance = component.instance();
+      instance.setState({
+        user: {
+          username: '',
+          password: ''
+        }
+      });
+      // simulate the Sign In event
+      let signInEvent = {
+        preventDefault: function() {}
+      };
+      component.find('form').simulate('submit', signInEvent);
+      sinon.spy(instance, 'handleSignInAction');
+      sinon.spy(signInEvent, 'preventDefault');
+      expect(signInEvent.preventDefault.called).toBe(false);
+      expect(instance.handleSignInAction.calledOnce).toBe(false);
       UserActions.signIn.restore();
     });
 
