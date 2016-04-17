@@ -2,7 +2,7 @@ import React from 'react';
 import * as DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
 import {history} from 'react-router';
-import RaisedButton from 'material-ui/lib/raised-button';
+import Divider from 'material-ui/lib/divider';
 
 const styles = {
   button: {
@@ -59,20 +59,31 @@ class DocDeleter extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col s12" style={styles.form}>
-          <p>Are you sure you want to delete this Document?</p>
-          <br/>
-          <RaisedButton
-            label="Delete"
-            onTouchTap={this.handleDelete}
-            labelStyle={{color: 'red'}}
-            />
-          &nbsp; &nbsp;
-          <RaisedButton
-            label="Cancel"
-            onTouchTap={this.handleCancel}
-            />
-        </div>
+        <form className="col s12" onSubmit={this.handleDelete}>
+          <div className="center-align col s12">
+          <p>Are you sure you want to <b>delete</b> this document?</p>
+          <br /> <br />
+          </div>
+          <div className="col s6">
+            <div className="container center">
+              <button className="btn waves-effect header-btn red"
+                  name="action"
+                  type="submit"
+              > Delete
+              </button>
+            </div>
+          </div>
+          <div className="col s6">
+            <div className="container center">
+              <button className="btn waves-effect header-btn blue"
+                  name="action"
+                  type="cancel"
+                  onClick={this.handleCancel}
+              > Cancel
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     );
   }
