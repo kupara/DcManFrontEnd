@@ -43,8 +43,6 @@ class Dash extends React.Component {
     let data = UserStore.getSession();
     if (data && !data.loggedIn) {
       browserHistory.push('/');
-    } else {
-      browserHistory.push('/dashboard');
     }
   }
 

@@ -32,7 +32,7 @@ describe('Auth Page Tests', function() {
       expect(component.contains(<SignUp closeModal={component.props().closeModal}/>)).toEqual(true);
       component.unmount();
       UserActions.session.restore();
-    })
+    });
   });
 
   describe('Auth Page Methods', function() {
@@ -98,7 +98,7 @@ describe('Auth Page Tests', function() {
       UserActions.session.restore();
       UserStore.getSession.restore();
       browserHistory.push.restore();
-    })
-  })
+    });
+  });
 
-})
+});

@@ -11,7 +11,7 @@ import CardText from 'material-ui/lib/card/card-text';
 import FlatButton from 'material-ui/lib/flat-button';
 
 
-class DocsList extends React.Component {
+class AllDocs extends React.Component {
   constructor(props) {
     super(props);
     this.getAllDocs = this.getAllDocs.bind(this);
@@ -69,4 +69,4 @@ class DocsList extends React.Component {
   }
 }
 
-export default DocsList;
+export default AllDocs;

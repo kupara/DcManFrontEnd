@@ -18,7 +18,7 @@ const style = {
   marginRight: 20
 };
 
-class DocsList extends React.Component {
+class UserDocs extends React.Component {
   constructor(props) {
     super(props);
     this.getUserDocs = this.getUserDocs.bind(this);
@@ -83,4 +83,4 @@ class DocsList extends React.Component {
   }
 }
 
-export default DocsList;
+export default UserDocs;

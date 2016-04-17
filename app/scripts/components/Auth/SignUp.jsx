@@ -78,9 +78,6 @@ class SignUpForm extends React.Component {
     UserActions.signUp(this.state.user);
   }
 
-  handleRequestClose() {
-    this.setState({open: false});
-  };
 
   componentWillUnmount() {
     UserStore.removeChangeListener(this.handleSignUp, 'signUp');
