@@ -7,7 +7,7 @@ import expect from 'expect';
 import {mount, shallow} from 'enzyme';
 import Landing from '../index.jsx';
 
-describe('Landing component', function() {
+describe('Landing Page Tests', function() {
   it('renders the correct content', function() {
     const component = shallow(<Landing />);
     expect(component.text()).toMatch(/DCMan/);

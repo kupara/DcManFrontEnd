@@ -11,7 +11,7 @@ import AppBar from 'material-ui/lib/app-bar';
 import UserActions from '../../../actions/UserActions';
 import UserStore from '../../../stores/UserStore';
 
-describe('<NavAppBar>', function() {
+describe('Nav Bar Tests', function() {
   let wrapper;
   beforeEach(() => wrapper = shallow(<NavAppBar />));
 

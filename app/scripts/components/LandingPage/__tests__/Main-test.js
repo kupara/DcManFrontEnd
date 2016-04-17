@@ -8,8 +8,7 @@ import { shallow, mount, render } from 'enzyme';
 import Main from '../Main.jsx';
 import AppBar from '../AppBar.jsx';
 
-describe('Main component', function() {
-
+describe('Main component Tests', function() {
   it('renders the children components', function() {
     // It renders the provided child components
     const component = shallow(<Main children={<div>'Example of a child component.'</div>}/>);
@@ -17,7 +16,7 @@ describe('Main component', function() {
     component.unmount();
   });
 
-  it('renders the NavAppBar component', function() {
+  it('renders the NavBar component', function() {
     // It renders the NavBar component and the provided child components
     const component = mount(<Main children={<div>'Some other child component.'</div>}/>);
     expect(component.find('AppBar').length).toEqual(1);

@@ -13,22 +13,27 @@ import Auth from '../Auth.jsx';
 describe('Auth Modal Tests', function() {
   describe('Auth Modal Rendering', function() {
     it('renders the component correctly if user is not logged in', function() {
+      sinon.stub(UserActions, 'session').returns(true);
       let component = mount(<AuthModal />);
       component.setState({
         closeModal: function() {}
       });
       expect(component.find('FlatButton').children().text()).toMatch(/Sign in/);
       component.unmount();
+      UserActions.session.restore();
     });
 
     it('initializes its state correctly', function() {
+      sinon.stub(UserActions, 'session').returns(true);
       let component = shallow( < AuthModal / > );
       expect(component.state().modalIsOpen).toEqual(false);
       expect(component.state().loggedIn).toEqual(false);
       component.unmount();
+      UserActions.session.restore();
     });
 
     it('renders the component correctly if user is logged in', function() {
+      sinon.stub(UserActions, 'session').returns(true);
       let component = shallow(<AuthModal />);
       component.setState({
         loggedIn: true
@@ -36,26 +41,28 @@ describe('Auth Modal Tests', function() {
       //shows two buttons
       expect(component.find('FlatButton').length).toEqual(2);
       component.unmount();
+      UserActions.session.restore();
     });
   });
 
   describe('Auth Modal LifeCycle Methods', function() {
     it('Calls componentWillMount', function() {
       sinon.spy(AuthModal.prototype, 'componentWillMount');
-      sinon.spy(UserActions, 'session');
+      sinon.stub(UserActions, 'session').returns(true);
       sinon.spy(UserStore, 'addChangeListener');
       let component = mount( < AuthModal / > );
       expect(AuthModal.prototype.componentWillMount.called).toBe(true);
       expect(UserActions.session.called).toBe(true);
       expect(UserStore.addChangeListener.called).toBe(true);
       AuthModal.prototype.componentWillMount.restore();
-      UserActions.session.restore();
       UserStore.addChangeListener.restore();
       component.unmount();
+      UserActions.session.restore();
     });
 
     it('Calls componentWillUnmount', function() {
       sinon.spy(AuthModal.prototype, 'componentWillUnmount');
+      sinon.stub(UserActions, 'session').returns(true);
       sinon.spy(UserStore, 'removeChangeListener');
       let component = mount( < AuthModal / > );
       component.unmount();
@@ -63,6 +70,7 @@ describe('Auth Modal Tests', function() {
       expect(UserStore.removeChangeListener.called).toBe(true);
       AuthModal.prototype.componentWillUnmount.restore();
       UserStore.removeChangeListener.restore();
+      UserActions.session.restore();
     });
   });
 
@@ -71,11 +79,13 @@ describe('Auth Modal Tests', function() {
     var component;
     beforeEach(function() {
       window.Materialize.toast = sinon.spy();
+      sinon.stub(UserActions, 'session').returns(true);
       component = mount(<AuthModal />);
     });
 
     afterEach(function() {
       component.unmount();
+      UserActions.session.restore();
     });
 
     it('getSession handling no error', function() {
@@ -166,4 +176,5 @@ describe('Auth Modal Tests', function() {
       browserHistory.push.restore();
     });
   });
+  
 });
