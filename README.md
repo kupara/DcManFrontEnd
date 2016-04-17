@@ -1,6 +1,6 @@
 ###Document Management API
 
-[![Build Status](https://travis-ci.org/andela-ekupara/dcman.svg?branch=master)](https://travis-ci.org/andela-ekupara/dcman)
+[![Build Status](https://travis-ci.org/andela-ekupara/DcManFrontEnd.svg?branch=master)](https://travis-ci.org/andela-ekupara/DcManFrontEnd)
 [![Coverage Status](https://coveralls.io/repos/github/andela-ekupara/dcman/badge.svg?branch=master)](https://coveralls.io/github/andela-ekupara/dcman?branch=master)
 [![Code Climate](https://codeclimate.com/github/andela-ekupara/dcman/badges/gpa.svg)](https://codeclimate.com/github/andela-ekupara/dcman)
 
