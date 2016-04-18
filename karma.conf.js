@@ -4,7 +4,7 @@ var path = require('path');
 module.exports = function(config) {
   config.set({
     browsers: ['PhantomJS'], //run in PhantomJs
-    singleRun: false, //just run once by default
+    singleRun: true, //just run once by default
     frameworks: ['mocha'], //use the mocha test framework
     files: [
       'tests.webpack.js' //just load this file
