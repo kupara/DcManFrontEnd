@@ -55,7 +55,9 @@ class SignUpForm extends React.Component {
       window.localStorage.setItem('userId', data.user._id);
       window.Materialize.toast(data.message, 2000, 'success-toast rounded');
       browserHistory.push('/dashboard');
-      this.props.closeModal();
+      if (this.props.closeModal !== undefined) {
+        this.props.closeModal();
+      }
     }
   }
 
@@ -73,13 +75,9 @@ class SignUpForm extends React.Component {
 
   handleSignUpAction(event) {
     event.preventDefault();
-    console.log(this.state.user);
     UserActions.signUp(this.state.user);
   }
 
-  handleRequestClose() {
-    this.setState({open: false});
-  };
 
   componentWillUnmount() {
     UserStore.removeChangeListener(this.handleSignUp, 'signUp');

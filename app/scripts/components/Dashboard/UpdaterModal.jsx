@@ -14,7 +14,7 @@ const customStyles = {
   }
 };
 
-export default class CreatorModal extends React.Component {
+export default class UpdaterModal extends React.Component {
   constructor(props) {
     super(props);
     this.closeModal = this.closeModal.bind(this);

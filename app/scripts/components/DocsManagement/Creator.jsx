@@ -24,6 +24,7 @@ class DocCreator extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleDocCreation = this.handleDocCreation.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     let userId = window.localStorage.getItem('userId');
     this.state = {
       doc: {
@@ -73,6 +74,11 @@ class DocCreator extends React.Component {
     DocActions.createDoc(this.state.doc, token);
   }
 
+  handleCancel(event) {
+    event.preventDefault();
+    this.props.closeModal();
+  }
+
   componentWillUnmount() {
     DocStore.removeChangeListener(this.handleDocCreation, 'docCreation');
   }
@@ -80,33 +86,54 @@ class DocCreator extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col s12" style={styles.form}>
-          <TextField
-            name="title"
-            floatingLabelText="Document Title"
-            fullWidth={true}
-            onChange={this.handleFieldChange}
-            /><br/>
-          <TextField
-            name="content"
-            floatingLabelText="Document Content"
-            multiLine={true}
-            rows={4}
-            onChange={this.handleFieldChange}
-            /><br/>
-          <br/>
-          <span>Select Access Level:</span> &nbsp;
-          <SelectField value={this.state.accessLevel} onChange={this.handleChange}>
-            <MenuItem value={"admin"} primaryText="admin"/>
-            <MenuItem value={"private"} primaryText="private"/>
-            <MenuItem value={"public"} primaryText="public"/>
-          </SelectField><br/><br/>
-          <RaisedButton
-            label="Create"
-            onTouchTap={this.handleSubmit}
-            />
+          <form className="col s12" onSubmit={this.handleSubmit}>
+            <div className="input-field col s12">
+              <input className="validate"
+                  id="title"
+                  name="title"
+                  value={this.state.doc.title}
+                  onChange={this.handleFieldChange}
+                  type="text"
+              />
+            <label htmlFor="title">Document Title</label>
+            </div>
+            <div className="input-field col s12">
+              <textarea className="validate materialize-textarea"
+                  id="content"
+                  name="content"
+                  value={this.state.doc.content}
+                  onChange={this.handleFieldChange}
+              />
+              <label className="active" htmlFor="content">Content</label>
+            </div>
+            <span>Select Access Level:</span> &nbsp;
+            <SelectField value={this.state.accessLevel} onChange={this.handleChange}>
+              <MenuItem value={"admin"} primaryText="admin"/>
+              <MenuItem value={"private"} primaryText="private"/>
+              <MenuItem value={"public"} primaryText="public"/>
+            </SelectField><br/><br/>
+            <div className="col s6">
+              <div className="container center">
+                <button className="btn waves-effect header-btn blue"
+                    name="action"
+                    type="submit"
+                > Create
+                </button>
+              </div>
+            </div>
+            <div className="col s6">
+              <div className="container center">
+                <button className="btn waves-effect header-btn blue"
+                    name="action"
+                    type="cancel"
+                    onClick={this.handleCancel}
+                > Cancel
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
-      </div>
+
     );
   }
 }

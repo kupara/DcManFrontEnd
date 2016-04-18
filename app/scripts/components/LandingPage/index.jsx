@@ -16,9 +16,6 @@ export default class Landing extends React.Component {
                 <h5 className="header">Helps you create and manage documents online</h5>
               </div>
             </div>
-            <div className="row center">
-              Sign Up Today
-            </div>
           </div>
         </div>
       );
