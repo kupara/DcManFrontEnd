@@ -18,6 +18,7 @@ describe('User Updater Component Tests', function() {
       }
       component = shallow(<UserUpdater user= {user}/>);
     });
+    
     it('renders the component correctly', function() {
       sinon.stub(UserActions, 'getUser').returns(true);
       expect(component.hasClass('row')).toBe(true);
