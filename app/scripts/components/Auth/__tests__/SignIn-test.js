@@ -156,6 +156,7 @@ describe ('SignIn Form Tests', function() {
       sinon.spy(signInEvent, 'preventDefault');
       expect(signInEvent.preventDefault.called).toBe(false);
       expect(instance.handleSignInAction.calledOnce).toBe(false);
+      instance.handleSignInAction.restore();
       UserActions.signIn.restore();
     });
 

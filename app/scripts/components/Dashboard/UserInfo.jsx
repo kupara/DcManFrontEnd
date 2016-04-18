@@ -18,11 +18,14 @@ class UserInfo extends React.Component {
     this.getUserInfo = this.getUserInfo.bind(this);
   }
 
+  componentWillMount() {
+    UserStore.addChangeListener(this.getUserInfo, 'userInfo');
+  }
   componentDidMount() {
     let token = window.localStorage.getItem('token');
     let userId = window.localStorage.getItem('userId');
     UserActions.getUser(userId, token);
-    UserStore.addChangeListener(this.getUserInfo, 'userInfo');
+
   }
 
   getUserInfo() {

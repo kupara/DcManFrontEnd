@@ -28,8 +28,8 @@ class UserUpdater extends React.Component {
     }
   }
 
-  componentDidMount() {
-    UserStore.on('userUpdate', this.handleUserUpdate);
+  componentWillMount() {
+    UserStore.addChangeListener(this.handleUserUpdate, 'userUpdate');
   }
 
 
@@ -37,13 +37,14 @@ class UserUpdater extends React.Component {
     let data = UserStore.getUpdateResult();
     if (data && data.err) {
       window.Materialize.toast(data.err, 2000, 'error-toast rounded');
-
     } else {
       window.Materialize.toast(data.message, 2000, 'success-toast rounded');
       let token = window.localStorage.getItem('token');
       let userId = window.localStorage.getItem('userId');
       UserActions.getUser(userId, token);
-      this.props.closeModal();
+      if (this.props.closeModal !== undefined) {
+        this.props.closeModal();
+      }
     }
   }
 

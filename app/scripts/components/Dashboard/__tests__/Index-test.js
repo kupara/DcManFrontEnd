@@ -14,6 +14,7 @@ describe('Dashboard Component Tests', function() {
   describe('Component Rendering Tests', function() {
     it('renders the component correctly', function() {
       sinon.stub(UserActions, 'session').returns(true);
+      sinon.stub(UserActions, 'getUser').returns(true);
       let component = shallow(<Dashboard />);
       expect(component.hasClass('row dcman')).toBe(true);
       expect(component.find('Tab').length).toEqual(2);
@@ -21,21 +22,25 @@ describe('Dashboard Component Tests', function() {
       expect(component.find('AllDocs').length).toEqual(1);
       component.unmount();
       UserActions.session.restore();
+      UserActions.getUser.restore();
     });
 
     it('renders the Children Components', function() {
       sinon.stub(UserActions, 'session').returns(true);
+      sinon.stub(UserActions, 'getUser').returns(true);
       let component = shallow(<Dashboard />);
       expect(component.contains(<UserDocs />)).toEqual(true);
       expect(component.contains(<AllDocs />)).toEqual(true);
       component.unmount();
       UserActions.session.restore();
+      UserActions.getUser.restore();
     })
   });
 
   describe('Component Methods', function() {
     it('Calls componentWillMount', function() {
       sinon.stub(UserActions, 'session').returns(true);
+      sinon.stub(UserActions, 'getUser').returns(true);
       sinon.spy(Dashboard.prototype, 'componentWillMount');
       sinon.spy(UserStore, 'addChangeListener');
       let component = mount(<Dashboard />);
@@ -45,11 +50,13 @@ describe('Dashboard Component Tests', function() {
       Dashboard.prototype.componentWillMount.restore();
       UserStore.addChangeListener.restore();
       component.unmount();
+      UserActions.getUser.restore();
       UserActions.session.restore();
     });
 
     it('Calls componentWillUnmount', function() {
       sinon.stub(UserActions, 'session').returns(true);
+      sinon.stub(UserActions, 'getUser').returns(true);
       sinon.spy(Dashboard.prototype, 'componentWillUnmount');
       sinon.spy(UserStore, 'removeChangeListener');
       let component = mount(<Dashboard />);
@@ -58,11 +65,13 @@ describe('Dashboard Component Tests', function() {
       expect(UserStore.removeChangeListener.called).toBe(true);
       Dashboard.prototype.componentWillUnmount.restore();
       UserStore.removeChangeListener.restore();
+      UserActions.getUser.restore();
       UserActions.session.restore();
     });
 
     it('getSession error handling', function() {
       sinon.stub(UserActions, 'session').returns(true);
+      sinon.stub(UserActions, 'getUser').returns(true);
       let component = mount(<Dashboard />);
       UserStore.setSession({error: true});
       sinon.spy(Dashboard.prototype, 'getSession');
@@ -73,9 +82,10 @@ describe('Dashboard Component Tests', function() {
       expect(UserStore.getSession.called).toBe(true);
       expect(browserHistory.push.withArgs('/').called).toBe(true);
       Dashboard.prototype.getSession.restore();
-      UserActions.session.restore();
+      UserActions.getUser.restore();
       UserStore.getSession.restore();
       browserHistory.push.restore();
+      UserActions.session.restore();
     });
   });
 
