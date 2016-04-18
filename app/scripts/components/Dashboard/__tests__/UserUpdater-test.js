@@ -18,7 +18,7 @@ describe('User Updater Component Tests', function() {
       }
       component = shallow(<UserUpdater user= {user}/>);
     });
-    
+
     it('renders the component correctly', function() {
       sinon.stub(UserActions, 'getUser').returns(true);
       expect(component.hasClass('row')).toBe(true);
@@ -158,7 +158,7 @@ describe('User Updater Component Tests', function() {
     it('should correctly update the state', function() {
       let fieldChangeEvent = {
         target: {
-          email: 'username@email.com',
+          name: 'email',
           value: 'edwin'
         },
         preventDefault: function() {}

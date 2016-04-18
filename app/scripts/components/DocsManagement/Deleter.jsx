@@ -1,8 +1,6 @@
 import React from 'react';
 import * as DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
-import {history} from 'react-router';
-import Divider from 'material-ui/lib/divider';
 
 const styles = {
   button: {
@@ -37,7 +35,9 @@ class DocDeleter extends React.Component {
       let token = window.localStorage.getItem('token');
       let userId = window.localStorage.getItem('userId');
       DocActions.getUserDocs(userId, token);
-      this.props.closeModal();
+      if (this.props.closeModal !== undefined) {
+        this.props.closeModal();
+      }
     }
   }
 

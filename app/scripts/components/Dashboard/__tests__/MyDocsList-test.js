@@ -114,7 +114,9 @@ describe('UserDocs Listing Component Tests', function() {
       expect(DocStore.getUserDocs.called).toBe(true);
       component.unmount();
       MyDocsList.prototype.getUserDocs.restore();
+      DocActions.getUserDocs.restore();
       DocStore.getUserDocs.restore();
+
     });
   });
 
