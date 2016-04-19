@@ -123,7 +123,7 @@ describe('Auth Modal Tests', function() {
     it('handleSignOut', function() {
       let instance = component.instance();
       let data = {
-        message:'signed out'
+        message: 'signed out'
       }
       UserStore.setSignOutResult(data);
       sinon.spy(instance, 'handleSignOut');
@@ -163,18 +163,6 @@ describe('Auth Modal Tests', function() {
         UserActions.signOut.restore();
       });
     });
-
-    xit('redirects to the homepage on handleDash()', function() {
-      sinon.spy(browserHistory, 'push');
-      sinon.stub(UserActions, 'signOut').returns(true);
-      let instance = component.instance();
-      instance.setState({
-        loggedIn: true
-      });
-      instance.handleDash();
-      expect(browserHistory.push.withArgs('/dashboard').called).toBe(true);
-      browserHistory.push.restore();
-    });
   });
-  
+
 });

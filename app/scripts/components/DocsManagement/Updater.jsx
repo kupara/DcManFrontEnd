@@ -3,6 +3,8 @@ import * as DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
 import {history} from 'react-router';
 import SelectField from 'material-ui/lib/select-field';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+
 
 const styles = {
   button: {
@@ -44,8 +46,9 @@ class DocUpdater extends React.Component {
       let token = window.localStorage.getItem('token');
       let userId = window.localStorage.getItem('userId');
       DocActions.getUserDocs(userId, token);
-      this.props.closeModal();
-      // this.history.pushState(null, '/');
+      if (this.props.closeModal !== undefined) {
+        this.props.closeModal();
+      }
     }
   }
 

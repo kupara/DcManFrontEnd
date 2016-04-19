@@ -2,10 +2,8 @@ import React from 'react';
 import * as DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
 import {history} from 'react-router';
-import TextField from 'material-ui/lib/text-field';
 import SelectField from 'material-ui/lib/select-field';
 import MenuItem from 'material-ui/lib/menus/menu-item';
-import RaisedButton from 'material-ui/lib/raised-button';
 
 const styles = {
   button: {
@@ -51,8 +49,9 @@ class DocCreator extends React.Component {
         let userId = window.localStorage.getItem('userId');
         window.Materialize.toast(data.message, 2000, 'success-toast rounded');
         DocActions.getUserDocs(userId, token);
-        this.props.closeModal();
-      }
+        if (this.props.closeModal !== undefined) {
+          this.props.closeModal();
+        }      }
     }
   }
 
