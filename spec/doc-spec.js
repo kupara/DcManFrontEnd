@@ -179,35 +179,6 @@
         });
     });
 
-    it('returns only the documents that are public', function (done) {
-        request
-          .get('/documents')
-          .set('x-access-token', viewerToken)
-          .set('Accept', 'application/json')
-          .end(function (err, res) {
-            expect(err).toBeNull();
-            expect(res.status).toBe(200);
-            expect(res.body).toBeDefined();
-            expect(Array.isArray(res.body)).toBeTruthy();
-            expect(res.body.length).toBe(1);
-            done();
-          });
-    });
-
-    it('returns all documents accessible to a specific role ', function (done) {
-      request
-        .get('/documents?role=user')
-        .set('x-access-token', adminToken)
-        .set('Accept', 'application/json')
-        .end(function (err, res) {
-          expect(err).toBeNull();
-          expect(res.status).toBe(200);
-          expect(Array.isArray(res.body)).toBeTruthy();
-          expect(res.body.length).toBe(4);
-          done();
-        });
-    });
-
     it('allows a user to update a user document', function (done) {
       helper.createDoc(userToken, userId, function (body) {
         let doc_id = body.document._id;
