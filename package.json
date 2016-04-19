@@ -5,8 +5,9 @@
   "scripts": {
     "start": "nodemon server.js",
     "test": "karma start",
+    "test:bend": "node_modules/.bin/nyc --require babel-core/register jasmine && node_modules/.bin/nyc report --reporter=text-lcov",
     "codecov": "cat fendCoverage/lcov/lcov.info | ./node_modules/.bin/codecov -t 58204d92-2d20-4912-9ddd-8e5794375f16",
-    "coverage": "node_modules/.bin/nyc --require babel-core/register jasmine && node_modules/.bin/nyc report --reporter=text-lcov | coveralls",
+    "coverage": "cat coverag/lcov/lcov.info | coveralls",
     "build": "webpack"
   },
   "repository": {
