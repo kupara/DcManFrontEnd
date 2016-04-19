@@ -9,10 +9,11 @@ engines:
     enabled: true
   duplication:
     enabled: false
-    
+
 ratings:
   paths:
   - "**.js"
-  
+
 exclude_paths:
 - spec/**/*
+- **/*-test.js

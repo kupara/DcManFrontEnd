@@ -7,7 +7,7 @@ import * as DocActions from '../../../actions/DocumentActions';
 import DocStore from '../../../stores/DocumentStore';
 import Updater from '../Updater.jsx';
 
-describe('Document Creation Component Tests', function() {
+describe('Document Update Component Tests', function() {
   describe('Component Rendering Tests', function() {
     var component;
     beforeEach(() => {
@@ -144,7 +144,7 @@ describe('Document Creation Component Tests', function() {
           accessLevel: 'public'
         }
       });
-      // simulate the Sign In event
+      // simulate the Update event
       let updateEvent = {
         preventDefault: function() {}
       };
