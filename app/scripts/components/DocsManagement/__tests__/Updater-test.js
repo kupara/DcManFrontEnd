@@ -1,5 +1,4 @@
 import React from 'react';
-import Modal from 'react-modal';
 import expect from 'expect';
 import sinon from 'sinon';
 import {mount,shallow} from 'enzyme';
@@ -7,7 +6,7 @@ import * as DocActions from '../../../actions/DocumentActions';
 import DocStore from '../../../stores/DocumentStore';
 import Updater from '../Updater.jsx';
 
-describe('Document Creation Component Tests', function() {
+describe('Document Update Component Tests', function() {
   describe('Component Rendering Tests', function() {
     var component;
     beforeEach(() => {
@@ -99,7 +98,7 @@ describe('Document Creation Component Tests', function() {
           content: 'edwin',
           accessLevel: 'private'
         },
-        message: 'creation success '
+        message: 'Update success '
       };
       DocStore.setDocUpdateResult(data);
       sinon.spy(instance, 'handleDocUpdate');
@@ -120,7 +119,7 @@ describe('Document Creation Component Tests', function() {
       let instance = component.instance();
       let data = {
         error: {
-          message: 'creation error'
+          message: 'update error'
         }
       };
       DocStore.setDocUpdateResult(data);
@@ -134,7 +133,7 @@ describe('Document Creation Component Tests', function() {
       DocActions.getUserDocs.restore();
     });
 
-    it('should call handleSubmit with creation data', function() {
+    it('should call handleSubmit with update data', function() {
       sinon.stub(DocActions, 'updateDoc').returns({});
       let instance = component.instance();
       component.setState({
@@ -144,7 +143,7 @@ describe('Document Creation Component Tests', function() {
           accessLevel: 'public'
         }
       });
-      // simulate the Sign In event
+      // simulate the Update event
       let updateEvent = {
         preventDefault: function() {}
       };

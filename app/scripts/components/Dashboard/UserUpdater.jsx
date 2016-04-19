@@ -1,7 +1,6 @@
 import React from 'react';
 import * as UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
-import {history} from 'react-router';
 
 const styles = {
   button: {

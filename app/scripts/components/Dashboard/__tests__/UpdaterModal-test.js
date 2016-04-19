@@ -3,7 +3,6 @@ import expect from 'expect';
 import sinon from 'sinon';
 import {mount,shallow} from 'enzyme';
 import * as UserActions from '../../../actions/UserActions';
-import UserStore from '../../../stores/UserStore';
 import UpdaterModal from '../UpdaterModal.jsx';
 
 describe('User Update Modal Component Tests', function() {

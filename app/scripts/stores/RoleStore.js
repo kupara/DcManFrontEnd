@@ -5,23 +5,27 @@ import BaseStore from './BaseStore';
 let createdRole = null,
   roles = null;
 
-class RoleStore extends React.Component {
-  setRoles(roles) {
-    this.roles = roles;
+class RoleStore extends BaseStore {
+  constructor() {
+    super();
+  }
+
+  setRoles(role) {
+    roles = role;
     this.emitChange();
   }
 
   getRoles() {
-    return this.roles;
+    return roles;
   }
 
   setCreatedRole(role) {
-    this.createdRole = role;
+    createdRole = role;
     this.emitChange();
   }
 
   getCreatedRole() {
-    return this.createdRole;
+    return createdRole;
   }
 }
 
@@ -30,16 +34,14 @@ let roleStore = new RoleStore();
 roleStore.dispatchToken = Dispatcher.register(action => {
   switch (action.actionType) {
     case AppConstants.CREATE_ROLE:
-      RoleStore.setCreatedRole(action.data);
+      roleStore.setCreatedRole(action.data);
       break;
     case AppConstants.GET_ROLES:
-      RoleStore.setRoles(action.data);
+      roleStore.setRoles(action.data);
       break;
     default:
       return true;
   }
-
-  roleStore.emitChange();
 
 });
 

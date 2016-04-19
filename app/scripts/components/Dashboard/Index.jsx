@@ -5,13 +5,6 @@ import UserStore from '../../stores/UserStore';
 import UserDocs from './MyDocsList.jsx';
 import UserInfo from './UserInfo.jsx';
 import AllDocs from './AllDocsList.jsx';
-import Card from 'material-ui/lib/card/card';
-import CardActions from 'material-ui/lib/card/card-actions';
-import CardHeader from 'material-ui/lib/card/card-header';
-import CardMedia from 'material-ui/lib/card/card-media';
-import CardTitle from 'material-ui/lib/card/card-title';
-import CardText from 'material-ui/lib/card/card-text';
-import FlatButton from 'material-ui/lib/flat-button';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
 
