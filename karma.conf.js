@@ -9,7 +9,7 @@
 
       browsers: ['PhantomJS'],
 
-      singleRun: false,
+      singleRun: true,
 
       frameworks: ['mocha'],
 
@@ -83,7 +83,7 @@
       },
 
       coverageReporter: {
-        dir: 'coverage',
+        dir: 'fendCoverage',
         reporters: [
           { type: 'html', subdir: 'html' },
           { type: 'lcovonly', subdir: 'lcov' }

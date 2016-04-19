@@ -1,6 +1,5 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-import Modal from 'react-modal';
 import expect from 'expect';
 import sinon from 'sinon';
 import {mount,shallow} from 'enzyme';
@@ -38,7 +37,7 @@ describe('Auth Modal Tests', function() {
       component.setState({
         loggedIn: true
       });
-      //shows two buttons
+      //shows two buttons one for dashboard the other for logout
       expect(component.find('FlatButton').length).toEqual(2);
       component.unmount();
       UserActions.session.restore();
@@ -149,7 +148,7 @@ describe('Auth Modal Tests', function() {
         instance.setState({
           loggedIn: true
         });
-        // simulate the submit form event
+        // simulate the signout event
         let signOutEvent = {
           preventDefault: function() {}
         };
