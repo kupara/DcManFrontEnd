@@ -1,5 +1,4 @@
 import React from 'react';
-import Modal from 'react-modal';
 import expect from 'expect';
 import sinon from 'sinon';
 import {mount,shallow} from 'enzyme';

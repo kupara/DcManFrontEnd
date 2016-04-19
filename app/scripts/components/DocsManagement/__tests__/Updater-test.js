@@ -1,5 +1,4 @@
 import React from 'react';
-import Modal from 'react-modal';
 import expect from 'expect';
 import sinon from 'sinon';
 import {mount,shallow} from 'enzyme';
@@ -99,7 +98,7 @@ describe('Document Update Component Tests', function() {
           content: 'edwin',
           accessLevel: 'private'
         },
-        message: 'creation success '
+        message: 'Update success '
       };
       DocStore.setDocUpdateResult(data);
       sinon.spy(instance, 'handleDocUpdate');
@@ -120,7 +119,7 @@ describe('Document Update Component Tests', function() {
       let instance = component.instance();
       let data = {
         error: {
-          message: 'creation error'
+          message: 'update error'
         }
       };
       DocStore.setDocUpdateResult(data);
@@ -134,7 +133,7 @@ describe('Document Update Component Tests', function() {
       DocActions.getUserDocs.restore();
     });
 
-    it('should call handleSubmit with creation data', function() {
+    it('should call handleSubmit with update data', function() {
       sinon.stub(DocActions, 'updateDoc').returns({});
       let instance = component.instance();
       component.setState({

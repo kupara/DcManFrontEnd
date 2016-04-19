@@ -1,6 +1,5 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-import Modal from 'react-modal';
 import expect from 'expect';
 import sinon from 'sinon';
 import {mount,shallow} from 'enzyme';

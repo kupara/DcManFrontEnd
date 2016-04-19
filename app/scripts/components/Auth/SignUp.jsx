@@ -3,8 +3,6 @@ import {browserHistory} from 'react-router';
 import Select from 'react-select';
 import * as UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
-import TextField from 'material-ui/lib/text-field';
-import RaisedButton from 'material-ui/lib/raised-button';
 import SelectField from 'material-ui/lib/select-field';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 

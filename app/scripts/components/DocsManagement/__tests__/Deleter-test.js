@@ -1,5 +1,4 @@
 import React from 'react';
-import Modal from 'react-modal';
 import expect from 'expect';
 import sinon from 'sinon';
 import {mount,shallow} from 'enzyme';
@@ -85,7 +84,7 @@ describe('Document Deletion Component Tests', function() {
       let instance = component.instance();
       let data = {
         error: {
-          message: 'deletion error'
+          message: 'Deletion error'
         }
       };
       DocStore.setDocDeleteResult(data);

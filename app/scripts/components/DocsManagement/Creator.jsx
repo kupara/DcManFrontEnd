@@ -1,7 +1,6 @@
 import React from 'react';
 import * as DocActions from '../../actions/DocumentActions';
 import DocStore from '../../stores/DocumentStore';
-import {history} from 'react-router';
 import SelectField from 'material-ui/lib/select-field';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 
@@ -51,7 +50,8 @@ class DocCreator extends React.Component {
         DocActions.getUserDocs(userId, token);
         if (this.props.closeModal !== undefined) {
           this.props.closeModal();
-        }      }
+        }
+      }
     }
   }
 
