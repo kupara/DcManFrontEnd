@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon server.js",
-    "test": "istanbul cover karma start",
+    "test": "karma start",
     "codecov": "cat coverage/lcov/lcov.info | ./node_modules/.bin/codecov -t 58204d92-2d20-4912-9ddd-8e5794375f16",
     "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "webpack"
