@@ -96,7 +96,7 @@ describe ('SignUp Form Tests', function() {
       localStorage.setItem.restore();
     });
 
-    it('should call handleSignUpAction with Sign In data', function() {
+    it('should call handleSignUpAction with Sign Up data', function() {
       sinon.stub(UserActions, 'signUp').returns(true);
       let instance = component.instance();
       instance.setState({
