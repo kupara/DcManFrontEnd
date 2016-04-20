@@ -49205,7 +49205,11 @@
 	            { style: { marginTop: 20 } },
 	            _react2.default.createElement(_cardHeader2.default, {
 	              title: doc.title,
-	              subtitle: "Created on " + new Date(doc.dateCreated).toLocaleDateString(),
+	              subtitle: "Created on " + new Date(doc.dateCreated).toLocaleDateString() + " by " + _react2.default.createElement(
+	                'i',
+	                null,
+	                'doc.ownerId.username+'
+	              ),
 	              actAsExpander: true,
 	              showExpandableButton: true
 	            }),

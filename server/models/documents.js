@@ -8,7 +8,7 @@
    const docSchema = new Schema({
      ownerId: {
        type: Schema.Types.ObjectId,
-       ref: User._id,
+       ref: 'User',
        required: true
      },
      title: {

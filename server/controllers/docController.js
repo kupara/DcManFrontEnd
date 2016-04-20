@@ -70,6 +70,7 @@
       }
       Document
         .find(query)
+        .populate('ownerId')
         .sort({
           dateCreated: -1
         })

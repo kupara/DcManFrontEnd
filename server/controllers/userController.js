@@ -255,7 +255,7 @@
           res.send(err);
         } else {
           Documents.find({
-            ownerId: user._id
+            ownerId: user
           }, (err, documents) => {
             if (err) {
               res.send(err);
