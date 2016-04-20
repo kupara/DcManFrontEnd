@@ -71,10 +71,9 @@ class DocUpdater extends React.Component {
   }
 
   handleChange(event, index, value) {
+    this.state.doc['accessLevel'] = value;
     this.setState({
-      doc: {
-        accessLevel: value
-      }
+      doc: this.state.doc
     });
   }
 

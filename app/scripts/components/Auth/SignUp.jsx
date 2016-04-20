@@ -65,10 +65,9 @@ class SignUpForm extends React.Component {
   }
 
   handleRoleSelect(event, index, value) {
+    this.state.user.role = value;
     this.setState({
-      user: {
-        role: value
-      }
+      user: this.state.user
     });
   }
 

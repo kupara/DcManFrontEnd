@@ -39399,10 +39399,9 @@
 	  }, {
 	    key: 'handleRoleSelect',
 	    value: function handleRoleSelect(event, index, value) {
+	      this.state.user.role = value;
 	      this.setState({
-	        user: {
-	          role: value
-	        }
+	        user: this.state.user
 	      });
 	    }
 	  }, {
@@ -46451,10 +46450,9 @@
 	  }, {
 	    key: 'handleChange',
 	    value: function handleChange(event, index, value) {
+	      this.state.doc['accessLevel'] = value;
 	      this.setState({
-	        doc: {
-	          accessLevel: value
-	        }
+	        doc: this.state.doc
 	      });
 	    }
 	  }, {
@@ -46800,10 +46798,9 @@
 	  }, {
 	    key: 'handleChange',
 	    value: function handleChange(event, index, value) {
+	      this.state.doc['accessLevel'] = value;
 	      this.setState({
-	        doc: {
-	          accessLevel: value
-	        }
+	        doc: this.state.doc
 	      });
 	    }
 	  }, {
