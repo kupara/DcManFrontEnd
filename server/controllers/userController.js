@@ -53,7 +53,7 @@
               if (err) {
                 res.send(err);
               } else {
-                let userData = _.pick(user, '_id', 'username', 'name', 'email');
+                let userData = _.pick(user, '_id', 'username', 'role', 'name', 'email');
                 res.send({
                   message: 'User created successfully',
                   user: userData,
