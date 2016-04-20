@@ -11,16 +11,28 @@ import AllDocs from '../AllDocsList.jsx';
 
 describe('Dashboard Component Tests', function() {
   describe('Component Rendering Tests', function() {
-    it('renders the component correctly', function() {
-      sinon.stub(UserActions, 'session').returns({
-        user: {
-          role: 'user'
-        }
-      });
+    it('renders the component correctly if user is not viewer', function() {
+      sinon.stub(UserActions, 'session').returns(true);
       let component = shallow(<Dashboard />);
+      component.setState({
+        role: 'admin'
+      });
       expect(component.hasClass('row dcman')).toBe(true);
       expect(component.find('Tab').length).toEqual(2);
       expect(component.find('UserDocs').length).toEqual(1);
+      expect(component.find('AllDocs').length).toEqual(1);
+      component.unmount();
+      UserActions.session.restore();
+    });
+
+    it('renders the component correctly if user is a viewer', function() {
+      sinon.stub(UserActions, 'session').returns(true);
+      let component = shallow(<Dashboard />);
+      component.setState({
+        role: 'viewer'
+      });
+      expect(component.find('Tab').length).toEqual(1);
+      expect(component.find('UserDocs').length).toEqual(0);
       expect(component.find('AllDocs').length).toEqual(1);
       component.unmount();
       UserActions.session.restore();
@@ -30,6 +42,9 @@ describe('Dashboard Component Tests', function() {
       sinon.stub(UserActions, 'session').returns(true);
       sinon.stub(UserActions, 'getUser').returns(true);
       let component = shallow(<Dashboard />);
+      component.setState({
+        role: 'admin'
+      });
       expect(component.contains(<UserDocs />)).toEqual(true);
       expect(component.contains(<AllDocs />)).toEqual(true);
       component.unmount();

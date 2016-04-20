@@ -30,7 +30,7 @@
   app.use(express.static(publicPath));
   app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
-  if (isProduction) {
+  if (!isProduction) {
     // We require the bundler inside the if block because
     // it is only needed in a development environment
     let bundle = require('./bundle.js');

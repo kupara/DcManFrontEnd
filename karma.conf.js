@@ -9,7 +9,7 @@
 
       browsers: ['PhantomJS'],
 
-      singleRun: false,
+      singleRun: true,
 
       frameworks: ['mocha'],
 
