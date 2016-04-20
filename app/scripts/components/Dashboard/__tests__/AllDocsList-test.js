@@ -26,13 +26,15 @@ describe('AllDocs Listing Component Tests', function() {
           _id: 'dsdsds',
           dataCreated: Date.now(),
           content: 'Content',
-          title: 'Test Document'
+          title: 'Test Document',
+          ownerId: { username: 'owner'}
         },
         {
           _id: 'dsdsdds',
           dataCreated: Date.now(),
           content: 'Content2',
-          title: 'Test Document 2'
+          title: 'Test Document 2',
+          ownerId: { username: 'owner'}
         }
       ];
       component.setState({
