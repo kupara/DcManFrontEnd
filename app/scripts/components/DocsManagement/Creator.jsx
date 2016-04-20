@@ -107,7 +107,7 @@ class DocCreator extends React.Component {
               />
               <label className="active" htmlFor="content">Content</label>
             </div>
-            <span>Select Access Level:</span> &nbsp;
+            <span>Select Access Level:</span> <br/>
             <SelectField value={this.state.doc.accessLevel} onChange={this.handleChange}>
               <MenuItem value={"admin"} primaryText="admin"/>
               <MenuItem value={"private"} primaryText="private"/>

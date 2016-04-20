@@ -39478,14 +39478,21 @@
 	            'div',
 	            { className: 'input-field col s12' },
 	            _react2.default.createElement(
+	              'span',
+	              null,
+	              'Select Role: '
+	            ),
+	            ' ',
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement(
 	              _selectField2.default,
 	              {
 	                value: this.state.user.role,
 	                onChange: this.handleRoleSelect,
 	                style: styles.text },
 	              _react2.default.createElement(_menuItem2.default, { value: "admin", primaryText: 'Admin' }),
-	              _react2.default.createElement(_menuItem2.default, { value: "owner", primaryText: 'Staff' }),
-	              _react2.default.createElement(_menuItem2.default, { value: "user", primaryText: 'User' })
+	              _react2.default.createElement(_menuItem2.default, { value: "user", primaryText: 'User' }),
+	              _react2.default.createElement(_menuItem2.default, { value: "viewer", primaryText: 'Viewer' })
 	            ),
 	            _react2.default.createElement('br', null),
 	            _react2.default.createElement('br', null)
@@ -46518,7 +46525,8 @@
 	            null,
 	            'Select Access Level:'
 	          ),
-	          '  ',
+	          ' ',
+	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            _selectField2.default,
 	            { value: this.state.doc.accessLevel, onChange: this.handleChange },
@@ -46853,7 +46861,8 @@
 	            null,
 	            'Select Access Level:'
 	          ),
-	          '  ',
+	          ' ',
+	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            _selectField2.default,
 	            { value: this.state.doc.accessLevel, onChange: this.handleChange },

@@ -105,13 +105,14 @@ class SignUpForm extends React.Component {
             <label htmlFor="password">Password</label>
           </div>
           <div className="input-field col s12">
-           <SelectField
+            <span>Select Role: </span> <br/>
+            <SelectField
              value={this.state.user.role}
              onChange={this.handleRoleSelect}
              style={styles.text}>
                <MenuItem value={"admin"} primaryText="Admin"/>
-               <MenuItem value={"owner"} primaryText="Staff"/>
                <MenuItem value={"user"} primaryText="User"/>
+               <MenuItem value={"viewer"} primaryText="Viewer"/>
              </SelectField><br/><br/>
 
           </div>

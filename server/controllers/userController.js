@@ -46,7 +46,7 @@
             newUser.name.first = req.body.firstname;
             newUser.name.last = req.body.lastname;
             newUser.loggedIn = true;
-            let tokenData = _.pick(newUser, '_id', 'username', 'name', 'email', 'loggedIn');
+            let tokenData = _.pick(newUser, '_id', 'username', 'role', 'name', 'email', 'loggedIn');
             let token = createToken(tokenData);
 
             newUser.save((err, user) => {
