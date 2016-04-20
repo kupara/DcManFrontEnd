@@ -21,7 +21,7 @@
       .post(User.authenticate, User.logout);
 
     app.route('/users')
-      .get(User.all)
+      .get(User.authenticate, User.all)
       .post(User.register);
 
     app.route('/users/:id')
