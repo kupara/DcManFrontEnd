@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Link, IndexRoute, Redirect, browserHistory } from 'react-router';
 import Landing from './scripts/components/LandingPage/index.jsx';
 import Main from './scripts/components/LandingPage/Main.jsx';
-import Dashboard from './scripts/components/Dashboard/index.jsx';
+import Dashboard from './scripts/components/Dashboard/Index.jsx';
 
 require('./styles/styles.css');
 

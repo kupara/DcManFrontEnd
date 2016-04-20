@@ -12,7 +12,6 @@
     "codecov": "cat fendCoverage/lcov/lcov.info | ./node_modules/.bin/codecov -t 58204d92-2d20-4912-9ddd-8e5794375f16",
     "coverage": "npm run test:bend && cat coverage/lcov.info | coveralls",
     "build": "node_modules/.bin/webpack --config ./webpack.prod.config.js --progress --colors",
-    "webpack": "^1.12.14",
     "postinstall": "npm run build && ./node_modules/bower/bin/bower install"
   },
   "repository": {
@@ -45,7 +44,8 @@
     "react-tap-event-plugin": "~0.2.2",
     "react-toolbox": "^0.16.2",
     "superagent": "^1.8.3",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "webpack": "^1.12.14"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
