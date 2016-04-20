@@ -45364,12 +45364,6 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var styles = {
-	  headline: {
-	    fontSize: 24,
-	    paddingTop: 16,
-	    marginBottom: 12,
-	    fontWeight: 400
-	  },
 	  tab: {
 	    backgroundColor: '#f5f5f5',
 	    color: "#0082ff"
@@ -45385,6 +45379,9 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Dash).call(this, props));
 	
 	    _this.getSession = _this.getSession.bind(_this);
+	    _this.state = {
+	      role: 'viewer'
+	    };
 	    return _this;
 	  }
 	
@@ -45400,6 +45397,10 @@
 	      var data = _UserStore2.default.getSession();
 	      if (data && !data.loggedIn) {
 	        _reactRouter.browserHistory.push('/');
+	      } else {
+	        this.setState({
+	          role: data.user.role
+	        });
 	      }
 	    }
 	  }, {
@@ -45418,7 +45419,21 @@
 	          { className: 'col s4 profile' },
 	          _react2.default.createElement(_UserInfo2.default, null)
 	        ),
-	        _react2.default.createElement(
+	        this.state.role === 'viewer' ? _react2.default.createElement(
+	          'div',
+	          { className: 'col s8 docsList' },
+	          _react2.default.createElement(
+	            _tabs2.default,
+	            { tabItemContainerStyle: styles.tab,
+	              inkBarStyle: { backgroundColor: "#0082ff" } },
+	            _react2.default.createElement(
+	              _tab2.default,
+	              { label: 'All Docs',
+	                style: { color: "#0082ff" } },
+	              _react2.default.createElement(_AllDocsList2.default, null)
+	            )
+	          )
+	        ) : _react2.default.createElement(
 	          'div',
 	          { className: 'col s8 docsList' },
 	          _react2.default.createElement(
@@ -49271,7 +49286,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".dcman {\n  margin: 0 auto;\n  width: 75%; }\n\n.section__hero {\n  height: 100vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(" + __webpack_require__(420) + "); }\n\n.section__hero h3 {\n  color: #0082ff; }\n\n.section__hero h5 {\n  line-height: 2.3rem; }\n\n.section__hero h5 span {\n  border-bottom: 2px solid white; }\n\n.section__hero h1 {\n  font-weight: bold;\n  font-size: 4.2rem;\n  line-height: 1.10;\n  color: #393939; }\n\n.section__hero .btn {\n  width: 20rem;\n  margin-top: 1.5rem; }\n\n.section__hero .btn__main-cta {\n  height: 3rem; }\n\n.btn-start {\n  background-color: #E040FB; }\n\n.btn-start:hover {\n  background-color: #E34BFD; }\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%; } }\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none; }\n  .dcman {\n    margin: 0 auto;\n    width: 90%; }\n  .docsList {\n    width: 100% !important; } }\n\n.error-toast {\n  background-color: #d23939; }\n\n.success-toast {\n  background-color: #0c3; }\n", "", {"version":3,"sources":["/./app/app/styles/styles.css"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,WAAW,EACZ;;AACD;EACE,cAAc;EACd,gBAAgB;EAChB,mBAAmB;EACnB,mBAAmB;EACnB,0CAAe,EAChB;;AACD;EACE,eAAe,EAChB;;AACD;EACE,oBAAoB,EACrB;;AACD;EACE,+BAA+B,EAChC;;AACD;EACE,kBAAkB;EAClB,kBAAkB;EAClB,kBAAkB;EAClB,eAAe,EAChB;;AACD;EACE,aAAa;EACb,mBAAmB,EACpB;;AAED;EACE,aAAa,EACd;;AAED;EACE,0BAA0B,EAC3B;;AACD;EACE,0BAA0B,EAC3B;;AAED;EACE;IACE,eAAe;IACf,WAAW,EACZ,EAAA;;AAGH;EACE;IACE,cAAc,EACf;EACD;IACE,eAAe;IACf,WAAW,EACZ;EACD;IACE,uBAAuB,EACxB,EAAA;;AAGH;EACE,0BAAsB,EACvB;;AAED;EACE,uBAAuB,EACxB","file":"styles.css","sourcesContent":[".dcman {\n  margin: 0 auto;\n  width: 75%;\n}\n.section__hero {\n  height: 100vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(\"../images/background.jpg\");\n}\n.section__hero h3 {\n  color: #0082ff;\n}\n.section__hero h5 {\n  line-height: 2.3rem;\n}\n.section__hero h5 span {\n  border-bottom: 2px solid white;\n}\n.section__hero h1 {\n  font-weight: bold;\n  font-size: 4.2rem;\n  line-height: 1.10;\n  color: #393939;\n}\n.section__hero .btn {\n  width: 20rem;\n  margin-top: 1.5rem;\n}\n\n.section__hero .btn__main-cta {\n  height: 3rem;\n}\n\n.btn-start {\n  background-color: #E040FB;\n}\n.btn-start:hover {\n  background-color: #E34BFD;\n}\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n  }\n}\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none;\n  }\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n  }\n  .docsList {\n    width: 100% !important;\n  }\n}\n\n.error-toast {\n  background-color: rgba(210, 57, 57, 1);\n}\n\n.success-toast {\n  background-color: #0c3;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".dcman {\n  margin: 0 auto;\n  width: 75%;\n  margin-top: 10px; }\n\n.section__hero {\n  height: 100vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(" + __webpack_require__(420) + "); }\n\n.section__hero h3 {\n  color: #0082ff; }\n\n.section__hero h5 {\n  line-height: 2.3rem; }\n\n.section__hero h5 span {\n  border-bottom: 2px solid white; }\n\n.section__hero h1 {\n  font-weight: bold;\n  font-size: 4.2rem;\n  line-height: 1.10;\n  color: #393939; }\n\n.section__hero .btn {\n  width: 20rem;\n  margin-top: 1.5rem; }\n\n.section__hero .btn__main-cta {\n  height: 3rem; }\n\n.btn-start {\n  background-color: #E040FB; }\n\n.btn-start:hover {\n  background-color: #E34BFD; }\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%; } }\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none; }\n  .dcman {\n    margin: 0 auto;\n    width: 90%; }\n  .docsList {\n    width: 100% !important; } }\n\n.error-toast {\n  background-color: #d23939; }\n\n.success-toast {\n  background-color: #0c3; }\n", "", {"version":3,"sources":["/./app/app/styles/styles.css"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,WAAW;EACX,iBAAiB,EAClB;;AACD;EACE,cAAc;EACd,gBAAgB;EAChB,mBAAmB;EACnB,mBAAmB;EACnB,0CAAe,EAChB;;AACD;EACE,eAAe,EAChB;;AACD;EACE,oBAAoB,EACrB;;AACD;EACE,+BAA+B,EAChC;;AACD;EACE,kBAAkB;EAClB,kBAAkB;EAClB,kBAAkB;EAClB,eAAe,EAChB;;AACD;EACE,aAAa;EACb,mBAAmB,EACpB;;AAED;EACE,aAAa,EACd;;AAED;EACE,0BAA0B,EAC3B;;AACD;EACE,0BAA0B,EAC3B;;AAED;EACE;IACE,eAAe;IACf,WAAW,EACZ,EAAA;;AAGH;EACE;IACE,cAAc,EACf;EACD;IACE,eAAe;IACf,WAAW,EACZ;EACD;IACE,uBAAuB,EACxB,EAAA;;AAGH;EACE,0BAAsB,EACvB;;AAED;EACE,uBAAuB,EACxB","file":"styles.css","sourcesContent":[".dcman {\n  margin: 0 auto;\n  width: 75%;\n  margin-top: 10px;\n}\n.section__hero {\n  height: 100vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(\"../images/background.jpg\");\n}\n.section__hero h3 {\n  color: #0082ff;\n}\n.section__hero h5 {\n  line-height: 2.3rem;\n}\n.section__hero h5 span {\n  border-bottom: 2px solid white;\n}\n.section__hero h1 {\n  font-weight: bold;\n  font-size: 4.2rem;\n  line-height: 1.10;\n  color: #393939;\n}\n.section__hero .btn {\n  width: 20rem;\n  margin-top: 1.5rem;\n}\n\n.section__hero .btn__main-cta {\n  height: 3rem;\n}\n\n.btn-start {\n  background-color: #E040FB;\n}\n.btn-start:hover {\n  background-color: #E34BFD;\n}\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n  }\n}\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none;\n  }\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n  }\n  .docsList {\n    width: 100% !important;\n  }\n}\n\n.error-toast {\n  background-color: rgba(210, 57, 57, 1);\n}\n\n.success-toast {\n  background-color: #0c3;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 

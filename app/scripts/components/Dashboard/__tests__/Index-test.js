@@ -12,8 +12,11 @@ import AllDocs from '../AllDocsList.jsx';
 describe('Dashboard Component Tests', function() {
   describe('Component Rendering Tests', function() {
     it('renders the component correctly', function() {
-      sinon.stub(UserActions, 'session').returns(true);
-      sinon.stub(UserActions, 'getUser').returns(true);
+      sinon.stub(UserActions, 'session').returns({
+        user: {
+          role: 'user'
+        }
+      });
       let component = shallow(<Dashboard />);
       expect(component.hasClass('row dcman')).toBe(true);
       expect(component.find('Tab').length).toEqual(2);
@@ -21,7 +24,6 @@ describe('Dashboard Component Tests', function() {
       expect(component.find('AllDocs').length).toEqual(1);
       component.unmount();
       UserActions.session.restore();
-      UserActions.getUser.restore();
     });
 
     it('renders the Children Components', function() {

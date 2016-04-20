@@ -9,12 +9,6 @@ import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
 
 const styles = {
-  headline: {
-    fontSize: 24,
-    paddingTop: 16,
-    marginBottom: 12,
-    fontWeight: 400
-  },
   tab: {
     backgroundColor: '#f5f5f5',
     color: "#0082ff"
@@ -25,6 +19,9 @@ class Dash extends React.Component {
   constructor(props) {
     super(props);
     this.getSession = this.getSession.bind(this);
+    this.state = {
+      role: 'viewer'
+    }
   }
 
   componentWillMount() {
@@ -36,6 +33,10 @@ class Dash extends React.Component {
     let data = UserStore.getSession();
     if (data && !data.loggedIn) {
       browserHistory.push('/');
+    } else {
+      this.setState({
+        role: data.user.role
+      });
     }
   }
 
@@ -49,19 +50,33 @@ class Dash extends React.Component {
         <div className="col s4 profile">
           <UserInfo />
         </div>
-        <div className="col s8 docsList">
-          <Tabs tabItemContainerStyle={styles.tab}
-            inkBarStyle={{backgroundColor: "#0082ff"}}>
-            <Tab label="My Docs"
-              style={{color: "#0082ff"}}>
-              <UserDocs />
-            </Tab>
-            <Tab label="All Docs"
-              style={{color: "#0082ff"}}>
-              <AllDocs />
-            </Tab>
-          </Tabs>
-        </div>
+        {(this.state.role === 'viewer')
+          ?
+          <div className="col s8 docsList">
+            <Tabs tabItemContainerStyle={styles.tab}
+              inkBarStyle={{backgroundColor: "#0082ff"}}>
+              <Tab label="All Docs"
+                style={{color: "#0082ff"}}>
+                <AllDocs />
+              </Tab>
+            </Tabs>
+          </div>
+          :
+          <div className="col s8 docsList">
+            <Tabs tabItemContainerStyle={styles.tab}
+              inkBarStyle={{backgroundColor: "#0082ff"}}>
+
+              <Tab label="My Docs"
+                style={{color: "#0082ff"}}>
+                <UserDocs />
+              </Tab>
+              <Tab label="All Docs"
+                style={{color: "#0082ff"}}>
+                <AllDocs />
+              </Tab>
+            </Tabs>
+          </div>
+        }
       </div>
     );
   }
