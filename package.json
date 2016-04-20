@@ -11,7 +11,8 @@
     "test:bend": "node_modules/.bin/nyc --require babel-core/register jasmine && node_modules/.bin/nyc report --reporter=text-lcov",
     "codecov": "cat fendCoverage/lcov/lcov.info | ./node_modules/.bin/codecov -t 58204d92-2d20-4912-9ddd-8e5794375f16",
     "coverage": "npm run test:bend && cat coverage/lcov.info | coveralls",
-    "build": "webpack --config ./webpack.prod.config.js --progress --colors"
+    "build": "webpack --config ./webpack.prod.config.js --progress --colors",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
     "async": "^1.5.2",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.13.2",
+    "bower": "^1.7.9",
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "flux": "^2.1.1",
