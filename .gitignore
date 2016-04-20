@@ -17,3 +17,4 @@ fendCoverage
 .npm
 
 bower_components
+./public/bundle.*

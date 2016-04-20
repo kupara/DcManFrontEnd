@@ -1,18 +1,21 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-import Select from 'react-select';
 import * as UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
 import SelectField from 'material-ui/lib/select-field';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 
-const style = {
+const styles = {
   button: {
     margin: 12,
     color: '#0288D1'
   },
   form: {
+    marginTop: '100px',
     margin: '50px auto'
+  },
+  text: {
+    color: '#000;'
   }
 };
 
@@ -33,7 +36,7 @@ class SignUpForm extends React.Component {
         role: ''
       },
       roles: [
-        { value: 'owner', label: 'Owner' },
+        { value: 'owner', label: 'Staff' },
         { value: 'admin', label: 'Admin' },
         { value: 'user',  label: 'User' }
       ]
@@ -85,34 +88,35 @@ class SignUpForm extends React.Component {
     return (
       <div className="row">
         <form className="col s12" onSubmit={this.handleSignUpAction}>
-          <div className="input-field col m6 s12">
+          <div className="input-field col s12">
             <input className="validate" id="firstname" name="firstname" onChange={this.handleFieldChange} required type="text"/>
             <label htmlFor="firstname">First Name</label>
           </div>
-          <div className="input-field col m6 s12">
+          <div className="input-field col s12">
             <input className="validate" id="lastname" name="lastname" onChange={this.handleFieldChange} required type="text"/>
             <label htmlFor="lastname">Last Name</label>
           </div>
-          <div className="input-field col m6 s12">
+          <div className="input-field col s12">
             <input className="validate" id="username" name="username" onChange={this.handleFieldChange} required type="text"/>
             <label htmlFor="username">Username</label>
           </div>
-          <div className="input-field col m6 s12">
+          <div className="input-field col s12">
             <input className="validate" id="email" name="email" onChange={this.handleFieldChange} required type="email"/>
             <label htmlFor="email">Email</label>
           </div>
-          <div className="input-field col m6 s12">
+          <div className="input-field col s12">
             <input className="validate" id="password" name="password" onChange={this.handleFieldChange} required type="password"/>
             <label htmlFor="password">Password</label>
           </div>
-          <div className="input-field col m6 s12">
-            <Select
-               name="role"
-               onChange={this.handleRoleSelect}
-               options={this.state.roles}
-               placeholder="Select Role"
-               value={this.state.role}
-             />
+          <div className="input-field col s12">
+           <SelectField
+             value={this.state.user.role}
+             onChange={this.handleRoleSelect}
+             style={styles.text}>
+               <MenuItem value={"admin"} primaryText="Admin"/>
+               <MenuItem value={"owner"} primaryText="Staff"/>
+               <MenuItem value={"user"} primaryText="User"/>
+             </SelectField><br/><br/>
           </div>
           <br/>
           <div className="col s12">
