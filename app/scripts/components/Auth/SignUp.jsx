@@ -15,7 +15,7 @@ const styles = {
     margin: '50px auto'
   },
   text: {
-    color: '#000;'
+    color: '#000'
   }
 };
 
@@ -34,12 +34,7 @@ class SignUpForm extends React.Component {
         email: '',
         password: '',
         role: ''
-      },
-      roles: [
-        { value: 'owner', label: 'Staff' },
-        { value: 'admin', label: 'Admin' },
-        { value: 'user',  label: 'User' }
-      ]
+      }
     }
   }
 
@@ -69,16 +64,18 @@ class SignUpForm extends React.Component {
     this.setState({user: this.state.user});
   }
 
-  handleRoleSelect(role) {
-    this.state.user['role'] = role.value;
-    this.setState({user: this.state.user});
+  handleRoleSelect(event, index, value) {
+    this.setState({
+      user: {
+        role: value
+      }
+    });
   }
 
   handleSignUpAction(event) {
     event.preventDefault();
     UserActions.signUp(this.state.user);
   }
-
 
   componentWillUnmount() {
     UserStore.removeChangeListener(this.handleSignUp, 'signUp');
@@ -117,6 +114,7 @@ class SignUpForm extends React.Component {
                <MenuItem value={"owner"} primaryText="Staff"/>
                <MenuItem value={"user"} primaryText="User"/>
              </SelectField><br/><br/>
+
           </div>
           <br/>
           <div className="col s12">

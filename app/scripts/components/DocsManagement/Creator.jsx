@@ -63,8 +63,11 @@ class DocCreator extends React.Component {
   }
 
   handleChange(event, index, value) {
-    this.state.doc['accessLevel'] = value;
-    this.setState({doc: this.state.doc});
+    this.setState({
+      doc: {
+        accessLevel: value
+      }
+    });
   }
 
   handleSubmit(event) {
@@ -106,7 +109,7 @@ class DocCreator extends React.Component {
               <label className="active" htmlFor="content">Content</label>
             </div>
             <span>Select Access Level:</span> &nbsp;
-            <SelectField value={this.state.accessLevel} onChange={this.handleChange}>
+            <SelectField value={this.state.doc.accessLevel} onChange={this.handleChange}>
               <MenuItem value={"admin"} primaryText="admin"/>
               <MenuItem value={"private"} primaryText="private"/>
               <MenuItem value={"public"} primaryText="public"/>

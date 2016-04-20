@@ -71,7 +71,11 @@ class DocUpdater extends React.Component {
   }
 
   handleChange(event, index, value) {
-    this.state.doc['accessLevel'] = value;
+    this.setState({
+      doc: {
+        accessLevel: value
+      }
+    });
   }
 
   componentWillUnmount() {
@@ -90,7 +94,7 @@ class DocUpdater extends React.Component {
                   onChange={this.handleFieldChange}
                   type="text"
               />
-            <label htmlFor="title">Document Title</label>
+            <label className="active" htmlFor="title">Document Title</label>
             </div>
             <div className="input-field col s12">
               <textarea className="validate materialize-textarea"
@@ -102,10 +106,10 @@ class DocUpdater extends React.Component {
               <label className="active" htmlFor="content">Content</label>
             </div>
             <span>Select Access Level:</span> &nbsp;
-            <SelectField value={this.state.accessLevel} onChange={this.handleChange}>
-              <MenuItem value={"admin"} primaryText="admin"/>
-              <MenuItem value={"private"} primaryText="private"/>
-              <MenuItem value={"public"} primaryText="public"/>
+            <SelectField value={this.state.doc.accessLevel} onChange={this.handleChange}>
+              <MenuItem value={"admin"} primaryText="Admin"/>
+              <MenuItem value={"private"} primaryText="Private"/>
+              <MenuItem value={"public"} primaryText="Public"/>
             </SelectField><br/><br/>
             <div className="col s6">
               <div className="container center">

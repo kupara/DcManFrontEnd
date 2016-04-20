@@ -81,7 +81,7 @@ class UserUpdater extends React.Component {
                 onChange={this.handleFieldChange}
                 type="text"
             />
-          <label htmlFor="email">Email Address</label>
+          <label className="active" htmlFor="email">Email Address</label>
           </div>
           <div className="input-field col s12">
             <input className="validate"
@@ -90,7 +90,7 @@ class UserUpdater extends React.Component {
                 onChange={this.handleFieldChange}
                 type="password"
             />
-          <label htmlFor="password">Password</label>
+          <label className="active" htmlFor="password">Password</label>
           </div>
           <div className="col s6">
             <div className="container center">
