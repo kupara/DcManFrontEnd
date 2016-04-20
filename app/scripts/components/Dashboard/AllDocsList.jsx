@@ -47,7 +47,7 @@ class AllDocs extends React.Component {
           <Card style={{marginTop: 20}}>
             <CardHeader
               title={doc.title}
-              subtitle={"Created on "+ new Date(doc.dateCreated).toLocaleDateString() + " by " + <i>doc.ownerId.username+</i>}
+              subtitle={"Created on "+ new Date(doc.dateCreated).toLocaleDateString() + " by " + doc.ownerId.username}
               actAsExpander={true}
               showExpandableButton={true}
             />
