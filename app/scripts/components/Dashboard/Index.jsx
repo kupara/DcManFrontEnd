@@ -21,7 +21,8 @@ class Dash extends React.Component {
     this.getSession = this.getSession.bind(this);
     this.handleRoleUpdate = this.handleRoleUpdate.bind(this);
     this.state = {
-      role: 'viewer'
+      role: 'viewer',
+      hasRoleChanged: false
     }
   }
 
@@ -43,7 +44,8 @@ class Dash extends React.Component {
 
   handleRoleUpdate(newRole) {
     this.setState({
-      role: newRole
+      role: newRole,
+      hasRoleChanged: true
     });
   }
 
@@ -64,7 +66,7 @@ class Dash extends React.Component {
               inkBarStyle={{backgroundColor: "#0082ff"}}>
               <Tab label="All Docs"
                 style={{color: "#0082ff"}}>
-                <AllDocs />
+                <AllDocs hasRoleChanged={this.state.hasRoleChanged}/>
               </Tab>
             </Tabs>
           </div>

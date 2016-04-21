@@ -48,6 +48,7 @@ class UserUpdater extends React.Component {
       if (this.props.closeModal !== undefined) {
         this.props.closeModal();
       }
+      window.location.reload();
     }
   }
 

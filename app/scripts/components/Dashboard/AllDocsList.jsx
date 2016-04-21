@@ -20,14 +20,14 @@ class AllDocs extends React.Component {
   componentWillMount() {
     DocStore.addChangeListener(this.getAllDocs, 'setDocs');
   }
-  
+
   componentDidMount() {
     let token = window.localStorage.getItem('token');
     if(token) {
       DocActions.getAllDocs(token);
     }
   }
-
+  
   getAllDocs() {
     let data = DocStore.getAllDocs();
     if (data) {

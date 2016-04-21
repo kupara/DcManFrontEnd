@@ -45374,7 +45374,8 @@
 	    _this.getSession = _this.getSession.bind(_this);
 	    _this.handleRoleUpdate = _this.handleRoleUpdate.bind(_this);
 	    _this.state = {
-	      role: 'viewer'
+	      role: 'viewer',
+	      hasRoleChanged: false
 	    };
 	    return _this;
 	  }
@@ -45401,7 +45402,8 @@
 	    key: 'handleRoleUpdate',
 	    value: function handleRoleUpdate(newRole) {
 	      this.setState({
-	        role: newRole
+	        role: newRole,
+	        hasRoleChanged: true
 	      });
 	    }
 	  }, {
@@ -45431,7 +45433,7 @@
 	              _tab2.default,
 	              { label: 'All Docs',
 	                style: { color: "#0082ff" } },
-	              _react2.default.createElement(_AllDocsList2.default, null)
+	              _react2.default.createElement(_AllDocsList2.default, { hasRoleChanged: this.state.hasRoleChanged })
 	            )
 	          )
 	        ) : _react2.default.createElement(
@@ -49020,6 +49022,7 @@
 	        if (this.props.closeModal !== undefined) {
 	          this.props.closeModal();
 	        }
+	        window.location.reload();
 	      }
 	    }
 	  }, {
