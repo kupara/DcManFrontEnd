@@ -27,7 +27,7 @@ class AllDocs extends React.Component {
       DocActions.getAllDocs(token);
     }
   }
-  
+
   getAllDocs() {
     let data = DocStore.getAllDocs();
     if (data) {

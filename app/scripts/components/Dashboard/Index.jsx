@@ -37,7 +37,7 @@ class Dash extends React.Component {
       browserHistory.push('/');
     } else {
       this.setState({
-        role: data.user.role
+        role: data.role
       });
     }
   }

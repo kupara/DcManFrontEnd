@@ -45394,7 +45394,7 @@
 	        _reactRouter.browserHistory.push('/');
 	      } else {
 	        this.setState({
-	          role: data.user.role
+	          role: data.role
 	        });
 	      }
 	    }
@@ -45575,6 +45575,8 @@
 	    key: 'getUserDocs',
 	    value: function getUserDocs() {
 	      var data = _DocumentStore2.default.getUserDocs();
+	      var token = window.localStorage.getItem('token');
+	      DocActions.getAllDocs(token);
 	      if (data) {
 	        this.setState({
 	          docs: data
