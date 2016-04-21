@@ -19,8 +19,8 @@ export default class NavAppBar extends React.Component {
       <AppBar
         title="DCMan"
         onTitleTouchTap = {this.handleTap.bind(this)}
-        titleStyle={{color: "#0082ff"}}
-        style={{backgroundColor: "#f5f5f5"}}
+        titleStyle={{color: '#fff'}}
+        style={{backgroundColor: 'rgba(103, 96, 96, 0.24)'}}
         iconElementRight={<AuthModal />}
       />);
     }

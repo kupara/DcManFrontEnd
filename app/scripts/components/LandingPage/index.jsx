@@ -7,13 +7,18 @@ export default class Landing extends React.Component {
 
     render() {
       return (
-        <div className="section section__hero">
-          <div className="container">
-            <div className="row">
-              <div className="col s12 m7">
-                <h1 className="header">DCMan</h1>
-                <h3 className="header">Document Management System</h3>
-                <h5 className="header">Helps you create and manage documents online</h5>
+        <div>
+          <div className="section section__hero">
+            <div className="container">
+              <div className="row">
+                <div className="col s12 m9">
+                  <div className="main-text">
+                    <h3 className="header">Make document management online a breeze</h3>
+                  </div>
+                  <div className="detailed-text">
+                    <h5 className="header">With DCMan, creating documents becomes as easy as creating a tweet. You can choose access levels for each document you create </h5>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
