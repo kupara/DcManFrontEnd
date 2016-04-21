@@ -45374,7 +45374,7 @@
 	    _this.getSession = _this.getSession.bind(_this);
 	    _this.handleRoleUpdate = _this.handleRoleUpdate.bind(_this);
 	    _this.state = {
-	      role: 'viewer'
+	      role: ''
 	    };
 	    return _this;
 	  }
@@ -45393,7 +45393,7 @@
 	        _reactRouter.browserHistory.push('/');
 	      } else {
 	        this.setState({
-	          role: data.role
+	          role: data.user.role
 	        });
 	      }
 	    }
@@ -45412,6 +45412,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var roleProps = this.state.role;
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'row dcman' },
@@ -45431,7 +45432,7 @@
 	              _tab2.default,
 	              { label: 'All Docs',
 	                style: { color: "#0082ff" } },
-	              _react2.default.createElement(_AllDocsList2.default, null)
+	              _react2.default.createElement(_AllDocsList2.default, { role: roleProps })
 	            )
 	          )
 	        ) : _react2.default.createElement(
@@ -45451,7 +45452,7 @@
 	              _tab2.default,
 	              { label: 'All Docs',
 	                style: { color: "#0082ff" } },
-	              _react2.default.createElement(_AllDocsList2.default, null)
+	              _react2.default.createElement(_AllDocsList2.default, { role: roleProps })
 	            )
 	          )
 	        )
@@ -49214,6 +49215,18 @@
 	
 	var _flatButton2 = _interopRequireDefault(_flatButton);
 	
+	var _cardActions = __webpack_require__(394);
+	
+	var _cardActions2 = _interopRequireDefault(_cardActions);
+	
+	var _UpdaterModal = __webpack_require__(386);
+	
+	var _UpdaterModal2 = _interopRequireDefault(_UpdaterModal);
+	
+	var _DeleteModal = __webpack_require__(388);
+	
+	var _DeleteModal2 = _interopRequireDefault(_DeleteModal);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -49270,6 +49283,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var self = this;
 	      var renderDoc = function renderDoc(doc) {
 	        return _react2.default.createElement(
 	          'div',
@@ -49287,7 +49301,15 @@
 	              _cardText2.default,
 	              { expandable: true },
 	              doc.content
-	            )
+	            ),
+	            ' ',
+	            self.props.role === 'admin' ? _react2.default.createElement(
+	              _cardActions2.default,
+	              { expandable: true },
+	              _react2.default.createElement(_UpdaterModal2.default, { doc: doc }),
+	              _react2.default.createElement(_DeleteModal2.default, { doc: doc })
+	            ) : _react2.default.createElement('span', null),
+	            '}'
 	          )
 	        );
 	      };

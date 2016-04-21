@@ -21,7 +21,7 @@ class Dash extends React.Component {
     this.getSession = this.getSession.bind(this);
     this.handleRoleUpdate = this.handleRoleUpdate.bind(this);
     this.state = {
-      role: 'viewer'
+      role: ''
     }
   }
 
@@ -36,7 +36,7 @@ class Dash extends React.Component {
       browserHistory.push('/');
     } else {
       this.setState({
-        role: data.role
+        role: data.user.role
       });
     }
   }
@@ -52,6 +52,7 @@ class Dash extends React.Component {
   }
 
   render() {
+    let roleProps = this.state.role;
     return (
       <div className="row dcman">
         <div className="col s4 profile">
@@ -64,7 +65,7 @@ class Dash extends React.Component {
               inkBarStyle={{backgroundColor: "#0082ff"}}>
               <Tab label="All Docs"
                 style={{color: "#0082ff"}}>
-                <AllDocs />
+                <AllDocs role={roleProps} />
               </Tab>
             </Tabs>
           </div>
@@ -78,7 +79,7 @@ class Dash extends React.Component {
               </Tab>
               <Tab label="All Docs"
                 style={{color: "#0082ff"}}>
-                <AllDocs />
+                <AllDocs role={roleProps} />
               </Tab>
             </Tabs>
           </div>
