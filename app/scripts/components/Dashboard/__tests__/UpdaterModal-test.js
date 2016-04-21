@@ -8,6 +8,7 @@ import UpdaterModal from '../UpdaterModal.jsx';
 describe('User Update Modal Component Tests', function() {
   it('renders the component correctly if user is not logged in', function() {
     sinon.stub(UserActions, 'session').returns(true);
+    let changeRole = function() {};
     let component = mount(<UpdaterModal />);
     let user = {},
       closeModal =  function() {};

@@ -114,7 +114,6 @@ class SignUpForm extends React.Component {
                <MenuItem value={"user"} primaryText="User"/>
                <MenuItem value={"viewer"} primaryText="Viewer"/>
              </SelectField><br/><br/>
-
           </div>
           <br/>
           <div className="col s12">

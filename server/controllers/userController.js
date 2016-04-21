@@ -98,6 +98,8 @@
           if (req.body.role) {
             user.role = req.body.role;
           }
+          let userData = _.pick(user, '_id', 'username', 'role', 'email'),
+            token = createToken(userData);
           user.save((err, user) => {
             if(err) {
               res.status(501).send({
@@ -106,7 +108,8 @@
             } else {
               res.send({
                 message: 'User updated successfully',
-                user: user
+                user: userData,
+                token: token
               });
             }
           });
@@ -128,45 +131,6 @@
           } else {
             res.send({
               message: 'User is already deleted'
-            });
-          }
-        }
-      });
-    },
-
-    authenticate: (req, res, next) => {
-      let token = req.headers['x-access-token'] || req.body.token;
-      if (token) {
-        jwt.verify(token, secretKey, (err, decoded) => {
-          if (err) {
-            return res.status(401).send({
-              error: 'Failed to Authenticate'
-            });
-          } else {
-            req.decoded = decoded;
-            req.token = token;
-            next();
-          }
-        });
-      } else {
-        return res.status(401).send({
-          error: 'You are not authenticated'
-        });
-      }
-    },
-
-    canAccess: (req, res, next) => {
-      Documents.findById(req.params.id, (err, document) => {
-        if (document) {
-          if (req.decoded._id === document.ownerId.toString()) {
-            next();
-          } else if (req.decoded.role === 'admin') {
-            next();
-          } else {
-            return res.status(403).send({
-              error: {
-                message: 'You have no permission to make changes to this document'
-              }
             });
           }
         }
@@ -217,6 +181,27 @@
         });
     },
 
+    authenticate: (req, res, next) => {
+      let token = req.headers['x-access-token'] || req.body.token;
+      if (token) {
+        jwt.verify(token, secretKey, (err, decoded) => {
+          if (err) {
+            return res.status(401).send({
+              error: 'Failed to Authenticate'
+            });
+          } else {
+            req.decoded = decoded;
+            req.token = token;
+            next();
+          }
+        });
+      } else {
+        return res.status(401).send({
+          error: 'You are not authenticated'
+        });
+      }
+    },
+
     session: (req, res) => {
       User.findById(req.decoded._id, (err, user) => {
         if (err || !user) {
@@ -229,6 +214,24 @@
             user: userData,
             loggedIn: user.loggedIn.toString()
           });
+        }
+      });
+    },
+
+    canAccess: (req, res, next) => {
+      Documents.findById(req.params.id, (err, document) => {
+        if (document) {
+          if (req.decoded._id === document.ownerId.toString()) {
+            next();
+          } else if (req.decoded.role === 'admin') {
+            next();
+          } else {
+            return res.status(403).send({
+              error: {
+                message: 'You have no permission to make changes to this document'
+              }
+            });
+          }
         }
       });
     },

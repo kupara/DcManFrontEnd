@@ -34,11 +34,14 @@ class UserDocs extends React.Component {
     let userId = window.localStorage.getItem('userId');
     if(token) {
       DocActions.getUserDocs(userId, token);
+
     }
   }
 
   getUserDocs() {
     let data = DocStore.getUserDocs();
+    let token = window.localStorage.getItem('token');
+    DocActions.getAllDocs(token);
     if (data) {
       this.setState({
         docs: data

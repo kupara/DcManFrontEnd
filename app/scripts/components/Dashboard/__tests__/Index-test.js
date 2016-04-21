@@ -46,7 +46,7 @@ describe('Dashboard Component Tests', function() {
         role: 'admin'
       });
       expect(component.contains(<UserDocs />)).toEqual(true);
-      expect(component.contains(<AllDocs />)).toEqual(true);
+      expect(component.contains(<AllDocs  role={component.state().role}/>)).toEqual(true);
       component.unmount();
       UserActions.session.restore();
       UserActions.getUser.restore();

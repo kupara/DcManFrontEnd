@@ -51,7 +51,7 @@ class UserInfo extends React.Component {
           Email: {this.state.user.email}
         </CardText>
         <CardActions>
-          <UpdaterModal user={this.state.user} />
+          <UpdaterModal changeRole={this.props.changeRole} user={this.state.user} />
         </CardActions>
       </Card>
     );

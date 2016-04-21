@@ -19,8 +19,9 @@ class Dash extends React.Component {
   constructor(props) {
     super(props);
     this.getSession = this.getSession.bind(this);
+    this.handleRoleUpdate = this.handleRoleUpdate.bind(this);
     this.state = {
-      role: 'viewer'
+      role: ''
     }
   }
 
@@ -40,15 +41,22 @@ class Dash extends React.Component {
     }
   }
 
+  handleRoleUpdate(newRole) {
+    this.setState({
+      role: newRole
+    });
+  }
+
   componentWillUnmount() {
     UserStore.removeChangeListener(this.getSession, 'session');
   }
 
   render() {
+    let roleProps = this.state.role;
     return (
       <div className="row dcman">
         <div className="col s4 profile">
-          <UserInfo />
+          <UserInfo changeRole={this.handleRoleUpdate}/>
         </div>
         {(this.state.role === 'viewer')
           ?
@@ -57,7 +65,7 @@ class Dash extends React.Component {
               inkBarStyle={{backgroundColor: "#0082ff"}}>
               <Tab label="All Docs"
                 style={{color: "#0082ff"}}>
-                <AllDocs />
+                <AllDocs role={roleProps} />
               </Tab>
             </Tabs>
           </div>
@@ -65,14 +73,13 @@ class Dash extends React.Component {
           <div className="col s8 docsList">
             <Tabs tabItemContainerStyle={styles.tab}
               inkBarStyle={{backgroundColor: "#0082ff"}}>
-
               <Tab label="My Docs"
                 style={{color: "#0082ff"}}>
                 <UserDocs />
               </Tab>
               <Tab label="All Docs"
                 style={{color: "#0082ff"}}>
-                <AllDocs />
+                <AllDocs role={roleProps} />
               </Tab>
             </Tabs>
           </div>

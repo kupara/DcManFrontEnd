@@ -13,7 +13,8 @@ describe('User Updater Component Tests', function() {
     beforeEach(() => {
       user = {
         email: 'edwin@kups.com',
-        password: 'edwin'
+        password: 'edwin',
+        role: 'user'
       }
       component = shallow(<UserUpdater user= {user}/>);
     });
@@ -21,7 +22,7 @@ describe('User Updater Component Tests', function() {
     it('renders the component correctly', function() {
       sinon.stub(UserActions, 'getUser').returns(true);
       expect(component.hasClass('row')).toBe(true);
-      expect(component.find('.input-field').length).toEqual(2);
+      expect(component.find('.input-field').length).toEqual(3);
       component.unmount();
       UserActions.getUser.restore();
     });
@@ -41,7 +42,8 @@ describe('User Updater Component Tests', function() {
     beforeEach(() => {
       user = {
         email: 'edwin@kups.com',
-        password: 'edwin'
+        password: 'edwin',
+        role: 'user'
       }
       component = mount(<UserUpdater user= {user}/>);
     });
@@ -51,7 +53,8 @@ describe('User Updater Component Tests', function() {
       sinon.spy(UserStore, 'addChangeListener');
       user = {
         email: 'edwin@kups.com',
-        password: 'edwin'
+        password: 'edwin',
+        role: 'user'
       }
       component = mount(<UserUpdater user= {user}/>);
       expect(UserUpdater.prototype.componentWillMount.called).toBe(true);
@@ -79,9 +82,11 @@ describe('User Updater Component Tests', function() {
       window.Materialize.toast = sinon.spy();
       var user = {
         email: 'edwin@kups.com',
-        password: 'edwin'
+        password: 'edwin',
+        role: 'user'
       }
-      component = mount(<UserUpdater user={user}/>);
+      let changeRole = function(){};
+      component = mount(<UserUpdater changeRole={changeRole} user={user}/>);
     });
 
     afterEach(function() {
@@ -100,18 +105,18 @@ describe('User Updater Component Tests', function() {
       UserStore.setUpdateResult(data);
       sinon.spy(instance, 'handleUserUpdate');
       sinon.spy(UserStore, 'getUpdateResult');
-      sinon.spy(localStorage, 'getItem');
+      sinon.spy(localStorage, 'setItem');
       instance.handleUserUpdate();
       expect(UserStore.getUpdateResult.called).toBe(true);
       expect(window.Materialize.toast.withArgs(data.message).called).toBe(true);
-      expect(localStorage.getItem.withArgs('token').called).toBe(true);
+      expect(localStorage.setItem.called).toBe(true);
       instance.handleUserUpdate.restore();
       UserStore.getUpdateResult.restore();
       UserActions.getUser.restore();
-      localStorage.getItem.restore();
+      localStorage.setItem.restore();
     });
 
-    it('handleSignIn invalid password/username', function() {
+    it('handleUserUpdate if error', function() {
       sinon.stub(UserActions, 'getUser').returns({});
       let instance = component.instance();
       let data = {
@@ -122,15 +127,12 @@ describe('User Updater Component Tests', function() {
       UserStore.setUpdateResult(data);
       sinon.spy(instance, 'handleUserUpdate');
       sinon.spy(UserStore, 'getUpdateResult');
-      sinon.spy(localStorage, 'getItem');
       instance.handleUserUpdate();
       expect(UserStore.getUpdateResult.called).toBe(true);
       expect(window.Materialize.toast.withArgs(data.message).called).toBe(true);
-      expect(localStorage.getItem.withArgs('token').called).toBe(true);
       instance.handleUserUpdate.restore();
       UserStore.getUpdateResult.restore();
       UserActions.getUser.restore();
-      localStorage.getItem.restore();
     });
 
     it('should call handleSubmit with Updated data', function() {
@@ -139,10 +141,11 @@ describe('User Updater Component Tests', function() {
       component.setState({
         user: {
           email: 'eddu@email.com',
-          password: 'password'
+          password: 'password',
+          role: 'user'
         }
       });
-      // simulate the Sign In event
+      // simulate the Update event
       let updateEvent = {
         preventDefault: function() {}
       };
