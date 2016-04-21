@@ -105,18 +105,18 @@ describe('User Updater Component Tests', function() {
       UserStore.setUpdateResult(data);
       sinon.spy(instance, 'handleUserUpdate');
       sinon.spy(UserStore, 'getUpdateResult');
-      sinon.spy(localStorage, 'getItem');
+      sinon.spy(localStorage, 'setItem');
       instance.handleUserUpdate();
       expect(UserStore.getUpdateResult.called).toBe(true);
       expect(window.Materialize.toast.withArgs(data.message).called).toBe(true);
-      expect(localStorage.getItem.withArgs('token').called).toBe(true);
+      expect(localStorage.setItem.called).toBe(true);
       instance.handleUserUpdate.restore();
       UserStore.getUpdateResult.restore();
       UserActions.getUser.restore();
-      localStorage.getItem.restore();
+      localStorage.setItem.restore();
     });
 
-    it('handleSignIn invalid password/username', function() {
+    it('handleUserUpdate if error', function() {
       sinon.stub(UserActions, 'getUser').returns({});
       let instance = component.instance();
       let data = {
@@ -127,15 +127,12 @@ describe('User Updater Component Tests', function() {
       UserStore.setUpdateResult(data);
       sinon.spy(instance, 'handleUserUpdate');
       sinon.spy(UserStore, 'getUpdateResult');
-      sinon.spy(localStorage, 'getItem');
       instance.handleUserUpdate();
       expect(UserStore.getUpdateResult.called).toBe(true);
       expect(window.Materialize.toast.withArgs(data.message).called).toBe(true);
-      expect(localStorage.getItem.withArgs('token').called).toBe(true);
       instance.handleUserUpdate.restore();
       UserStore.getUpdateResult.restore();
       UserActions.getUser.restore();
-      localStorage.getItem.restore();
     });
 
     it('should call handleSubmit with Updated data', function() {
