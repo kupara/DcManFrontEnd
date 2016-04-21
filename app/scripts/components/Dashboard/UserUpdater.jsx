@@ -1,5 +1,6 @@
 import React from 'react';
 import * as UserActions from '../../actions/UserActions';
+import * as DocActions from '../../actions/DocumentActions';
 import UserStore from '../../stores/UserStore';
 import SelectField from 'material-ui/lib/select-field';
 import MenuItem from 'material-ui/lib/menus/menu-item';
@@ -45,10 +46,10 @@ class UserUpdater extends React.Component {
       window.localStorage.setItem('token', data.token);
       let userId = window.localStorage.getItem('userId');
       UserActions.getUser(userId, data.token);
+      DocActions.getAllDocs(data.token);
       if (this.props.closeModal !== undefined) {
         this.props.closeModal();
       }
-      window.location.reload();
     }
   }
 

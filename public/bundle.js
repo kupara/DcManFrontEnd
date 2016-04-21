@@ -45374,8 +45374,7 @@
 	    _this.getSession = _this.getSession.bind(_this);
 	    _this.handleRoleUpdate = _this.handleRoleUpdate.bind(_this);
 	    _this.state = {
-	      role: 'viewer',
-	      hasRoleChanged: false
+	      role: 'viewer'
 	    };
 	    return _this;
 	  }
@@ -45402,8 +45401,7 @@
 	    key: 'handleRoleUpdate',
 	    value: function handleRoleUpdate(newRole) {
 	      this.setState({
-	        role: newRole,
-	        hasRoleChanged: true
+	        role: newRole
 	      });
 	    }
 	  }, {
@@ -45433,7 +45431,7 @@
 	              _tab2.default,
 	              { label: 'All Docs',
 	                style: { color: "#0082ff" } },
-	              _react2.default.createElement(_AllDocsList2.default, { hasRoleChanged: this.state.hasRoleChanged })
+	              _react2.default.createElement(_AllDocsList2.default, null)
 	            )
 	          )
 	        ) : _react2.default.createElement(
@@ -48949,6 +48947,10 @@
 	
 	var UserActions = _interopRequireWildcard(_UserActions);
 	
+	var _DocumentActions = __webpack_require__(380);
+	
+	var DocActions = _interopRequireWildcard(_DocumentActions);
+	
 	var _UserStore = __webpack_require__(331);
 	
 	var _UserStore2 = _interopRequireDefault(_UserStore);
@@ -49021,10 +49023,10 @@
 	        window.localStorage.setItem('token', data.token);
 	        var userId = window.localStorage.getItem('userId');
 	        UserActions.getUser(userId, data.token);
+	        DocActions.getAllDocs(data.token);
 	        if (this.props.closeModal !== undefined) {
 	          this.props.closeModal();
 	        }
-	        window.location.reload();
 	      }
 	    }
 	  }, {
