@@ -42,9 +42,9 @@ class UserUpdater extends React.Component {
       window.Materialize.toast(data.err, 2000, 'error-toast rounded');
     } else {
       window.Materialize.toast(data.message, 2000, 'success-toast rounded');
-      let token = window.localStorage.getItem('token');
-      let userId = window.localStorage.getItem('userId');
-      UserActions.getUser(userId, token);
+      window.localStorage.setItem('token', data.token);
+      window.localStorage.setItem('userId', data.user._id);
+      UserActions.getUser(data.user._id, data.token);
       if (this.props.closeModal !== undefined) {
         this.props.closeModal();
       }
