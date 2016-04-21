@@ -1,6 +1,8 @@
 import React from 'react';
 import * as UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
+import SelectField from 'material-ui/lib/select-field';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 
 const styles = {
   button: {
@@ -19,10 +21,13 @@ class UserUpdater extends React.Component {
     this.handleUserUpdate = this.handleUserUpdate.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRoleSelect = this.handleRoleSelect.bind(this);
+
     this.state = {
       user: {
         password: this.props.user.password,
-        email: this.props.user.email
+        email: this.props.user.email,
+        role: this.props.user.role
       }
     }
   }
@@ -30,7 +35,6 @@ class UserUpdater extends React.Component {
   componentWillMount() {
     UserStore.addChangeListener(this.handleUserUpdate, 'userUpdate');
   }
-
 
   handleUserUpdate() {
     let data = UserStore.getUpdateResult();
@@ -58,12 +62,22 @@ class UserUpdater extends React.Component {
     event.preventDefault();
     let token = window.localStorage.getItem('token');
     UserActions.updateUser(this.props.user._id, this.state.user, token);
+    this.props.changeRole(this.state.user.role);
   }
 
   handleCancel(event) {
-  event.preventDefault();
-  this.props.closeModal();
-}
+    event.preventDefault();
+    if (this.props.closeModal !== undefined) {
+      this.props.closeModal();
+    }
+  }
+
+  handleRoleSelect(event, index, value) {
+    this.state.user.role = value;
+    this.setState({
+      user: this.state.user
+    });
+  }
 
   componentWillUnmount() {
     UserStore.removeChangeListener(this.handleUserUpdate, 'userUpdate');
@@ -91,6 +105,17 @@ class UserUpdater extends React.Component {
                 type="password"
             />
           <label className="active" htmlFor="password">Password</label>
+          </div>
+          <div className="input-field col s12">
+            <span>Select Role: </span> <br/>
+            <SelectField
+             value={this.state.user.role}
+             onChange={this.handleRoleSelect}
+             style={styles.text}>
+               <MenuItem value={"admin"} primaryText="Admin"/>
+               <MenuItem value={"user"} primaryText="User"/>
+               <MenuItem value={"viewer"} primaryText="Viewer"/>
+             </SelectField><br/><br/>
           </div>
           <div className="col s6">
             <div className="container center">

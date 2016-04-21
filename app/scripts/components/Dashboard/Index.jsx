@@ -19,6 +19,7 @@ class Dash extends React.Component {
   constructor(props) {
     super(props);
     this.getSession = this.getSession.bind(this);
+    this.handleRoleUpdate = this.handleRoleUpdate.bind(this);
     this.state = {
       role: 'viewer'
     }
@@ -40,6 +41,12 @@ class Dash extends React.Component {
     }
   }
 
+  handleRoleUpdate(newRole) {
+    this.setState({
+      role: newRole
+    });
+  }
+
   componentWillUnmount() {
     UserStore.removeChangeListener(this.getSession, 'session');
   }
@@ -48,7 +55,7 @@ class Dash extends React.Component {
     return (
       <div className="row dcman">
         <div className="col s4 profile">
-          <UserInfo />
+          <UserInfo changeRole={this.handleRoleUpdate}/>
         </div>
         {(this.state.role === 'viewer')
           ?

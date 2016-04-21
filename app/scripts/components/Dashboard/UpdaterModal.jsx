@@ -48,7 +48,7 @@ export default class UpdaterModal extends React.Component {
           isOpen={self.state.modalIsOpen}
           onRequestClose={this.closeModal}
           style={customStyles} >
-          <Updater user = {this.props.user} closeModal={this.closeModal}/>
+          <Updater changeRole={this.props.changeRole} user = {this.props.user} closeModal={this.closeModal}/>
         </Modal>
       </span>
     );

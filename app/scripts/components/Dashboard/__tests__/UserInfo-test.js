@@ -20,7 +20,7 @@ describe('UserInfo Component Tests', function() {
       });
       expect(component.find('Card').length).toEqual(1);
       expect(component.find('UpdaterModal').length).toEqual(1);
-      expect(component.contains(<UpdaterModal user={component.state().user} />)).toBe(true);
+      let changeRole = function() {};
       component.unmount();
       UserActions.getUser.restore();
     });
