@@ -10,6 +10,8 @@ const customStyles = {
     top: '50%',
     left: '50%',
     right: 'auto',
+    color: '#B1DCFB',
+    zIndex: 10,
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)'
@@ -17,7 +19,8 @@ const customStyles = {
   floatingButton : {
       position: 'fixed',
       left: '87%',
-      bottom: '8%'
+      bottom: '8%',
+      backgroundColor: '#B1DCFB'
     }
 };
 
@@ -50,7 +53,7 @@ export default class CreatorModal extends React.Component {
         <FloatingActionButton
           style={customStyles.floatingButton}
           onTouchTap = {this.openModal}
-          backgroundColor="#0288D1">
+          backgroundColor="#B1DCFB">
           <ContentAdd />
         </FloatingActionButton>
         <Modal

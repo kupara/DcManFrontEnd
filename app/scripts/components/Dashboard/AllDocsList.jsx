@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/lib/flat-button';
 import CardActions from 'material-ui/lib/card/card-actions';
 import UpdaterModal from '../DocsManagement/UpdaterModal.jsx';
 import DeleteModal from '../DocsManagement/DeleteModal.jsx';
+import CreatorModal from '../DocsManagement/CreatorModal.jsx';
 
 const styles = {
   paddingBottom: '10px',
@@ -83,6 +84,7 @@ class AllDocs extends React.Component {
     return (
       <div>
         {this.state.docs.map(renderDoc)}
+          <CreatorModal />
       </div>
     );
   }
