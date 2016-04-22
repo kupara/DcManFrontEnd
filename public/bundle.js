@@ -45985,6 +45985,8 @@
 	    top: '50%',
 	    left: '50%',
 	    right: 'auto',
+	    color: '#B1DCFB',
+	    zIndex: 10,
 	    bottom: 'auto',
 	    marginRight: '-50%',
 	    transform: 'translate(-50%, -50%)'
@@ -45992,7 +45994,8 @@
 	  floatingButton: {
 	    position: 'fixed',
 	    left: '87%',
-	    bottom: '8%'
+	    bottom: '8%',
+	    backgroundColor: '#B1DCFB'
 	  }
 	};
 	
@@ -46038,7 +46041,7 @@
 	          {
 	            style: customStyles.floatingButton,
 	            onTouchTap: this.openModal,
-	            backgroundColor: '#0288D1' },
+	            backgroundColor: '#B1DCFB' },
 	          _react2.default.createElement(_add2.default, null)
 	        ),
 	        _react2.default.createElement(
@@ -46517,7 +46520,7 @@
 	var styles = {
 	  button: {
 	    margin: 12,
-	    color: '#0288D1'
+	    color: '#0082ff'
 	  },
 	  form: {
 	    margin: '0 auto'
@@ -49352,6 +49355,10 @@
 	
 	var _DeleteModal2 = _interopRequireDefault(_DeleteModal);
 	
+	var _CreatorModal = __webpack_require__(382);
+	
+	var _CreatorModal2 = _interopRequireDefault(_CreatorModal);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -49449,7 +49456,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        this.state.docs.map(renderDoc)
+	        this.state.docs.map(renderDoc),
+	        _react2.default.createElement(_CreatorModal2.default, null)
 	      );
 	    }
 	  }]);
