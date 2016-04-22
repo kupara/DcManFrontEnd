@@ -46,9 +46,14 @@ class UserInfo extends React.Component {
         <CardMedia>
           <img src="images/profile.png" />
         </CardMedia>
-        <CardTitle title={"@"+this.state.user.username} subtitle={"Role: "+this.state.user.role} />
+        <CardTitle title={"@"+this.state.user.username} />
         <CardText>
-          Email: {this.state.user.email}
+          <div className="role-text">
+            {this.state.user.role}
+          </div>
+          <div className="email-text">
+            {this.state.user.email}
+          </div>
         </CardText>
         <CardActions>
           <UpdaterModal changeRole={this.props.changeRole} user={this.state.user} />

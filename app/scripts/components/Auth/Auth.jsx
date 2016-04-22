@@ -14,7 +14,7 @@ injectTapEventPlugin();
 
 const style = {
   tab: {
-    backgroundColor: '#f5f5f5'
+    backgroundColor: 'rgba(103, 96, 96, 0.24)'
   },
   auth: {
     width: '100%',

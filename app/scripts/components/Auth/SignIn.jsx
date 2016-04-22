@@ -6,7 +6,7 @@ import {browserHistory} from 'react-router';
 const style = {
   button: {
     margin: 12,
-    color: '#0288D1'
+    color: '#0082ff'
   },
   form: {
     margin: '50px auto'

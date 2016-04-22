@@ -13,6 +13,16 @@ export default class Main extends React.Component {
         <div>
           {this.props.children}
         </div>
+        <footer>
+          <div className="footer">
+            <div className="container">
+              <p className="copyright">
+                © Edwin Kupara 2016. All rights reserved.
+                Yes, all of them.
+              </p>
+            </div>
+          </div>
+        </footer>
       </div>
     );
   }

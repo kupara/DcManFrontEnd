@@ -9,7 +9,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 const styles = {
   button: {
     margin: 12,
-    color: '#0288D1'
+    color: '#0082ff'
   },
   form: {
     margin: '0 auto'
