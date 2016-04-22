@@ -11,15 +11,14 @@ describe('Landing Page Tests', function() {
   it('renders the correct content', function() {
     const component = shallow(<Landing />);
     expect(component.text()).toMatch(/DCMan/);
-    expect(component.text()).toMatch(/Document Management System/);
-    expect(component.text()).toMatch(/Helps you create and manage documents online/);
+    expect(component.text()).toMatch(/Make document management online a breezeWith DCMan/);
+    expect(component.text()).toMatch(/You can choose access levels for each document you create/);
   });
 
   it('renders the component correctly', function() {
     const component = shallow(<Landing />);
-    expect(component.hasClass('section')).toEqual(true);
-    expect(component.find('.section').length).toEqual(1);
+    console.log(component.debug());
     expect(component.find('.container').length).toEqual(1);
-    expect(component.find('.header').length).toEqual(3);
+    expect(component.find('.header').length).toEqual(2);
   });
 });

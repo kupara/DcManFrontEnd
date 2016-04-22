@@ -22,7 +22,7 @@ describe('Nav Bar Tests', function() {
   it('renders NavAppBar with the correct content', function() {
     let component = mount(<NavAppBar />);
     expect(component.find('DCMan'))
-    expect(component.find(AppBar).length).toEqual(1);
+    expect(component.find(AppBar).length).toEqual(2);
     expect(component.find(AuthModal).length).toEqual(1);
     component.unmount();
   });

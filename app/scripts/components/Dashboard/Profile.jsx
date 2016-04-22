@@ -8,7 +8,7 @@ import CardMedia from 'material-ui/lib/card/card-media';
 import CardTitle from 'material-ui/lib/card/card-title';
 import CardText from 'material-ui/lib/card/card-text';
 
-class UserInfo extends React.Component {
+class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,29 +42,25 @@ class UserInfo extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col s12 m6 offset-m3">
-          <Card>
-            <CardMedia>
-              <img src="images/profile.png" />
-            </CardMedia>
-            <CardTitle title={"@"+this.state.user.username} />
-            <CardText>
-              <div className="role-text">
-                {this.state.user.role}
-              </div>
-              <div className="email-text">
-                {this.state.user.email}
-              </div>
-            </CardText>
-            <CardActions>
-              <UpdaterModal changeRole={this.props.changeRole} user={this.state.user} />
-            </CardActions>
-          </Card>
-      </div>
-      </div>
+      <Card>
+        <CardMedia>
+          <img src="images/profile.png" />
+        </CardMedia>
+        <CardTitle title={"@"+this.state.user.username} />
+        <CardText>
+          <div className="role-text">
+            {this.state.user.role}
+          </div>
+          <div className="email-text">
+            {this.state.user.email}
+          </div>
+        </CardText>
+        <CardActions>
+          <UpdaterModal changeRole={this.props.changeRole} user={this.state.user} />
+        </CardActions>
+      </Card>
     );
   }
 }
 
-export default UserInfo;
+export default Profile;
