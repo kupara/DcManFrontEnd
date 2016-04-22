@@ -3,7 +3,7 @@ import {browserHistory} from 'react-router';
 import * as UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
 import UserDocs from './MyDocsList.jsx';
-import UserInfo from './UserInfo.jsx';
+import Profile from './Profile.jsx';
 import AllDocs from './AllDocsList.jsx';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
@@ -56,7 +56,7 @@ class Dash extends React.Component {
     return (
       <div className="row dcman">
         <div className="col s4 profile">
-          <UserInfo changeRole={this.handleRoleUpdate}/>
+          <Profile changeRole={this.handleRoleUpdate}/>
         </div>
         {(this.state.role === 'viewer')
           ?

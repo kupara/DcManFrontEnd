@@ -42,8 +42,8 @@ class UserInfo extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col s12 m6 offset-m3">
+      <div className="mobile-profile row">
+        <div className="col s12">
           <Card>
             <CardMedia>
               <img src="images/profile.png" />
@@ -57,11 +57,8 @@ class UserInfo extends React.Component {
                 {this.state.user.email}
               </div>
             </CardText>
-            <CardActions>
-              <UpdaterModal changeRole={this.props.changeRole} user={this.state.user} />
-            </CardActions>
           </Card>
-      </div>
+        </div>
       </div>
     );
   }

@@ -19,7 +19,7 @@ describe('Main component Tests', function() {
   it('renders the NavBar component', function() {
     // It renders the NavBar component and the provided child components
     const component = mount(<Main children={<div>'Some other child component.'</div>}/>);
-    expect(component.find('AppBar').length).toEqual(1);
+    expect(component.find('AppBar').length).toEqual(2);
     expect(component.contains(<div>'Some other child component.'</div>)).toEqual(true);
     component.unmount();
   });

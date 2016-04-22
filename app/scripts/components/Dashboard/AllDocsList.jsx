@@ -10,6 +10,11 @@ import CardActions from 'material-ui/lib/card/card-actions';
 import UpdaterModal from '../DocsManagement/UpdaterModal.jsx';
 import DeleteModal from '../DocsManagement/DeleteModal.jsx';
 
+const styles = {
+  paddingBottom: '10px',
+  paddingRight: '30px',
+  textAlign: 'right'
+};
 
 class AllDocs extends React.Component {
   constructor(props) {
@@ -61,7 +66,9 @@ class AllDocs extends React.Component {
             </CardText> {
               (self.props.role === 'admin')
               ?
-                <CardActions expandable={true}>
+                <CardActions
+                  expandable={true}
+                  style={styles}>
                   <UpdaterModal doc={doc}/>
                   <DeleteModal doc={doc}/>
                 </CardActions>
