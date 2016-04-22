@@ -13,7 +13,7 @@ body {
   padding-top: 5%;
   padding-bottom: 5%;
   position: relative;
-  background: url("../images/background.jpg");
+  background: url("../images/main-image.jpg");
   background-size: cover;
   margin-top: -70px;
 }
