@@ -10,8 +10,8 @@ import Tab from 'material-ui/lib/tabs/tab';
 
 const styles = {
   tab: {
-    backgroundColor: 'rgba(103, 96, 96, 0.24)',
-    color: "#fff"
+    backgroundColor: '#f5f5f5',
+    color: "#0082ff"
   }
 };
 

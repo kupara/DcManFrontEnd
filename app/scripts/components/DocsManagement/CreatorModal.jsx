@@ -16,8 +16,8 @@ const customStyles = {
   },
   floatingButton : {
       position: 'fixed',
-      left: '90%',
-      bottom: '50px'
+      left: '87%',
+      bottom: '8%'
     }
 };
 

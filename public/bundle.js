@@ -25165,8 +25165,8 @@
 	      return _react2.default.createElement(_appBar2.default, {
 	        title: 'DCMan',
 	        onTitleTouchTap: this.handleTap.bind(this),
-	        titleStyle: { color: '#fff' },
-	        style: { backgroundColor: 'rgba(103, 96, 96, 0.24)' },
+	        titleStyle: { color: '#0082ff' },
+	        style: { backgroundColor: 'rgba(232, 225, 225, 0.24)' },
 	        iconElementRight: _react2.default.createElement(_AuthModal2.default, null)
 	      });
 	    }
@@ -45382,8 +45382,8 @@
 	
 	var styles = {
 	  tab: {
-	    backgroundColor: 'rgba(103, 96, 96, 0.24)',
-	    color: "#fff"
+	    backgroundColor: '#f5f5f5',
+	    color: "#0082ff"
 	  }
 	};
 	
@@ -45561,8 +45561,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var style = {
-	  marginRight: 20
+	var styles = {
+	  paddingBottom: '10px',
+	  paddingRight: '30px',
+	  textAlign: 'right'
 	};
 	
 	var UserDocs = function (_React$Component) {
@@ -45629,12 +45631,15 @@
 	            }),
 	            _react2.default.createElement(
 	              _cardText2.default,
-	              { expandable: true },
+	              {
+	                expandable: true },
 	              doc.content
 	            ),
 	            _react2.default.createElement(
 	              _cardActions2.default,
-	              { expandable: true },
+	              {
+	                expandable: true,
+	                style: styles },
 	              _react2.default.createElement(_UpdaterModal2.default, { doc: doc }),
 	              _react2.default.createElement(_DeleteModal2.default, { doc: doc })
 	            )
@@ -45908,8 +45913,8 @@
 	  },
 	  floatingButton: {
 	    position: 'fixed',
-	    left: '90%',
-	    bottom: '50px'
+	    left: '87%',
+	    bottom: '8%'
 	  }
 	};
 	
@@ -46540,7 +46545,8 @@
 	              name: 'title',
 	              value: this.state.doc.title,
 	              onChange: this.handleFieldChange,
-	              type: 'text'
+	              type: 'text',
+	              required: true
 	            }),
 	            _react2.default.createElement(
 	              'label',
@@ -46555,7 +46561,8 @@
 	              id: 'content',
 	              name: 'content',
 	              value: this.state.doc.content,
-	              onChange: this.handleFieldChange
+	              onChange: this.handleFieldChange,
+	              required: true
 	            }),
 	            _react2.default.createElement(
 	              'label',
@@ -46774,7 +46781,7 @@
 	var styles = {
 	  button: {
 	    margin: 12,
-	    color: '#0288D1'
+	    color: '#0082ff'
 	  },
 	  form: {
 	    margin: '0 auto'
@@ -48826,12 +48833,20 @@
 	          null,
 	          _react2.default.createElement('img', { src: 'images/profile.png' })
 	        ),
-	        _react2.default.createElement(_cardTitle2.default, { title: "@" + this.state.user.username, subtitle: "Role: " + this.state.user.role }),
+	        _react2.default.createElement(_cardTitle2.default, { title: "@" + this.state.user.username }),
 	        _react2.default.createElement(
 	          _cardText2.default,
 	          null,
-	          'Email: ',
-	          this.state.user.email
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'role-text' },
+	            this.state.user.role
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'email-text' },
+	            this.state.user.email
+	          )
 	        ),
 	        _react2.default.createElement(
 	          _cardActions2.default,
@@ -48934,7 +48949,7 @@
 	        _react2.default.createElement(_flatButton2.default, {
 	          label: 'Change My Details',
 	          onTouchTap: this.openModal,
-	          labelStyle: { color: '#0288D1' } }),
+	          labelStyle: { color: '#0082ff' } }),
 	        _react2.default.createElement(
 	          _reactModal2.default,
 	          {
@@ -49385,7 +49400,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  height: 100%; }\n\n.dcman {\n  margin: 0 auto;\n  width: 75%;\n  margin-top: 10px; }\n\n.section__hero {\n  height: 94vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(" + __webpack_require__(413) + ");\n  background-size: cover;\n  margin-top: -70px; }\n\n.main-text {\n  margin-top: 20%; }\n\n.main-text h3 {\n  font-size: 70px;\n  font-weight: 800;\n  color: #eceff5;\n  line-height: 1; }\n\n.detailed-text h5 {\n  font-size: 1.45em;\n  font-weight: 200;\n  margin-top: 80px;\n  line-height: 2em;\n  color: #ccc; }\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%; } }\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none; }\n  .dcman {\n    margin: 0 auto;\n    width: 90%; }\n  .docsList {\n    width: 100% !important; } }\n\n.error-toast {\n  background-color: #d23939; }\n\n.success-toast {\n  background-color: #0c3; }\n\n.footer {\n  margin-top: -2px;\n  background-color: #3c3e42;\n  border-top: 1px solid #f2f2f2;\n  color: #9ba6b5;\n  padding: 24px;\n  height: 70px;\n  bottom: 0%;\n  position: fixed;\n  width: 100%; }\n\n.footer .copyright {\n  color: #fff;\n  margin: 0 0 4px;\n  font-size: 15px; }\n", "", {"version":3,"sources":["/./app/app/styles/styles.css"],"names":[],"mappings":"AAAA;EACE,2CAA2C;EAC3C,aACD,EAAC;;AAEF;EACE,eAAe;EACf,WAAW;EACX,iBAAiB,EAClB;;AACD;EACE,aAAa;EACb,gBAAgB;EAChB,mBAAmB;EACnB,mBAAmB;EACnB,0CAAe;EACf,uBAAuB;EACvB,kBAAkB,EACnB;;AAED;EACE,gBAAgB,EACjB;;AAED;EACE,gBAAgB;EAChB,iBAAiB;EACjB,eAAe;EACf,eAAe,EAChB;;AAED;EACE,kBAAkB;EAClB,iBAAiB;EACjB,iBAAiB;EACjB,iBAAiB;EACjB,YAAY,EACb;;AAED;EACE;IACE,eAAe;IACf,WAAW,EACZ,EAAA;;AAGH;EACE;IACE,cAAc,EACf;EACD;IACE,eAAe;IACf,WAAW,EACZ;EACD;IACE,uBAAuB,EACxB,EAAA;;AAGH;EACE,0BAAsB,EACvB;;AAED;EACE,uBAAuB,EACxB;;AAED;EACE,iBAAiB;EACjB,0BAA0B;EAC1B,8BAA8B;EAC9B,eAAe;EACf,cAAc;EACd,aAAa;EACb,WAAW;EACX,gBAAgB;EAChB,YAAY,EACb;;AAED;EACI,YAAY;EACZ,gBAAgB;EAChB,gBAAgB,EACnB","file":"styles.css","sourcesContent":["body {\n  font-family: 'Source Sans Pro', sans-serif;\n  height: 100%\n}\n\n.dcman {\n  margin: 0 auto;\n  width: 75%;\n  margin-top: 10px;\n}\n.section__hero {\n  height: 94vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(\"../images/background.jpg\");\n  background-size: cover;\n  margin-top: -70px;\n}\n\n.main-text {\n  margin-top: 20%;\n}\n\n.main-text h3{\n  font-size: 70px;\n  font-weight: 800;\n  color: #eceff5;\n  line-height: 1;\n}\n\n.detailed-text h5 {\n  font-size: 1.45em;\n  font-weight: 200;\n  margin-top: 80px;\n  line-height: 2em;\n  color: #ccc;\n}\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n  }\n}\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none;\n  }\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n  }\n  .docsList {\n    width: 100% !important;\n  }\n}\n\n.error-toast {\n  background-color: rgba(210, 57, 57, 1);\n}\n\n.success-toast {\n  background-color: #0c3;\n}\n\n.footer {\n  margin-top: -2px;\n  background-color: #3c3e42;\n  border-top: 1px solid #f2f2f2;\n  color: #9ba6b5;\n  padding: 24px;\n  height: 70px;\n  bottom: 0%;\n  position: fixed;\n  width: 100%;\n}\n\n.footer .copyright {\n    color: #fff;\n    margin: 0 0 4px;\n    font-size: 15px;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  height: 100%; }\n\n.dcman {\n  margin: 0 auto;\n  width: 75%;\n  margin-top: 10px; }\n\n.section__hero {\n  height: 94vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(" + __webpack_require__(413) + ");\n  background-size: cover;\n  margin-top: -70px; }\n\n.main-text {\n  margin-top: 20%;\n  padding-bottom: 20px;\n  border-bottom: 8px solid white; }\n\n.main-text h3 {\n  font-size: 70px;\n  font-weight: 800;\n  color: #eceff5;\n  line-height: 1; }\n\n.detailed-text h5 {\n  font-size: 1.45em;\n  font-weight: 200;\n  margin-top: 40px;\n  line-height: 2em;\n  color: #ccc; }\n\n.role-text {\n  border: 1px solid #e032d1;\n  width: 50px;\n  text-align: center;\n  border-radius: 4px;\n  color: #E008EA;\n  margin-top: -20px;\n  font-size: 15px; }\n\n.email-text {\n  margin-top: 18px;\n  margin-bottom: -15px; }\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px; } }\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none; }\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px; }\n  .docsList {\n    width: 100% !important; } }\n\n.error-toast {\n  background-color: #d23939; }\n\n.success-toast {\n  background-color: #0c3; }\n\n.footer {\n  margin-top: -2px;\n  background-color: #3c3e42;\n  border-top: 1px solid #f2f2f2;\n  color: #9ba6b5;\n  padding: 24px;\n  height: 70px;\n  bottom: 0%;\n  position: fixed;\n  width: 100%; }\n\n.footer .copyright {\n  color: #fff;\n  margin: 0 0 4px;\n  font-size: 15px; }\n\n.ReactModal__Overlay .ReactModal__Overlay--after-open {\n  z-index: 10; }\n", "", {"version":3,"sources":["/./app/app/styles/styles.css"],"names":[],"mappings":"AAAA;EACE,2CAA2C;EAC3C,aACD,EAAC;;AAEF;EACE,eAAe;EACf,WAAW;EACX,iBAAiB,EAClB;;AACD;EACE,aAAa;EACb,gBAAgB;EAChB,mBAAmB;EACnB,mBAAmB;EACnB,0CAAe;EACf,uBAAuB;EACvB,kBAAkB,EACnB;;AAED;EACE,gBAAgB;EAChB,qBAAqB;EACrB,+BAA+B,EAChC;;AAED;EACE,gBAAgB;EAChB,iBAAiB;EACjB,eAAe;EACf,eAAe,EAChB;;AAED;EACE,kBAAkB;EAClB,iBAAiB;EACjB,iBAAiB;EACjB,iBAAiB;EACjB,YAAY,EACb;;AAED;EACE,0BAAqB;EACrB,YAAY;EACZ,mBAAmB;EACnB,mBAAmB;EACnB,eAAe;EACf,kBAAkB;EAClB,gBAAgB,EACjB;;AAED;EACE,iBAAiB;EACjB,qBAAqB,EACtB;;AAED;EACE;IACE,eAAe;IACf,WAAW;IACX,iBAAiB,EAClB,EAAA;;AAGH;EACE;IACE,cAAc,EACf;EACD;IACE,eAAe;IACf,WAAW;IACX,iBAAiB,EAClB;EACD;IACE,uBAAuB,EACxB,EAAA;;AAGH;EACE,0BAAsB,EACvB;;AAED;EACE,uBAAuB,EACxB;;AAED;EACE,iBAAiB;EACjB,0BAA0B;EAC1B,8BAA8B;EAC9B,eAAe;EACf,cAAc;EACd,aAAa;EACb,WAAW;EACX,gBAAgB;EAChB,YAAY,EACb;;AAED;EACI,YAAY;EACZ,gBAAgB;EAChB,gBAAgB,EACnB;;AAED;EACE,YAAY,EACb","file":"styles.css","sourcesContent":["body {\n  font-family: 'Source Sans Pro', sans-serif;\n  height: 100%\n}\n\n.dcman {\n  margin: 0 auto;\n  width: 75%;\n  margin-top: 10px;\n}\n.section__hero {\n  height: 94vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(\"../images/background.jpg\");\n  background-size: cover;\n  margin-top: -70px;\n}\n\n.main-text {\n  margin-top: 20%;\n  padding-bottom: 20px;\n  border-bottom: 8px solid white;\n}\n\n.main-text h3{\n  font-size: 70px;\n  font-weight: 800;\n  color: #eceff5;\n  line-height: 1;\n}\n\n.detailed-text h5 {\n  font-size: 1.45em;\n  font-weight: 200;\n  margin-top: 40px;\n  line-height: 2em;\n  color: #ccc;\n}\n\n.role-text {\n  border: 1px solid rgb(224, 50, 209);\n  width: 50px;\n  text-align: center;\n  border-radius: 4px;\n  color: #E008EA;\n  margin-top: -20px;\n  font-size: 15px;\n}\n\n.email-text {\n  margin-top: 18px;\n  margin-bottom: -15px;\n}\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px;\n  }\n}\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none;\n  }\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px;\n  }\n  .docsList {\n    width: 100% !important;\n  }\n}\n\n.error-toast {\n  background-color: rgba(210, 57, 57, 1);\n}\n\n.success-toast {\n  background-color: #0c3;\n}\n\n.footer {\n  margin-top: -2px;\n  background-color: #3c3e42;\n  border-top: 1px solid #f2f2f2;\n  color: #9ba6b5;\n  padding: 24px;\n  height: 70px;\n  bottom: 0%;\n  position: fixed;\n  width: 100%;\n}\n\n.footer .copyright {\n    color: #fff;\n    margin: 0 0 4px;\n    font-size: 15px;\n}\n\n.ReactModal__Overlay .ReactModal__Overlay--after-open {\n  z-index: 10;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 

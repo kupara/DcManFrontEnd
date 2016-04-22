@@ -12,8 +12,10 @@ import CardMedia from 'material-ui/lib/card/card-media';
 import CardTitle from 'material-ui/lib/card/card-title';
 import CardText from 'material-ui/lib/card/card-text';
 
-const style = {
-  marginRight: 20
+const styles = {
+  paddingBottom: '10px',
+  paddingRight: '30px',
+  textAlign: 'right'
 };
 
 class UserDocs extends React.Component {
@@ -64,10 +66,13 @@ class UserDocs extends React.Component {
               actAsExpander={true}
               showExpandableButton={true}
             />
-            <CardText expandable={true}>
+            <CardText
+              expandable={true}>
               {doc.content}
             </CardText>
-            <CardActions expandable={true}>
+            <CardActions
+              expandable={true}
+              style={styles}>
               <UpdaterModal doc={doc}/>
               <DeleteModal doc={doc}/>
             </CardActions>

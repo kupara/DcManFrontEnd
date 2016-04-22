@@ -43,7 +43,7 @@ export default class UpdaterModal extends React.Component {
         <FlatButton
           label="Change My Details"
           onTouchTap = {this.openModal}
-          labelStyle={{color: '#0288D1'}} />
+          labelStyle={{color: '#0082ff'}} />
         <Modal
           isOpen={self.state.modalIsOpen}
           onRequestClose={this.closeModal}

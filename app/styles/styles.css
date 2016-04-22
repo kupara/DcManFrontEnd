@@ -20,6 +20,8 @@ body {
 
 .main-text {
   margin-top: 20%;
+  padding-bottom: 20px;
+  border-bottom: 8px solid white;
 }
 
 .main-text h3{
@@ -32,15 +34,31 @@ body {
 .detailed-text h5 {
   font-size: 1.45em;
   font-weight: 200;
-  margin-top: 80px;
+  margin-top: 40px;
   line-height: 2em;
   color: #ccc;
+}
+
+.role-text {
+  border: 1px solid rgb(224, 50, 209);
+  width: 50px;
+  text-align: center;
+  border-radius: 4px;
+  color: #E008EA;
+  margin-top: -20px;
+  font-size: 15px;
+}
+
+.email-text {
+  margin-top: 18px;
+  margin-bottom: -15px;
 }
 
 @media screen and (max-width: 1200px) {
   .dcman {
     margin: 0 auto;
     width: 90%;
+    margin-top: 10px;
   }
 }
 
@@ -51,6 +69,7 @@ body {
   .dcman {
     margin: 0 auto;
     width: 90%;
+    margin-top: 10px;
   }
   .docsList {
     width: 100% !important;
@@ -81,4 +100,8 @@ body {
     color: #fff;
     margin: 0 0 4px;
     font-size: 15px;
+}
+
+.ReactModal__Overlay .ReactModal__Overlay--after-open {
+  z-index: 10;
 }

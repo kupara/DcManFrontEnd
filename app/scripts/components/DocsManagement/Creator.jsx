@@ -95,6 +95,7 @@ class DocCreator extends React.Component {
                   value={this.state.doc.title}
                   onChange={this.handleFieldChange}
                   type="text"
+                  required
               />
             <label htmlFor="title">Document Title</label>
             </div>
@@ -104,6 +105,7 @@ class DocCreator extends React.Component {
                   name="content"
                   value={this.state.doc.content}
                   onChange={this.handleFieldChange}
+                  required
               />
               <label className="active" htmlFor="content">Content</label>
             </div>
