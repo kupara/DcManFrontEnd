@@ -5,11 +5,11 @@
 [![Coverage Status](https://coveralls.io/repos/github/andela-ekupara/DcManFrontEnd/badge.svg?branch=master)](https://coveralls.io/github/andela-ekupara/DcManFrontEnd?branch=master)
 
 
-This is a simple application to help a user with a predefined role create and manage documents. Users create documents and speciy the roles that are allowed to access the document by setting an access level.
+This is a simple application to help users with predefined roles create and manage documents. Users create documents and speciy the roles that are allowed to access the document by setting an access level. The 3 available roles are:
 
-Admins can access all documents.
-Normal users can access their documents as well as all public documents.
-Viewers will only see public documents and can not create documents.
+   - Admins can access all documents.
+   - Normal users can access their documents as well as all public documents.
+   - Viewers will only see public documents and can not create documents.
 
 
 ## Testing
