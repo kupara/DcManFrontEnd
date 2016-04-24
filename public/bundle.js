@@ -49504,7 +49504,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        this.state.docs.map(renderDoc)
+	        this.state.docs.map(renderDoc),
+	        _react2.default.createElement(_CreatorModal2.default, null)
 	      );
 	    }
 	  }]);
