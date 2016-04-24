@@ -53155,7 +53155,7 @@
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      _UserStore2.default.removeChangeListener(this.getUserInfo, 'session');
+	      _UserStore2.default.removeChangeListener(this.getSession, 'session');
 	    }
 	  }, {
 	    key: 'render',

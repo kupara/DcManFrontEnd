@@ -35,7 +35,7 @@ class UserInfo extends React.Component {
   }
 
   componentWillUnmount() {
-    UserStore.removeChangeListener(this.getUserInfo, 'session');
+    UserStore.removeChangeListener(this.getSession, 'session');
   }
 
   render() {
