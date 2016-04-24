@@ -1,4 +1,5 @@
 import React from 'react';
+import {browserHistory} from 'react-router';
 import * as UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
 import UpdaterModal from './UpdaterModal.jsx';
@@ -12,32 +13,31 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {}
+      user: {},
+      loggedIn: false
     }
-    this.getUserInfo = this.getUserInfo.bind(this);
+    this.getSession = this.getSession.bind(this);
   }
 
   componentWillMount() {
-    UserStore.addChangeListener(this.getUserInfo, 'userInfo');
+    UserActions.session();
+    UserStore.addChangeListener(this.getSession, 'session');
   }
 
-  componentDidMount() {
-    let token = window.localStorage.getItem('token');
-    let userId = window.localStorage.getItem('userId');
-    UserActions.getUser(userId, token);
-  }
-
-  getUserInfo() {
-    let data = UserStore.getUser();
-    if (data) {
+  getSession() {
+    let data = UserStore.getSession();
+    if (data && data.loggedIn) {
       this.setState({
-        user: data
+        user: data.user,
+        loggedIn: data.loggedIn
       });
+    } else {
+      browserHistory.push('/')
     }
   }
 
   componentWillUnmount() {
-    UserStore.removeChangeListener(this.getUserInfo, 'userInfo');
+    UserStore.removeChangeListener(this.getSession, 'session');
   }
 
   render() {

@@ -8,7 +8,7 @@ import Auth from './Auth.jsx';
 
 const customStyles = {
   content : {
-    top: '400px',
+    top: '40%',
     width: '33%',
     left: '50%',
     right: 'auto',

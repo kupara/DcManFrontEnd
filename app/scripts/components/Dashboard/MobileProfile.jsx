@@ -7,58 +7,60 @@ import CardActions from 'material-ui/lib/card/card-actions';
 import CardMedia from 'material-ui/lib/card/card-media';
 import CardTitle from 'material-ui/lib/card/card-title';
 import CardText from 'material-ui/lib/card/card-text';
+import Avatar from 'material-ui/lib/avatar';
 
 class UserInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {}
+      user: {},
+      loggedIn: false
     }
-    this.getUserInfo = this.getUserInfo.bind(this);
-  }
-
-  componentWillMount() {
-    UserStore.addChangeListener(this.getUserInfo, 'userInfo');
+    this.getSession = this.getSession.bind(this);
   }
 
   componentDidMount() {
-    let token = window.localStorage.getItem('token');
-    let userId = window.localStorage.getItem('userId');
-    UserActions.getUser(userId, token);
+    UserStore.addChangeListener(this.getSession, 'session');
+    UserActions.session();
   }
 
-  getUserInfo() {
-    let data = UserStore.getUser();
-    if (data) {
+  getSession() {
+    let data = UserStore.getSession();
+    if (data && data.loggedIn) {
       this.setState({
-        user: data
+        user: data.user,
+        loggedIn: data.loggedIn
       });
     }
   }
 
   componentWillUnmount() {
-    UserStore.removeChangeListener(this.getUserInfo, 'userInfo');
+    UserStore.removeChangeListener(this.getUserInfo, 'session');
   }
 
   render() {
     return (
+      (this.state.loggedIn)
+      ?
       <div className="mobile-profile row">
         <div className="col s12">
-          <Card>
-            <CardMedia>
-              <img src="images/profile.png" />
-            </CardMedia>
-            <CardTitle title={"@"+this.state.user.username} />
-            <CardText>
-              <div className="role-text">
-                {this.state.user.role}
-              </div>
-              <div className="email-text">
-                {this.state.user.email}
-              </div>
-            </CardText>
-          </Card>
+          <div>
+            <Avatar src="images/profile.png" size={64}/>
+          </div>
+          <div className="row username">
+            {"@"+this.state.user.username}
+          </div>
+          <div className="row role-text">
+            {this.state.user.role}
+          </div>
+          <div className=" row email-text">
+            {this.state.user.email}
+          </div>
         </div>
+      </div>
+      :
+      <div className="mobile-profile username">
+        You are not logged in.
       </div>
     );
   }

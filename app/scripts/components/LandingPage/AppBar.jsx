@@ -11,6 +11,13 @@ import AuthModal from '../Auth/AuthModal.jsx';
 import MobileProfile from '../Dashboard/MobileProfile.jsx';
 import MenuIcon from 'material-ui/lib/svg-icons/navigation/menu';
 
+const styles = {
+  title: {
+    cursor: 'pointer'
+  }
+};
+
+
 export default class NavAppBar extends React.Component {
   constructor(props) {
     super(props);
@@ -41,10 +48,10 @@ export default class NavAppBar extends React.Component {
     return(
       <div>
         <AppBar
-          title="DCMan"
+          title={<span style={styles.title}>DCMan</span>}
           onTitleTouchTap = {this.handleTap}
           titleStyle={{color: '#0082ff'}}
-          style={{backgroundColor: 'rgba(232, 225, 225, 0.24)'}}
+          style={{backgroundColor: 'rgba(227, 226, 232, 0.1)'}}
           iconElementRight={<AuthModal />}
           iconElementLeft={
             <IconButton
@@ -60,7 +67,7 @@ export default class NavAppBar extends React.Component {
             <AppBar
               title="Profile"
               titleStyle={{color: '#0082ff'}}
-              style={{backgroundColor: 'rgba(232, 225, 225, 0.24)'}}
+              style={{backgroundColor: '#E3E2E8'}}
               onLeftIconButtonTouchTap={this.handleToggle}/>
             <MobileProfile />
           </div>
