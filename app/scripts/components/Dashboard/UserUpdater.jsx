@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 const styles = {
   button: {
     margin: 12,
-    color: '#0288D1'
+    color: '#0082ff'
   },
   form: {
     margin: '0 auto'
@@ -119,7 +119,7 @@ class UserUpdater extends React.Component {
                <MenuItem value={"viewer"} primaryText="Viewer"/>
              </SelectField><br/><br/>
           </div>
-          <div className="col s6">
+          <div className="col s6 right-align">
             <div className="container center">
               <button className="btn waves-effect header-btn blue"
                   name="action"
@@ -128,7 +128,7 @@ class UserUpdater extends React.Component {
               </button>
             </div>
           </div>
-          <div className="col s6">
+          <div className="col s6 right-align">
             <div className="container center">
               <button className="btn waves-effect header-btn blue"
                   name="action"

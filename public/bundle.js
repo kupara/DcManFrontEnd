@@ -25013,7 +25013,7 @@
 	                  _react2.default.createElement(
 	                    "h5",
 	                    { className: "header" },
-	                    "With DCMan, creating documents becomes as easy as creating a tweet. You can choose access levels for each document you create "
+	                    "With DCMan, creating documents becomes as easy as creating a tweet. You can choose access levels for each document you create. "
 	                  )
 	                )
 	              )
@@ -25170,6 +25170,12 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var styles = {
+	  title: {
+	    cursor: 'pointer'
+	  }
+	};
+	
 	var NavAppBar = function (_React$Component) {
 	  _inherits(NavAppBar, _React$Component);
 	
@@ -25212,10 +25218,14 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_appBar2.default, {
-	          title: 'DCMan',
+	          title: _react2.default.createElement(
+	            'span',
+	            { style: styles.title },
+	            'DCMan'
+	          ),
 	          onTitleTouchTap: this.handleTap,
 	          titleStyle: { color: '#0082ff' },
-	          style: { backgroundColor: 'rgba(232, 225, 225, 0.24)' },
+	          style: { backgroundColor: 'rgba(227, 226, 232, 0.1)' },
 	          iconElementRight: _react2.default.createElement(_AuthModal2.default, null),
 	          iconElementLeft: _react2.default.createElement(
 	            _iconButton2.default,
@@ -25236,7 +25246,7 @@
 	            _react2.default.createElement(_appBar2.default, {
 	              title: 'Profile',
 	              titleStyle: { color: '#0082ff' },
-	              style: { backgroundColor: 'rgba(232, 225, 225, 0.24)' },
+	              style: { backgroundColor: '#E3E2E8' },
 	              onLeftIconButtonTouchTap: this.handleToggle }),
 	            _react2.default.createElement(_MobileProfile2.default, null)
 	          ),
@@ -34862,7 +34872,7 @@
 	
 	var customStyles = {
 	  content: {
-	    top: '400px',
+	    top: '40%',
 	    width: '33%',
 	    left: '50%',
 	    right: 'auto',
@@ -45460,7 +45470,7 @@
 	
 	var styles = {
 	  tab: {
-	    backgroundColor: '#f5f5f5',
+	    backgroundColor: '#E3E2E8',
 	    color: "#0082ff"
 	  }
 	};
@@ -45981,11 +45991,20 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var customStyles = {
+	  overlay: {
+	    position: 'fixed',
+	    top: 0,
+	    left: 0,
+	    right: 0,
+	    bottom: 0,
+	    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+	    zIndex: 10
+	  },
 	  content: {
 	    top: '50%',
 	    left: '50%',
 	    right: 'auto',
-	    color: '#B1DCFB',
+	    color: 'rgba(90,76,76,0.26)',
 	    zIndex: 10,
 	    bottom: 'auto',
 	    marginRight: '-50%',
@@ -45994,8 +46013,7 @@
 	  floatingButton: {
 	    position: 'fixed',
 	    left: '87%',
-	    bottom: '8%',
-	    backgroundColor: '#B1DCFB'
+	    bottom: '8%'
 	  }
 	};
 	
@@ -46041,7 +46059,7 @@
 	          {
 	            style: customStyles.floatingButton,
 	            onTouchTap: this.openModal,
-	            backgroundColor: '#B1DCFB' },
+	            backgroundColor: '#0082ff' },
 	          _react2.default.createElement(_add2.default, null)
 	        ),
 	        _react2.default.createElement(
@@ -46669,7 +46687,7 @@
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col s6' },
+	            { className: 'col s6 right-align' },
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'container center' },
@@ -46685,7 +46703,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col s6' },
+	            { className: 'col s6 right-align' },
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'container center' },
@@ -46747,9 +46765,19 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var customStyles = {
+	  overlay: {
+	    position: 'fixed',
+	    top: 0,
+	    left: 0,
+	    right: 0,
+	    bottom: 0,
+	    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+	    zIndex: 10
+	  },
 	  content: {
 	    top: '50%',
 	    left: '50%',
+	    width: '50%',
 	    right: 'auto',
 	    bottom: 'auto',
 	    marginRight: '-50%',
@@ -46797,7 +46825,7 @@
 	        _react2.default.createElement(_flatButton2.default, {
 	          label: 'Edit',
 	          onTouchTap: this.openModal,
-	          labelStyle: { color: '#0288D1' } }),
+	          labelStyle: { color: '#0082ff' } }),
 	        _react2.default.createElement(
 	          _reactModal2.default,
 	          {
@@ -47083,9 +47111,19 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var customStyles = {
+	  overlay: {
+	    position: 'fixed',
+	    top: 0,
+	    left: 0,
+	    right: 0,
+	    bottom: 0,
+	    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+	    zIndex: 10
+	  },
 	  content: {
 	    top: '50%',
 	    left: '50%',
+	    width: '50%',
 	    right: 'auto',
 	    bottom: 'auto',
 	    marginRight: '-50%',
@@ -48819,6 +48857,8 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(160);
+	
 	var _UserActions = __webpack_require__(317);
 	
 	var UserActions = _interopRequireWildcard(_UserActions);
@@ -48870,38 +48910,36 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(UserInfo).call(this, props));
 	
 	    _this.state = {
-	      user: {}
+	      user: {},
+	      loggedIn: false
 	    };
-	    _this.getUserInfo = _this.getUserInfo.bind(_this);
+	    _this.getSession = _this.getSession.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(UserInfo, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      _UserStore2.default.addChangeListener(this.getUserInfo, 'userInfo');
-	    }
-	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var token = window.localStorage.getItem('token');
-	      var userId = window.localStorage.getItem('userId');
-	      UserActions.getUser(userId, token);
+	      UserActions.session();
+	      _UserStore2.default.addChangeListener(this.getSession, 'session');
 	    }
 	  }, {
-	    key: 'getUserInfo',
-	    value: function getUserInfo() {
-	      var data = _UserStore2.default.getUser();
-	      if (data) {
+	    key: 'getSession',
+	    value: function getSession() {
+	      var data = _UserStore2.default.getSession();
+	      if (data && data.loggedIn) {
 	        this.setState({
-	          user: data
+	          user: data.user,
+	          loggedIn: data.loggedIn
 	        });
+	      } else {
+	        _reactRouter.browserHistory.push('/');
 	      }
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      _UserStore2.default.removeChangeListener(this.getUserInfo, 'userInfo');
+	      _UserStore2.default.removeChangeListener(this.getSession, 'session');
 	    }
 	  }, {
 	    key: 'render',
@@ -48988,9 +49026,19 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var customStyles = {
+	  overlay: {
+	    position: 'fixed',
+	    top: 0,
+	    left: 0,
+	    right: 0,
+	    bottom: 0,
+	    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+	    zIndex: 10
+	  },
 	  content: {
 	    top: '50%',
 	    left: '50%',
+	    width: '50%',
 	    right: 'auto',
 	    bottom: 'auto',
 	    marginRight: '-50%',
@@ -49105,7 +49153,7 @@
 	var styles = {
 	  button: {
 	    margin: 12,
-	    color: '#0288D1'
+	    color: '#0082ff'
 	  },
 	  form: {
 	    margin: '0 auto'
@@ -49260,7 +49308,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col s6' },
+	            { className: 'col s6 right-align' },
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'container center' },
@@ -49276,7 +49324,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col s6' },
+	            { className: 'col s6 right-align' },
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'container center' },
@@ -49456,8 +49504,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        this.state.docs.map(renderDoc),
-	        _react2.default.createElement(_CreatorModal2.default, null)
+	        this.state.docs.map(renderDoc)
 	      );
 	    }
 	  }]);
@@ -49502,7 +49549,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  height: 100%; }\n\nsvg {\n  fill: #0082ff !important;\n  color: #0082ff !important; }\n\n.dcman {\n  margin: 0 auto;\n  width: 75%;\n  margin-top: 10px; }\n\n.section__hero {\n  height: 94vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(" + __webpack_require__(426) + ");\n  background-size: cover;\n  margin-top: -70px; }\n\n.main-text {\n  margin-top: 20%;\n  padding-bottom: 20px;\n  border-bottom: 8px solid white; }\n\n.main-text h3 {\n  font-size: 70px;\n  font-weight: 800;\n  color: #eceff5;\n  line-height: 1; }\n\n.detailed-text h5 {\n  font-size: 1.45em;\n  font-weight: 200;\n  margin-top: 40px;\n  line-height: 2em;\n  color: #ccc; }\n\n.role-text {\n  border: 1px solid #e032d1;\n  width: 50px;\n  text-align: center;\n  border-radius: 4px;\n  color: #E008EA;\n  margin-top: -20px;\n  font-size: 15px; }\n\n.email-text {\n  margin-top: 18px;\n  margin-bottom: -15px; }\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px; } }\n\n@media screen and (min-width: 880px) {\n  .icon-menu {\n    display: none !important; } }\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none; }\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px; }\n  .docsList {\n    width: 100% !important; } }\n\n.error-toast {\n  background-color: #d23939; }\n\n.success-toast {\n  background-color: #0c3; }\n\n.footer {\n  margin-top: -2px;\n  background-color: #3c3e42;\n  border-top: 1px solid #f2f2f2;\n  color: #9ba6b5;\n  padding: 24px;\n  height: 70px;\n  bottom: 0%;\n  position: fixed;\n  width: 100%; }\n\n.footer .copyright {\n  color: #fff;\n  margin: 0 0 4px;\n  font-size: 15px; }\n\n.ReactModal__Overlay .ReactModal__Overlay--after-open {\n  z-index: 10; }\n", "", {"version":3,"sources":["/./app/app/styles/styles.css"],"names":[],"mappings":"AAAA;EACE,2CAA2C;EAC3C,aACD,EAAC;;AACF;EACE,yBAAyB;EACzB,0BAA0B,EAC3B;;AACD;EACE,eAAe;EACf,WAAW;EACX,iBAAiB,EAClB;;AACD;EACE,aAAa;EACb,gBAAgB;EAChB,mBAAmB;EACnB,mBAAmB;EACnB,0CAAe;EACf,uBAAuB;EACvB,kBAAkB,EACnB;;AAED;EACE,gBAAgB;EAChB,qBAAqB;EACrB,+BAA+B,EAChC;;AAED;EACE,gBAAgB;EAChB,iBAAiB;EACjB,eAAe;EACf,eAAe,EAChB;;AAED;EACE,kBAAkB;EAClB,iBAAiB;EACjB,iBAAiB;EACjB,iBAAiB;EACjB,YAAY,EACb;;AAED;EACE,0BAAqB;EACrB,YAAY;EACZ,mBAAmB;EACnB,mBAAmB;EACnB,eAAe;EACf,kBAAkB;EAClB,gBAAgB,EACjB;;AAED;EACE,iBAAiB;EACjB,qBAAqB,EACtB;;AAED;EACE;IACE,eAAe;IACf,WAAW;IACX,iBAAiB,EAClB,EAAA;;AAGH;EACE;IACE,yBAAyB,EAC1B,EAAA;;AAGH;EACE;IACE,cAAc,EACf;EACD;IACE,eAAe;IACf,WAAW;IACX,iBAAiB,EAClB;EACD;IACE,uBAAuB,EACxB,EAAA;;AAGH;EACE,0BAAsB,EACvB;;AAED;EACE,uBAAuB,EACxB;;AAED;EACE,iBAAiB;EACjB,0BAA0B;EAC1B,8BAA8B;EAC9B,eAAe;EACf,cAAc;EACd,aAAa;EACb,WAAW;EACX,gBAAgB;EAChB,YAAY,EACb;;AAED;EACI,YAAY;EACZ,gBAAgB;EAChB,gBAAgB,EACnB;;AAED;EACE,YAAY,EACb","file":"styles.css","sourcesContent":["body {\n  font-family: 'Source Sans Pro', sans-serif;\n  height: 100%\n}\nsvg {\n  fill: #0082ff !important;\n  color: #0082ff !important;\n}\n.dcman {\n  margin: 0 auto;\n  width: 75%;\n  margin-top: 10px;\n}\n.section__hero {\n  height: 94vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(\"../images/bg-image.jpg\");\n  background-size: cover;\n  margin-top: -70px;\n}\n\n.main-text {\n  margin-top: 20%;\n  padding-bottom: 20px;\n  border-bottom: 8px solid white;\n}\n\n.main-text h3{\n  font-size: 70px;\n  font-weight: 800;\n  color: #eceff5;\n  line-height: 1;\n}\n\n.detailed-text h5 {\n  font-size: 1.45em;\n  font-weight: 200;\n  margin-top: 40px;\n  line-height: 2em;\n  color: #ccc;\n}\n\n.role-text {\n  border: 1px solid rgb(224, 50, 209);\n  width: 50px;\n  text-align: center;\n  border-radius: 4px;\n  color: #E008EA;\n  margin-top: -20px;\n  font-size: 15px;\n}\n\n.email-text {\n  margin-top: 18px;\n  margin-bottom: -15px;\n}\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px;\n  }\n}\n\n@media screen and (min-width: 880px) {\n  .icon-menu {\n    display: none !important;\n  }\n}\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none;\n  }\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px;\n  }\n  .docsList {\n    width: 100% !important;\n  }\n}\n\n.error-toast {\n  background-color: rgba(210, 57, 57, 1);\n}\n\n.success-toast {\n  background-color: #0c3;\n}\n\n.footer {\n  margin-top: -2px;\n  background-color: #3c3e42;\n  border-top: 1px solid #f2f2f2;\n  color: #9ba6b5;\n  padding: 24px;\n  height: 70px;\n  bottom: 0%;\n  position: fixed;\n  width: 100%;\n}\n\n.footer .copyright {\n    color: #fff;\n    margin: 0 0 4px;\n    font-size: 15px;\n}\n\n.ReactModal__Overlay .ReactModal__Overlay--after-open {\n  z-index: 10;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  height: 100%; }\n\nsvg {\n  fill: #0082ff !important;\n  color: #0082ff !important; }\n\n#content {\n  max-width: 99%;\n  margin: 0 auto; }\n\n.dcman {\n  margin: 0 auto;\n  width: 75%;\n  margin-top: 10px; }\n\n.dcman svg {\n  fill: #fff !important;\n  color: #fff !important; }\n\n.section__hero {\n  height: 94vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(" + __webpack_require__(426) + ");\n  background-size: cover;\n  margin-top: -70px; }\n\n.main-text {\n  margin-top: 20%;\n  padding-bottom: 20px;\n  border-bottom: 8px solid white; }\n\n.main-text h3 {\n  font-size: 70px;\n  font-weight: 800;\n  color: #eceff5;\n  line-height: 1; }\n\n.detailed-text h5 {\n  font-size: 1.45em;\n  font-weight: 200;\n  margin-top: 40px;\n  line-height: 2em;\n  color: #ccc; }\n\n.role-text {\n  border: 1px solid #9ECCFA;\n  width: 50px;\n  text-align: center;\n  border-radius: 4px;\n  color: #0082ff;\n  margin-top: -12px;\n  font-size: 15px;\n  margin-left: 0; }\n\n.email-text {\n  margin-top: 18px;\n  margin-bottom: -15px; }\n\n.mobile-profile {\n  margin-top: 10px; }\n\n.username {\n  font-size: 24px; }\n\n.right-button {\n  margin-left: 5%; }\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px; } }\n\n@media screen and (min-width: 880px) {\n  .icon-menu {\n    display: none !important; } }\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none; }\n  #content {\n    background-color: #f5f5f5; }\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    padding-top: 10px; }\n  .ReactModal__Content--after-open {\n    width: 80% !important; }\n  .docsList {\n    width: 100% !important; } }\n\n.error-toast {\n  background-color: #d23939; }\n\n.success-toast {\n  background-color: #0c3; }\n\n.footer {\n  margin-top: -2px;\n  background-color: #3c3e42;\n  border-top: 1px solid #f2f2f2;\n  color: #9ba6b5;\n  padding: 24px;\n  height: 70px;\n  bottom: 0%;\n  position: fixed;\n  width: 100%; }\n\n.footer .copyright {\n  color: #fff;\n  margin: 0 0 4px;\n  font-size: 15px; }\n", "", {"version":3,"sources":["/./app/app/styles/styles.css"],"names":[],"mappings":"AAAA;EACE,2CAA2C;EAC3C,aAAa,EACd;;AAED;EACE,yBAAyB;EACzB,0BAA0B,EAC3B;;AAED;EACE,eAAe;EACf,eAAe,EAChB;;AAED;EACE,eAAe;EACf,WAAW;EACX,iBAAiB,EAClB;;AAED;EACE,sBAAsB;EACtB,uBAAuB,EACxB;;AAED;EACE,aAAa;EACb,gBAAgB;EAChB,mBAAmB;EACnB,mBAAmB;EACnB,0CAAe;EACf,uBAAuB;EACvB,kBAAkB,EACnB;;AAED;EACE,gBAAgB;EAChB,qBAAqB;EACrB,+BAA+B,EAChC;;AAED;EACE,gBAAgB;EAChB,iBAAiB;EACjB,eAAe;EACf,eAAe,EAChB;;AAED;EACE,kBAAkB;EAClB,iBAAiB;EACjB,iBAAiB;EACjB,iBAAiB;EACjB,YAAY,EACb;;AAED;EACE,0BAA0B;EAC1B,YAAY;EACZ,mBAAmB;EACnB,mBAAmB;EACnB,eAAe;EACf,kBAAkB;EAClB,gBAAgB;EAChB,eAAe,EAChB;;AAED;EACE,iBAAiB;EACjB,qBAAqB,EACtB;;AAED;EACE,iBAAiB,EAClB;;AAED;EACE,gBAAgB,EACjB;;AAED;EACE,gBAAgB,EACjB;;AAED;EACE;IACE,eAAe;IACf,WAAW;IACX,iBAAiB,EAClB,EAAA;;AAGH;EACE;IACE,yBAAyB,EAC1B,EAAA;;AAGH;EACE;IACE,cAAc,EACf;EAED;IACE,0BAA0B,EAC3B;EACD;IACE,eAAe;IACf,WAAW;IACX,kBAAkB,EACnB;EAED;IACE,sBAAsB,EACvB;EAED;IACE,uBAAuB,EACxB,EAAA;;AAGH;EACE,0BAAsB,EACvB;;AAED;EACE,uBAAuB,EACxB;;AAED;EACE,iBAAiB;EACjB,0BAA0B;EAC1B,8BAA8B;EAC9B,eAAe;EACf,cAAc;EACd,aAAa;EACb,WAAW;EACX,gBAAgB;EAChB,YAAY,EACb;;AAED;EACI,YAAY;EACZ,gBAAgB;EAChB,gBAAgB,EACnB","file":"styles.css","sourcesContent":["body {\n  font-family: 'Source Sans Pro', sans-serif;\n  height: 100%;\n}\n\nsvg {\n  fill: #0082ff !important;\n  color: #0082ff !important;\n}\n\n#content {\n  max-width: 99%;\n  margin: 0 auto;\n}\n\n.dcman {\n  margin: 0 auto;\n  width: 75%;\n  margin-top: 10px;\n}\n\n.dcman svg {\n  fill: #fff !important;\n  color: #fff !important;\n}\n\n.section__hero {\n  height: 94vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(\"../images/bg-image.jpg\");\n  background-size: cover;\n  margin-top: -70px;\n}\n\n.main-text {\n  margin-top: 20%;\n  padding-bottom: 20px;\n  border-bottom: 8px solid white;\n}\n\n.main-text h3{\n  font-size: 70px;\n  font-weight: 800;\n  color: #eceff5;\n  line-height: 1;\n}\n\n.detailed-text h5 {\n  font-size: 1.45em;\n  font-weight: 200;\n  margin-top: 40px;\n  line-height: 2em;\n  color: #ccc;\n}\n\n.role-text {\n  border: 1px solid #9ECCFA;\n  width: 50px;\n  text-align: center;\n  border-radius: 4px;\n  color: #0082ff;\n  margin-top: -12px;\n  font-size: 15px;\n  margin-left: 0;\n}\n\n.email-text {\n  margin-top: 18px;\n  margin-bottom: -15px;\n}\n\n.mobile-profile {\n  margin-top: 10px;\n}\n\n.username {\n  font-size: 24px;\n}\n\n.right-button {\n  margin-left: 5%;\n}\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px;\n  }\n}\n\n@media screen and (min-width: 880px) {\n  .icon-menu {\n    display: none !important;\n  }\n}\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none;\n  }\n\n  #content {\n    background-color: #f5f5f5;\n  }\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    padding-top: 10px;\n  }\n\n  .ReactModal__Content--after-open {\n    width: 80% !important;\n  }\n\n  .docsList {\n    width: 100% !important;\n  }\n}\n\n.error-toast {\n  background-color: rgba(210, 57, 57, 1);\n}\n\n.success-toast {\n  background-color: #0c3;\n}\n\n.footer {\n  margin-top: -2px;\n  background-color: #3c3e42;\n  border-top: 1px solid #f2f2f2;\n  color: #9ba6b5;\n  padding: 24px;\n  height: 70px;\n  bottom: 0%;\n  position: fixed;\n  width: 100%;\n}\n\n.footer .copyright {\n    color: #fff;\n    margin: 0 0 4px;\n    font-size: 15px;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -53058,6 +53105,10 @@
 	
 	var _cardText2 = _interopRequireDefault(_cardText);
 	
+	var _avatar = __webpack_require__(402);
+	
+	var _avatar2 = _interopRequireDefault(_avatar);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -53077,73 +53128,69 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(UserInfo).call(this, props));
 	
 	    _this.state = {
-	      user: {}
+	      user: {},
+	      loggedIn: false
 	    };
-	    _this.getUserInfo = _this.getUserInfo.bind(_this);
+	    _this.getSession = _this.getSession.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(UserInfo, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      _UserStore2.default.addChangeListener(this.getUserInfo, 'userInfo');
-	    }
-	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var token = window.localStorage.getItem('token');
-	      var userId = window.localStorage.getItem('userId');
-	      UserActions.getUser(userId, token);
+	      _UserStore2.default.addChangeListener(this.getSession, 'session');
+	      UserActions.session();
 	    }
 	  }, {
-	    key: 'getUserInfo',
-	    value: function getUserInfo() {
-	      var data = _UserStore2.default.getUser();
-	      if (data) {
+	    key: 'getSession',
+	    value: function getSession() {
+	      var data = _UserStore2.default.getSession();
+	      if (data && data.loggedIn) {
 	        this.setState({
-	          user: data
+	          user: data.user,
+	          loggedIn: data.loggedIn
 	        });
 	      }
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      _UserStore2.default.removeChangeListener(this.getUserInfo, 'userInfo');
+	      _UserStore2.default.removeChangeListener(this.getSession, 'session');
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
+	      return this.state.loggedIn ? _react2.default.createElement(
 	        'div',
 	        { className: 'mobile-profile row' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'col s12' },
 	          _react2.default.createElement(
-	            _card2.default,
+	            'div',
 	            null,
-	            _react2.default.createElement(
-	              _cardMedia2.default,
-	              null,
-	              _react2.default.createElement('img', { src: 'images/profile.png' })
-	            ),
-	            _react2.default.createElement(_cardTitle2.default, { title: "@" + this.state.user.username }),
-	            _react2.default.createElement(
-	              _cardText2.default,
-	              null,
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'role-text' },
-	                this.state.user.role
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'email-text' },
-	                this.state.user.email
-	              )
-	            )
+	            _react2.default.createElement(_avatar2.default, { src: 'images/profile.png', size: 64 })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row username' },
+	            "@" + this.state.user.username
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row role-text' },
+	            this.state.user.role
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: ' row email-text' },
+	            this.state.user.email
 	          )
 	        )
+	      ) : _react2.default.createElement(
+	        'div',
+	        { className: 'mobile-profile username' },
+	        'You are not logged in.'
 	      );
 	    }
 	  }]);
@@ -53168,6 +53215,8 @@
 	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(160);
 	
 	var _UserActions = __webpack_require__(317);
 	
@@ -53220,38 +53269,36 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Profile).call(this, props));
 	
 	    _this.state = {
-	      user: {}
+	      user: {},
+	      loggedIn: false
 	    };
-	    _this.getUserInfo = _this.getUserInfo.bind(_this);
+	    _this.getSession = _this.getSession.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(Profile, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      _UserStore2.default.addChangeListener(this.getUserInfo, 'userInfo');
+	      UserActions.session();
+	      _UserStore2.default.addChangeListener(this.getSession, 'session');
 	    }
 	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var token = window.localStorage.getItem('token');
-	      var userId = window.localStorage.getItem('userId');
-	      UserActions.getUser(userId, token);
-	    }
-	  }, {
-	    key: 'getUserInfo',
-	    value: function getUserInfo() {
-	      var data = _UserStore2.default.getUser();
-	      if (data) {
+	    key: 'getSession',
+	    value: function getSession() {
+	      var data = _UserStore2.default.getSession();
+	      if (data && data.loggedIn) {
 	        this.setState({
-	          user: data
+	          user: data.user,
+	          loggedIn: data.loggedIn
 	        });
+	      } else {
+	        _reactRouter.browserHistory.push('/');
 	      }
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      _UserStore2.default.removeChangeListener(this.getUserInfo, 'userInfo');
+	      _UserStore2.default.removeChangeListener(this.getSession, 'session');
 	    }
 	  }, {
 	    key: 'render',

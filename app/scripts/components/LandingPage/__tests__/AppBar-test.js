@@ -8,8 +8,6 @@ import {mount, shallow} from 'enzyme';
 import NavAppBar from '../AppBar.jsx';
 import AuthModal from '../../Auth/AuthModal.jsx';
 import AppBar from 'material-ui/lib/app-bar';
-import UserActions from '../../../actions/UserActions';
-import UserStore from '../../../stores/UserStore';
 
 describe('Nav Bar Tests', function() {
   let wrapper;

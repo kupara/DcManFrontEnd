@@ -87,56 +87,55 @@ class DocCreator extends React.Component {
   render() {
     return (
       <div className="row">
-          <form className="col s12" onSubmit={this.handleSubmit}>
-            <div className="input-field col s12">
-              <input className="validate"
-                  id="title"
-                  name="title"
-                  value={this.state.doc.title}
-                  onChange={this.handleFieldChange}
-                  type="text"
-                  required
-              />
-            <label htmlFor="title">Document Title</label>
+        <form className="col s12" onSubmit={this.handleSubmit}>
+          <div className="input-field col s12">
+            <input className="validate"
+                id="title"
+                name="title"
+                value={this.state.doc.title}
+                onChange={this.handleFieldChange}
+                type="text"
+                required
+            />
+          <label htmlFor="title">Document Title</label>
+          </div>
+          <div className="input-field col s12">
+            <textarea className="validate materialize-textarea"
+                id="content"
+                name="content"
+                value={this.state.doc.content}
+                onChange={this.handleFieldChange}
+                required
+            />
+            <label className="active" htmlFor="content">Content</label>
+          </div>
+          <span>Select Access Level:</span> <br/>
+          <SelectField value={this.state.doc.accessLevel} onChange={this.handleChange}>
+            <MenuItem value={"admin"} primaryText="admin"/>
+            <MenuItem value={"private"} primaryText="private"/>
+            <MenuItem value={"public"} primaryText="public"/>
+          </SelectField><br/><br/>
+          <div className="col s6 right-align">
+            <div className="container center">
+              <button className="btn waves-effect header-btn blue"
+                  name="action"
+                  type="submit"
+              > Create
+              </button>
             </div>
-            <div className="input-field col s12">
-              <textarea className="validate materialize-textarea"
-                  id="content"
-                  name="content"
-                  value={this.state.doc.content}
-                  onChange={this.handleFieldChange}
-                  required
-              />
-              <label className="active" htmlFor="content">Content</label>
+          </div>
+          <div className="col s6 right-align">
+            <div className="container center">
+              <button className="btn waves-effect header-btn blue"
+                  name="action"
+                  type="cancel"
+                  onClick={this.handleCancel}
+              > Cancel
+              </button>
             </div>
-            <span>Select Access Level:</span> <br/>
-            <SelectField value={this.state.doc.accessLevel} onChange={this.handleChange}>
-              <MenuItem value={"admin"} primaryText="admin"/>
-              <MenuItem value={"private"} primaryText="private"/>
-              <MenuItem value={"public"} primaryText="public"/>
-            </SelectField><br/><br/>
-            <div className="col s6">
-              <div className="container center">
-                <button className="btn waves-effect header-btn blue"
-                    name="action"
-                    type="submit"
-                > Create
-                </button>
-              </div>
-            </div>
-            <div className="col s6">
-              <div className="container center">
-                <button className="btn waves-effect header-btn blue"
-                    name="action"
-                    type="cancel"
-                    onClick={this.handleCancel}
-                > Cancel
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-
+          </div>
+        </form>
+      </div>
     );
   }
 }

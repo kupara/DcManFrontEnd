@@ -67,14 +67,14 @@ class AllDocs extends React.Component {
             </CardText> {
               (self.props.role === 'admin')
               ?
-                <CardActions
-                  expandable={true}
-                  style={styles}>
-                  <UpdaterModal doc={doc}/>
-                  <DeleteModal doc={doc}/>
-                </CardActions>
-                :
-                <span></span>
+              <CardActions
+                expandable={true}
+                style={styles}>
+                <UpdaterModal doc={doc}/>
+                <DeleteModal doc={doc}/>
+              </CardActions>
+              :
+              <span></span>
               }
             }
           </Card>
@@ -84,7 +84,6 @@ class AllDocs extends React.Component {
     return (
       <div>
         {this.state.docs.map(renderDoc)}
-          <CreatorModal />
       </div>
     );
   }

@@ -17,7 +17,6 @@ describe('Landing Page Tests', function() {
 
   it('renders the component correctly', function() {
     const component = shallow(<Landing />);
-    console.log(component.debug());
     expect(component.find('.container').length).toEqual(1);
     expect(component.find('.header').length).toEqual(2);
   });

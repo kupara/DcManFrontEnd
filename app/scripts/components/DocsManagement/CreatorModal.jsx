@@ -6,11 +6,20 @@ import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import Creator from './Creator.jsx';
 
 const customStyles = {
+  overlay : {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 10
+  },
   content : {
     top: '50%',
     left: '50%',
     right: 'auto',
-    color: '#B1DCFB',
+    color: 'rgba(90,76,76,0.26)',
     zIndex: 10,
     bottom: 'auto',
     marginRight: '-50%',
@@ -19,8 +28,7 @@ const customStyles = {
   floatingButton : {
       position: 'fixed',
       left: '87%',
-      bottom: '8%',
-      backgroundColor: '#B1DCFB'
+      bottom: '8%'
     }
 };
 
@@ -53,7 +61,7 @@ export default class CreatorModal extends React.Component {
         <FloatingActionButton
           style={customStyles.floatingButton}
           onTouchTap = {this.openModal}
-          backgroundColor="#B1DCFB">
+          backgroundColor="#0082ff">
           <ContentAdd />
         </FloatingActionButton>
         <Modal

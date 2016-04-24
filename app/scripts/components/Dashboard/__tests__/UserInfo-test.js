@@ -37,17 +37,6 @@ describe('UserInfo Component Tests', function() {
   });
 
   describe('Component Methods Tests', function() {
-    it('Calls componentWillMount', function() {
-      sinon.spy(UserStore, 'addChangeListener');
-      sinon.spy(UserInfo.prototype, 'componentWillMount');
-      let component = mount(<UserInfo />);
-      expect(UserInfo.prototype.componentWillMount.called).toBe(true);
-      expect(UserStore.addChangeListener.called).toBe(true);
-      UserInfo.prototype.componentWillMount.restore();
-      UserStore.addChangeListener.restore();
-      component.unmount();
-    });
-
     it('Calls componentDidMount', function() {
       sinon.spy(UserInfo.prototype, 'componentDidMount');
       sinon.stub(UserActions, 'getUser').returns({});
@@ -84,22 +73,23 @@ describe('UserInfo Component Tests', function() {
       UserActions.session.restore();
     });
 
-    it('getUserInfo handling', function() {
+    it('getSession handling', function() {
       let instance = component.instance();
       let data = {
         user: {
           username: 'edwin'
-        }
+        },
+        loggedIn: true
       };
-      UserStore.setUser(data);
-      sinon.spy(instance, 'getUserInfo');
-      sinon.spy(UserStore, 'getUser');
-      instance.getUserInfo();
-      expect(instance.getUserInfo.called).toBe(true);
-      expect(UserStore.getUser.called).toBe(true);
-      expect(component.state().user).toBe(data);
-      instance.getUserInfo.restore();
-      UserStore.getUser.restore();
+      UserStore.setSession(data);
+      sinon.spy(instance, 'getSession');
+      sinon.spy(UserStore, 'getSession');
+      instance.getSession();
+      expect(instance.getSession.called).toBe(true);
+      expect(UserStore.getSession.called).toBe(true);
+      expect(component.state()).toEqual(data);
+      instance.getSession.restore();
+      UserStore.getSession.restore();
     });
   });
 
