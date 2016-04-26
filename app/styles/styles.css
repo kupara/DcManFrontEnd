@@ -4,19 +4,19 @@ body {
 }
 
 svg {
-  fill: #0082ff !important;
+  fill: #fff !important;
   color: #0082ff !important;
 }
 
-#content {
-  max-width: 99%;
+.ui-view {
+  min-height: 86vh;
   margin: 0 auto;
+  background-color: #fcfcfc;
 }
 
 .dcman {
-  margin: 0 auto;
+  padding-top: 10px;
   width: 75%;
-  margin-top: 10px;
 }
 
 .dcman svg {
@@ -61,26 +61,36 @@ svg {
   text-align: center;
   border-radius: 4px;
   color: #0082ff;
-  margin-top: -12px;
+  margin-top: 15px;
   font-size: 15px;
   margin-left: 0;
+  margin-bottom: -10px;
 }
 
 .email-text {
   margin-top: 18px;
-  margin-bottom: -15px;
 }
 
 .mobile-profile {
   margin-top: 10px;
+  padding-left: 10px;
+  color: gray;
+  font-size: small !important;
 }
 
 .username {
   font-size: 24px;
+  color: black;
 }
 
 .right-button {
   margin-left: 5%;
+}
+
+.no-docs {
+  color: gray;
+  font-size: 15px;
+  text-align: center;
 }
 
 @media screen and (max-width: 1200px) {
@@ -95,6 +105,11 @@ svg {
   .icon-menu {
     display: none !important;
   }
+
+  .nav-bar {
+    padding-left: 14% !important;
+    padding-right: 14% !important;
+  }
 }
 
 @media screen and (max-width: 880px) {
@@ -103,7 +118,7 @@ svg {
   }
 
   #content {
-    background-color: #f5f5f5;
+    min-width: 440px;
   }
   .dcman {
     margin: 0 auto;
@@ -136,12 +151,11 @@ svg {
   padding: 24px;
   height: 70px;
   bottom: 0%;
-  position: fixed;
-  width: 100%;
 }
 
 .footer .copyright {
-    color: #fff;
-    margin: 0 0 4px;
-    font-size: 15px;
+  color: #fff;
+  margin: 0 0 4px;
+  font-size: 15px;
+  text-align: center;
 }

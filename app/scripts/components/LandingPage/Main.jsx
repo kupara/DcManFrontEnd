@@ -10,7 +10,7 @@ export default class Main extends React.Component {
     return (
       <div>
         <NavAppBar />
-        <div>
+        <div className="ui-view">
           {this.props.children}
         </div>
         <footer>

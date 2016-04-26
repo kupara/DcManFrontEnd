@@ -25075,7 +25075,7 @@
 	        _react2.default.createElement(_AppBar2.default, null),
 	        _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'ui-view' },
 	          this.props.children
 	        ),
 	        _react2.default.createElement(
@@ -25150,6 +25150,14 @@
 	
 	var _raisedButton2 = _interopRequireDefault(_raisedButton);
 	
+	var _UserActions = __webpack_require__(317);
+	
+	var UserActions = _interopRequireWildcard(_UserActions);
+	
+	var _UserStore = __webpack_require__(331);
+	
+	var _UserStore2 = _interopRequireDefault(_UserStore);
+	
 	var _AuthModal = __webpack_require__(305);
 	
 	var _AuthModal2 = _interopRequireDefault(_AuthModal);
@@ -25161,6 +25169,8 @@
 	var _menu = __webpack_require__(300);
 	
 	var _menu2 = _interopRequireDefault(_menu);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -25188,12 +25198,41 @@
 	    _this.handleTap = _this.handleTap.bind(_this);
 	    _this.handleClose = _this.handleClose.bind(_this);
 	    _this.state = {
-	      open: false
+	      open: false,
+	      loggedIn: false,
+	      user: {}
 	    };
+	    _this.getSession = _this.getSession.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(NavAppBar, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      UserActions.session();
+	      _UserStore2.default.addChangeListener(this.getSession, 'session');
+	    }
+	  }, {
+	    key: 'getSession',
+	    value: function getSession() {
+	      var data = _UserStore2.default.getSession();
+	      if (data && data.loggedIn) {
+	        this.setState({
+	          user: data.user,
+	          loggedIn: true
+	        });
+	      } else {
+	        this.setState({
+	          loggedIn: false
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      _UserStore2.default.removeChangeListener(this.getSession, 'session');
+	    }
+	  }, {
 	    key: 'handleToggle',
 	    value: function handleToggle() {
 	      this.setState({
@@ -25214,6 +25253,8 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -25224,8 +25265,9 @@
 	            'DCMan'
 	          ),
 	          onTitleTouchTap: this.handleTap,
-	          titleStyle: { color: '#0082ff' },
-	          style: { backgroundColor: 'rgba(227, 226, 232, 0.1)' },
+	          titleStyle: { color: '#fff' },
+	          className: 'nav-bar',
+	          style: { backgroundColor: '#0082ff' },
 	          iconElementRight: _react2.default.createElement(_AuthModal2.default, null),
 	          iconElementLeft: _react2.default.createElement(
 	            _iconButton2.default,
@@ -25239,22 +25281,25 @@
 	          _leftNav2.default,
 	          {
 	            open: this.state.open,
-	            docked: false },
+	            docked: false,
+	            onRequestChange: function onRequestChange(open) {
+	              return _this2.setState({ open: open });
+	            } },
 	          _react2.default.createElement(
 	            'div',
 	            null,
 	            _react2.default.createElement(_appBar2.default, {
 	              title: 'Profile',
-	              titleStyle: { color: '#0082ff' },
-	              style: { backgroundColor: '#E3E2E8' },
+	              titleStyle: { color: '#fff' },
+	              style: { backgroundColor: '#0082ff' },
 	              onLeftIconButtonTouchTap: this.handleToggle }),
-	            _react2.default.createElement(_MobileProfile2.default, null)
+	            _react2.default.createElement(_MobileProfile2.default, { user: this.state.user, loggedIn: this.state.loggedIn })
 	          ),
-	          _react2.default.createElement(
+	          this.state.loggedIn ? _react2.default.createElement(
 	            _menuItem2.default,
 	            { onTouchTap: this.handleClose },
-	            'Go to My Profile'
-	          )
+	            'My Profile'
+	          ) : _react2.default.createElement('span', null)
 	        )
 	      );
 	    }
@@ -34934,6 +34979,7 @@
 	        });
 	        window.Materialize.toast(data.message, 4000, 'success-toast rounded');
 	        window.localStorage.removeItem('token');
+	        UserActions.session();
 	        _reactRouter.browserHistory.push('/');
 	      }
 	    }
@@ -34983,15 +35029,15 @@
 	          _react2.default.createElement(_flatButton2.default, {
 	            label: 'dashboard',
 	            onTouchTap: this.handleDash,
-	            labelStyle: { color: '#0082ff' } }),
+	            labelStyle: { color: '#fff' } }),
 	          _react2.default.createElement(_flatButton2.default, {
 	            label: 'Sign out',
 	            onTouchTap: this.handleSignOutAction,
-	            labelStyle: { color: '#0082ff' } })
+	            labelStyle: { color: '#fff' } })
 	        ) : _react2.default.createElement(_flatButton2.default, {
 	          label: 'Sign in',
 	          onTouchTap: this.openModal,
-	          labelStyle: { color: '#0082ff' } }),
+	          labelStyle: { color: '#fff' } }),
 	        _react2.default.createElement(
 	          _reactModal2.default,
 	          {
@@ -45704,6 +45750,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var self = this;
 	      var renderDoc = function renderDoc(doc) {
 	        return _react2.default.createElement(
 	          'div',
@@ -45737,7 +45784,15 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        this.state.docs.map(renderDoc),
+	        self.state.docs.length === 0 ? _react2.default.createElement(
+	          'div',
+	          { className: 'no-docs' },
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            'You have not created any documents yet.'
+	          )
+	        ) : self.state.docs.map(renderDoc),
 	        _react2.default.createElement(_CreatorModal2.default, null)
 	      );
 	    }
@@ -46012,8 +46067,8 @@
 	  },
 	  floatingButton: {
 	    position: 'fixed',
-	    left: '87%',
-	    bottom: '8%'
+	    right: '12px',
+	    bottom: '75px'
 	  }
 	};
 	
@@ -49549,7 +49604,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  height: 100%; }\n\nsvg {\n  fill: #0082ff !important;\n  color: #0082ff !important; }\n\n#content {\n  max-width: 99%;\n  margin: 0 auto; }\n\n.dcman {\n  margin: 0 auto;\n  width: 75%;\n  margin-top: 10px; }\n\n.dcman svg {\n  fill: #fff !important;\n  color: #fff !important; }\n\n.section__hero {\n  height: 94vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(" + __webpack_require__(426) + ");\n  background-size: cover;\n  margin-top: -70px; }\n\n.main-text {\n  margin-top: 20%;\n  padding-bottom: 20px;\n  border-bottom: 8px solid white; }\n\n.main-text h3 {\n  font-size: 70px;\n  font-weight: 800;\n  color: #eceff5;\n  line-height: 1; }\n\n.detailed-text h5 {\n  font-size: 1.45em;\n  font-weight: 200;\n  margin-top: 40px;\n  line-height: 2em;\n  color: #ccc; }\n\n.role-text {\n  border: 1px solid #9ECCFA;\n  width: 50px;\n  text-align: center;\n  border-radius: 4px;\n  color: #0082ff;\n  margin-top: -12px;\n  font-size: 15px;\n  margin-left: 0; }\n\n.email-text {\n  margin-top: 18px;\n  margin-bottom: -15px; }\n\n.mobile-profile {\n  margin-top: 10px; }\n\n.username {\n  font-size: 24px; }\n\n.right-button {\n  margin-left: 5%; }\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px; } }\n\n@media screen and (min-width: 880px) {\n  .icon-menu {\n    display: none !important; } }\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none; }\n  #content {\n    background-color: #f5f5f5; }\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    padding-top: 10px; }\n  .ReactModal__Content--after-open {\n    width: 80% !important; }\n  .docsList {\n    width: 100% !important; } }\n\n.error-toast {\n  background-color: #d23939; }\n\n.success-toast {\n  background-color: #0c3; }\n\n.footer {\n  margin-top: -2px;\n  background-color: #3c3e42;\n  border-top: 1px solid #f2f2f2;\n  color: #9ba6b5;\n  padding: 24px;\n  height: 70px;\n  bottom: 0%;\n  position: fixed;\n  width: 100%; }\n\n.footer .copyright {\n  color: #fff;\n  margin: 0 0 4px;\n  font-size: 15px; }\n", "", {"version":3,"sources":["/./app/app/styles/styles.css"],"names":[],"mappings":"AAAA;EACE,2CAA2C;EAC3C,aAAa,EACd;;AAED;EACE,yBAAyB;EACzB,0BAA0B,EAC3B;;AAED;EACE,eAAe;EACf,eAAe,EAChB;;AAED;EACE,eAAe;EACf,WAAW;EACX,iBAAiB,EAClB;;AAED;EACE,sBAAsB;EACtB,uBAAuB,EACxB;;AAED;EACE,aAAa;EACb,gBAAgB;EAChB,mBAAmB;EACnB,mBAAmB;EACnB,0CAAe;EACf,uBAAuB;EACvB,kBAAkB,EACnB;;AAED;EACE,gBAAgB;EAChB,qBAAqB;EACrB,+BAA+B,EAChC;;AAED;EACE,gBAAgB;EAChB,iBAAiB;EACjB,eAAe;EACf,eAAe,EAChB;;AAED;EACE,kBAAkB;EAClB,iBAAiB;EACjB,iBAAiB;EACjB,iBAAiB;EACjB,YAAY,EACb;;AAED;EACE,0BAA0B;EAC1B,YAAY;EACZ,mBAAmB;EACnB,mBAAmB;EACnB,eAAe;EACf,kBAAkB;EAClB,gBAAgB;EAChB,eAAe,EAChB;;AAED;EACE,iBAAiB;EACjB,qBAAqB,EACtB;;AAED;EACE,iBAAiB,EAClB;;AAED;EACE,gBAAgB,EACjB;;AAED;EACE,gBAAgB,EACjB;;AAED;EACE;IACE,eAAe;IACf,WAAW;IACX,iBAAiB,EAClB,EAAA;;AAGH;EACE;IACE,yBAAyB,EAC1B,EAAA;;AAGH;EACE;IACE,cAAc,EACf;EAED;IACE,0BAA0B,EAC3B;EACD;IACE,eAAe;IACf,WAAW;IACX,kBAAkB,EACnB;EAED;IACE,sBAAsB,EACvB;EAED;IACE,uBAAuB,EACxB,EAAA;;AAGH;EACE,0BAAsB,EACvB;;AAED;EACE,uBAAuB,EACxB;;AAED;EACE,iBAAiB;EACjB,0BAA0B;EAC1B,8BAA8B;EAC9B,eAAe;EACf,cAAc;EACd,aAAa;EACb,WAAW;EACX,gBAAgB;EAChB,YAAY,EACb;;AAED;EACI,YAAY;EACZ,gBAAgB;EAChB,gBAAgB,EACnB","file":"styles.css","sourcesContent":["body {\n  font-family: 'Source Sans Pro', sans-serif;\n  height: 100%;\n}\n\nsvg {\n  fill: #0082ff !important;\n  color: #0082ff !important;\n}\n\n#content {\n  max-width: 99%;\n  margin: 0 auto;\n}\n\n.dcman {\n  margin: 0 auto;\n  width: 75%;\n  margin-top: 10px;\n}\n\n.dcman svg {\n  fill: #fff !important;\n  color: #fff !important;\n}\n\n.section__hero {\n  height: 94vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(\"../images/bg-image.jpg\");\n  background-size: cover;\n  margin-top: -70px;\n}\n\n.main-text {\n  margin-top: 20%;\n  padding-bottom: 20px;\n  border-bottom: 8px solid white;\n}\n\n.main-text h3{\n  font-size: 70px;\n  font-weight: 800;\n  color: #eceff5;\n  line-height: 1;\n}\n\n.detailed-text h5 {\n  font-size: 1.45em;\n  font-weight: 200;\n  margin-top: 40px;\n  line-height: 2em;\n  color: #ccc;\n}\n\n.role-text {\n  border: 1px solid #9ECCFA;\n  width: 50px;\n  text-align: center;\n  border-radius: 4px;\n  color: #0082ff;\n  margin-top: -12px;\n  font-size: 15px;\n  margin-left: 0;\n}\n\n.email-text {\n  margin-top: 18px;\n  margin-bottom: -15px;\n}\n\n.mobile-profile {\n  margin-top: 10px;\n}\n\n.username {\n  font-size: 24px;\n}\n\n.right-button {\n  margin-left: 5%;\n}\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px;\n  }\n}\n\n@media screen and (min-width: 880px) {\n  .icon-menu {\n    display: none !important;\n  }\n}\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none;\n  }\n\n  #content {\n    background-color: #f5f5f5;\n  }\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    padding-top: 10px;\n  }\n\n  .ReactModal__Content--after-open {\n    width: 80% !important;\n  }\n\n  .docsList {\n    width: 100% !important;\n  }\n}\n\n.error-toast {\n  background-color: rgba(210, 57, 57, 1);\n}\n\n.success-toast {\n  background-color: #0c3;\n}\n\n.footer {\n  margin-top: -2px;\n  background-color: #3c3e42;\n  border-top: 1px solid #f2f2f2;\n  color: #9ba6b5;\n  padding: 24px;\n  height: 70px;\n  bottom: 0%;\n  position: fixed;\n  width: 100%;\n}\n\n.footer .copyright {\n    color: #fff;\n    margin: 0 0 4px;\n    font-size: 15px;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  height: 100%; }\n\nsvg {\n  fill: #fff !important;\n  color: #0082ff !important; }\n\n.ui-view {\n  min-height: 86vh;\n  margin: 0 auto;\n  background-color: #fcfcfc; }\n\n.dcman {\n  padding-top: 10px;\n  width: 75%; }\n\n.dcman svg {\n  fill: #fff !important;\n  color: #fff !important; }\n\n.section__hero {\n  height: 94vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(" + __webpack_require__(426) + ");\n  background-size: cover;\n  margin-top: -70px; }\n\n.main-text {\n  margin-top: 20%;\n  padding-bottom: 20px;\n  border-bottom: 8px solid white; }\n\n.main-text h3 {\n  font-size: 70px;\n  font-weight: 800;\n  color: #eceff5;\n  line-height: 1; }\n\n.detailed-text h5 {\n  font-size: 1.45em;\n  font-weight: 200;\n  margin-top: 40px;\n  line-height: 2em;\n  color: #ccc; }\n\n.role-text {\n  border: 1px solid #9ECCFA;\n  width: 50px;\n  text-align: center;\n  border-radius: 4px;\n  color: #0082ff;\n  margin-top: 15px;\n  font-size: 15px;\n  margin-left: 0;\n  margin-bottom: -10px; }\n\n.email-text {\n  margin-top: 18px; }\n\n.mobile-profile {\n  margin-top: 10px;\n  padding-left: 10px;\n  color: gray;\n  font-size: small !important; }\n\n.username {\n  font-size: 24px;\n  color: black; }\n\n.right-button {\n  margin-left: 5%; }\n\n.no-docs {\n  color: gray;\n  font-size: 15px;\n  text-align: center; }\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px; } }\n\n@media screen and (min-width: 880px) {\n  .icon-menu {\n    display: none !important; }\n  .nav-bar {\n    padding-left: 14% !important;\n    padding-right: 14% !important; } }\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none; }\n  #content {\n    min-width: 440px; }\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    padding-top: 10px; }\n  .ReactModal__Content--after-open {\n    width: 80% !important; }\n  .docsList {\n    width: 100% !important; } }\n\n.error-toast {\n  background-color: #d23939; }\n\n.success-toast {\n  background-color: #0c3; }\n\n.footer {\n  margin-top: -2px;\n  background-color: #3c3e42;\n  border-top: 1px solid #f2f2f2;\n  color: #9ba6b5;\n  padding: 24px;\n  height: 70px;\n  bottom: 0%; }\n\n.footer .copyright {\n  color: #fff;\n  margin: 0 0 4px;\n  font-size: 15px;\n  text-align: center; }\n", "", {"version":3,"sources":["/./app/app/styles/styles.css"],"names":[],"mappings":"AAAA;EACE,2CAA2C;EAC3C,aAAa,EACd;;AAED;EACE,sBAAsB;EACtB,0BAA0B,EAC3B;;AAED;EACE,iBAAiB;EACjB,eAAe;EACf,0BAA0B,EAC3B;;AAED;EACE,kBAAkB;EAClB,WAAW,EACZ;;AAED;EACE,sBAAsB;EACtB,uBAAuB,EACxB;;AAED;EACE,aAAa;EACb,gBAAgB;EAChB,mBAAmB;EACnB,mBAAmB;EACnB,0CAAe;EACf,uBAAuB;EACvB,kBAAkB,EACnB;;AAED;EACE,gBAAgB;EAChB,qBAAqB;EACrB,+BAA+B,EAChC;;AAED;EACE,gBAAgB;EAChB,iBAAiB;EACjB,eAAe;EACf,eAAe,EAChB;;AAED;EACE,kBAAkB;EAClB,iBAAiB;EACjB,iBAAiB;EACjB,iBAAiB;EACjB,YAAY,EACb;;AAED;EACE,0BAA0B;EAC1B,YAAY;EACZ,mBAAmB;EACnB,mBAAmB;EACnB,eAAe;EACf,iBAAiB;EACjB,gBAAgB;EAChB,eAAe;EACf,qBAAqB,EACtB;;AAED;EACE,iBAAiB,EAClB;;AAED;EACE,iBAAiB;EACjB,mBAAmB;EACnB,YAAY;EACZ,4BAA4B,EAC7B;;AAED;EACE,gBAAgB;EAChB,aAAa,EACd;;AAED;EACE,gBAAgB,EACjB;;AAED;EACE,YAAY;EACZ,gBAAgB;EAChB,mBAAmB,EACpB;;AAED;EACE;IACE,eAAe;IACf,WAAW;IACX,iBAAiB,EAClB,EAAA;;AAGH;EACE;IACE,yBAAyB,EAC1B;EAED;IACE,6BAA6B;IAC7B,8BAA8B,EAC/B,EAAA;;AAGH;EACE;IACE,cAAc,EACf;EAED;IACE,iBAAiB,EAClB;EACD;IACE,eAAe;IACf,WAAW;IACX,kBAAkB,EACnB;EAED;IACE,sBAAsB,EACvB;EAED;IACE,uBAAuB,EACxB,EAAA;;AAGH;EACE,0BAAsB,EACvB;;AAED;EACE,uBAAuB,EACxB;;AAED;EACE,iBAAiB;EACjB,0BAA0B;EAC1B,8BAA8B;EAC9B,eAAe;EACf,cAAc;EACd,aAAa;EACb,WAAW,EACZ;;AAED;EACE,YAAY;EACZ,gBAAgB;EAChB,gBAAgB;EAChB,mBAAmB,EACpB","file":"styles.css","sourcesContent":["body {\n  font-family: 'Source Sans Pro', sans-serif;\n  height: 100%;\n}\n\nsvg {\n  fill: #fff !important;\n  color: #0082ff !important;\n}\n\n.ui-view {\n  min-height: 86vh;\n  margin: 0 auto;\n  background-color: #fcfcfc;\n}\n\n.dcman {\n  padding-top: 10px;\n  width: 75%;\n}\n\n.dcman svg {\n  fill: #fff !important;\n  color: #fff !important;\n}\n\n.section__hero {\n  height: 94vh;\n  padding-top: 5%;\n  padding-bottom: 5%;\n  position: relative;\n  background: url(\"../images/bg-image.jpg\");\n  background-size: cover;\n  margin-top: -70px;\n}\n\n.main-text {\n  margin-top: 20%;\n  padding-bottom: 20px;\n  border-bottom: 8px solid white;\n}\n\n.main-text h3{\n  font-size: 70px;\n  font-weight: 800;\n  color: #eceff5;\n  line-height: 1;\n}\n\n.detailed-text h5 {\n  font-size: 1.45em;\n  font-weight: 200;\n  margin-top: 40px;\n  line-height: 2em;\n  color: #ccc;\n}\n\n.role-text {\n  border: 1px solid #9ECCFA;\n  width: 50px;\n  text-align: center;\n  border-radius: 4px;\n  color: #0082ff;\n  margin-top: 15px;\n  font-size: 15px;\n  margin-left: 0;\n  margin-bottom: -10px;\n}\n\n.email-text {\n  margin-top: 18px;\n}\n\n.mobile-profile {\n  margin-top: 10px;\n  padding-left: 10px;\n  color: gray;\n  font-size: small !important;\n}\n\n.username {\n  font-size: 24px;\n  color: black;\n}\n\n.right-button {\n  margin-left: 5%;\n}\n\n.no-docs {\n  color: gray;\n  font-size: 15px;\n  text-align: center;\n}\n\n@media screen and (max-width: 1200px) {\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    margin-top: 10px;\n  }\n}\n\n@media screen and (min-width: 880px) {\n  .icon-menu {\n    display: none !important;\n  }\n\n  .nav-bar {\n    padding-left: 14% !important;\n    padding-right: 14% !important;\n  }\n}\n\n@media screen and (max-width: 880px) {\n  .profile {\n    display: none;\n  }\n\n  #content {\n    min-width: 440px;\n  }\n  .dcman {\n    margin: 0 auto;\n    width: 90%;\n    padding-top: 10px;\n  }\n\n  .ReactModal__Content--after-open {\n    width: 80% !important;\n  }\n\n  .docsList {\n    width: 100% !important;\n  }\n}\n\n.error-toast {\n  background-color: rgba(210, 57, 57, 1);\n}\n\n.success-toast {\n  background-color: #0c3;\n}\n\n.footer {\n  margin-top: -2px;\n  background-color: #3c3e42;\n  border-top: 1px solid #f2f2f2;\n  color: #9ba6b5;\n  padding: 24px;\n  height: 70px;\n  bottom: 0%;\n}\n\n.footer .copyright {\n  color: #fff;\n  margin: 0 0 4px;\n  font-size: 15px;\n  text-align: center;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -53119,36 +53174,38 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var UserInfo = function (_React$Component) {
-	  _inherits(UserInfo, _React$Component);
+	var MobileProfile = function (_React$Component) {
+	  _inherits(MobileProfile, _React$Component);
 	
-	  function UserInfo(props) {
-	    _classCallCheck(this, UserInfo);
+	  function MobileProfile(props) {
+	    _classCallCheck(this, MobileProfile);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(UserInfo).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MobileProfile).call(this, props));
 	
 	    _this.state = {
-	      user: {},
-	      loggedIn: false
+	      loggedIn: _this.props.loggedIn
 	    };
 	    _this.getSession = _this.getSession.bind(_this);
 	    return _this;
 	  }
 	
-	  _createClass(UserInfo, [{
+	  _createClass(MobileProfile, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      _UserStore2.default.addChangeListener(this.getSession, 'session');
 	      UserActions.session();
+	      _UserStore2.default.addChangeListener(this.getSession, 'session');
 	    }
 	  }, {
 	    key: 'getSession',
 	    value: function getSession() {
 	      var data = _UserStore2.default.getSession();
-	      if (data && data.loggedIn) {
+	      if (data && data.error) {
 	        this.setState({
-	          user: data.user,
-	          loggedIn: data.loggedIn
+	          loggedIn: false
+	        });
+	      } else {
+	        this.setState({
+	          loggedIn: true
 	        });
 	      }
 	    }
@@ -53173,18 +53230,18 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'row username' },
-	            "@" + this.state.user.username
+	            { className: 'username' },
+	            "@" + this.props.user.username
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'row role-text' },
-	            this.state.user.role
+	            { className: 'email-text' },
+	            this.props.user.email
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: ' row email-text' },
-	            this.state.user.email
+	            { className: 'role-text' },
+	            this.props.user.role
 	          )
 	        )
 	      ) : _react2.default.createElement(
@@ -53195,10 +53252,10 @@
 	    }
 	  }]);
 	
-	  return UserInfo;
+	  return MobileProfile;
 	}(_react2.default.Component);
 	
-	exports.default = UserInfo;
+	exports.default = MobileProfile;
 
 /***/ },
 /* 429 */

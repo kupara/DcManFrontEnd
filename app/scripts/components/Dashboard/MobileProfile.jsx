@@ -9,27 +9,29 @@ import CardTitle from 'material-ui/lib/card/card-title';
 import CardText from 'material-ui/lib/card/card-text';
 import Avatar from 'material-ui/lib/avatar';
 
-class UserInfo extends React.Component {
+class MobileProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
-      loggedIn: false
+      loggedIn: this.props.loggedIn
     }
     this.getSession = this.getSession.bind(this);
   }
 
   componentDidMount() {
-    UserStore.addChangeListener(this.getSession, 'session');
     UserActions.session();
+    UserStore.addChangeListener(this.getSession, 'session');
   }
 
   getSession() {
     let data = UserStore.getSession();
-    if (data && data.loggedIn) {
+    if (data && data.error) {
       this.setState({
-        user: data.user,
-        loggedIn: data.loggedIn
+        loggedIn: false
+      });
+    } else {
+      this.setState({
+        loggedIn: true
       });
     }
   }
@@ -47,14 +49,14 @@ class UserInfo extends React.Component {
           <div>
             <Avatar src="images/profile.png" size={64}/>
           </div>
-          <div className="row username">
-            {"@"+this.state.user.username}
+          <div className="username">
+            {"@"+this.props.user.username}
           </div>
-          <div className="row role-text">
-            {this.state.user.role}
+          <div className="email-text">
+            {this.props.user.email}
           </div>
-          <div className=" row email-text">
-            {this.state.user.email}
+          <div className="role-text">
+            {this.props.user.role}
           </div>
         </div>
       </div>
@@ -66,4 +68,4 @@ class UserInfo extends React.Component {
   }
 }
 
-export default UserInfo;
+export default MobileProfile;
