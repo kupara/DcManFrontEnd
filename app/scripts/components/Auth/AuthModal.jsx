@@ -60,6 +60,7 @@ handleSignOut() {
     });
     window.Materialize.toast(data.message, 4000, 'success-toast rounded');
     window.localStorage.removeItem('token');
+    UserActions.session();
     browserHistory.push('/');
   }
 }
@@ -102,17 +103,17 @@ handleSignOut() {
             <FlatButton
               label="dashboard"
               onTouchTap = {this.handleDash}
-              labelStyle={{color: '#0082ff'}} />
+              labelStyle={{color: '#fff'}} />
             <FlatButton
               label="Sign out"
               onTouchTap = {this.handleSignOutAction}
-              labelStyle={{color: '#0082ff'}} />
+              labelStyle={{color: '#fff'}} />
           </span>
           :
           <FlatButton
             label="Sign in"
             onTouchTap = {this.openModal}
-            labelStyle={{color: '#0082ff'}} />
+            labelStyle={{color: '#fff'}} />
         }
 
         <Modal

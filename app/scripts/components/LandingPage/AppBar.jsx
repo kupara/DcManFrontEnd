@@ -7,6 +7,8 @@ import FontIcon from 'material-ui/lib/font-icon';
 import LeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import RaisedButton from 'material-ui/lib/raised-button';
+import * as UserActions from '../../actions/UserActions';
+import UserStore from '../../stores/UserStore';
 import AuthModal from '../Auth/AuthModal.jsx';
 import MobileProfile from '../Dashboard/MobileProfile.jsx';
 import MenuIcon from 'material-ui/lib/svg-icons/navigation/menu';
@@ -25,8 +27,34 @@ export default class NavAppBar extends React.Component {
     this.handleTap = this.handleTap.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.state = {
-     open: false
+     open: false,
+     loggedIn: false,
+     user: {}
     };
+    this.getSession = this.getSession.bind(this);
+  }
+
+  componentDidMount() {
+    UserActions.session();
+    UserStore.addChangeListener(this.getSession, 'session');
+  }
+
+  getSession() {
+    let data = UserStore.getSession();
+    if (data && data.loggedIn) {
+      this.setState({
+        user: data.user,
+        loggedIn: true
+      });
+    } else {
+      this.setState({
+        loggedIn: false
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    UserStore.removeChangeListener(this.getSession, 'session');
   }
 
   handleToggle(){
@@ -50,8 +78,9 @@ export default class NavAppBar extends React.Component {
         <AppBar
           title={<span style={styles.title}>DCMan</span>}
           onTitleTouchTap = {this.handleTap}
-          titleStyle={{color: '#0082ff'}}
-          style={{backgroundColor: 'rgba(227, 226, 232, 0.1)'}}
+          titleStyle={{color: '#fff'}}
+          className="nav-bar"
+          style={{backgroundColor: '#0082ff'}}
           iconElementRight={<AuthModal />}
           iconElementLeft={
             <IconButton
@@ -62,16 +91,23 @@ export default class NavAppBar extends React.Component {
           />
         <LeftNav
           open={this.state.open}
-          docked={false}>
+          docked={false}
+          onRequestChange={open => this.setState({open})}>
           <div>
             <AppBar
               title="Profile"
-              titleStyle={{color: '#0082ff'}}
-              style={{backgroundColor: '#E3E2E8'}}
+              titleStyle={{color: '#fff'}}
+              style={{backgroundColor: '#0082ff'}}
               onLeftIconButtonTouchTap={this.handleToggle}/>
-            <MobileProfile />
+            <MobileProfile user={this.state.user} loggedIn={this.state.loggedIn}/>
           </div>
-          <MenuItem onTouchTap={this.handleClose}>Go to My Profile</MenuItem>
+          {
+            (this.state.loggedIn)
+          ?
+          <MenuItem onTouchTap={this.handleClose}>My Profile</MenuItem>
+          :
+          <span></span>
+        }
         </LeftNav>
       </div>
     );

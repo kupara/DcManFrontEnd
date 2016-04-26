@@ -22,7 +22,6 @@ const style = {
   }
 };
 
-
 class Auth extends React.Component {
   constructor(props) {
     super(props);

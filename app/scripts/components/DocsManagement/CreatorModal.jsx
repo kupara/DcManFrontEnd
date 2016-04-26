@@ -26,10 +26,10 @@ const customStyles = {
     transform: 'translate(-50%, -50%)'
   },
   floatingButton : {
-      position: 'fixed',
-      left: '87%',
-      bottom: '8%'
-    }
+    position: 'fixed',
+    right: '12px',
+    bottom: '75px'
+  }
 };
 
 export default class CreatorModal extends React.Component {

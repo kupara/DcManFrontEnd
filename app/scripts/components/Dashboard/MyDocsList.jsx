@@ -56,6 +56,7 @@ class UserDocs extends React.Component {
   }
 
   render() {
+    let self = this;
     let renderDoc = function(doc) {
       return (
         <div key={doc._id}>
@@ -82,7 +83,15 @@ class UserDocs extends React.Component {
     }
     return (
       <div>
-        {this.state.docs.map(renderDoc)}
+        {
+          (self.state.docs.length === 0)
+          ?
+          <div className="no-docs">
+            <p>You have not created any documents yet.</p>
+          </div>
+          :
+          self.state.docs.map(renderDoc)
+        }
         <CreatorModal />
       </div>
     );
