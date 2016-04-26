@@ -11,7 +11,7 @@
     "test:fend": "karma start",
     "test:bend": "node_modules/.bin/nyc --require babel-core/register jasmine && node_modules/.bin/nyc report --reporter=lcov",
     "codecov": "cat fendCoverage/lcov/lcov.info | ./node_modules/.bin/codecov -t 58204d92-2d20-4912-9ddd-8e5794375f16",
-    "coverage": "npm run test:bend && cat coverage/lcov.info | coveralls",
+    "coverage": "cat coverage/lcov.info | coveralls",
     "build": "node_modules/.bin/webpack --config ./webpack.prod.config.js --progress --colors",
     "postinstall": "npm run build && ./node_modules/bower/bin/bower install"
   },
