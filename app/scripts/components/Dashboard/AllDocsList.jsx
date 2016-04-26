@@ -84,6 +84,7 @@ class AllDocs extends React.Component {
     return (
       <div>
         {this.state.docs.map(renderDoc)}
+          <CreatorModal />
       </div>
     );
   }
