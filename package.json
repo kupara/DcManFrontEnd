@@ -20,7 +20,7 @@
     "url": "git+https://github.com/andela-ekupara/DcManFrontEnd.git"
   },
   "dependencies": {
-    "async": "^1.5.2",
+    "async": "^3.1.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.19.0",
     "bower": "^1.7.9",
