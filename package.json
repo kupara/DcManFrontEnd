@@ -33,7 +33,7 @@
     "jsonwebtoken": "^8.5.1",
     "keymirror": "^0.1.1",
     "material-ui": "^0.14.4",
-    "materialize-css": "^0.97.6",
+    "materialize-css": "^1.0.0",
     "mongoose": "~5.7.6",
     "morgan": "^1.7.0",
     "object-assign": "^4.0.1",
