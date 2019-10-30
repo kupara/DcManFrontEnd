@@ -60,7 +60,7 @@
     "cheerio": "^0.20.0",
     "codecov": "^3.6.1",
     "codecov.io": "^0.1.6",
-    "coveralls": "^2.11.8",
+    "coveralls": "^3.0.7",
     "css-loader": "^0.28.11",
     "enzyme": "^3.10.0",
     "eslint": "^4.19.1",
