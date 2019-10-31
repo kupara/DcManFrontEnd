@@ -27,7 +27,7 @@
     "debug": "~4.1.1",
     "express": "~4.13.1",
     "flux": "^2.1.1",
-    "history": "^2.0.1",
+    "history": "^4.10.1",
     "http-proxy": "^1.13.2",
     "istanbul": "^0.4.2",
     "jsonwebtoken": "^8.5.1",
