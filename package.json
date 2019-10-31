@@ -75,7 +75,7 @@
     "jasmine": "^3.5.0",
     "jshint-loader": "^0.8.3",
     "karma": "^4.4.1",
-    "karma-babel-preprocessor": "^6.0.1",
+    "karma-babel-preprocessor": "^7.0.0",
     "karma-coverage": "^2.0.1",
     "karma-mocha": "^0.2.2",
     "karma-mocha-reporter": "^2.0.1",
