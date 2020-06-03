@@ -34,7 +34,7 @@
     "keymirror": "^0.1.1",
     "material-ui": "^0.14.4",
     "materialize-css": "^1.0.0",
-    "mongoose": "~5.7.6",
+    "mongoose": "~5.9.17",
     "morgan": "^1.7.0",
     "object-assign": "^4.0.1",
     "react": "^0.14.0",
